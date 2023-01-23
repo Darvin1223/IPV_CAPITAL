@@ -1,0 +1,83 @@
+<header id="ts-hero" class="ts-full-screen ts-separate-bg-element">
+  <%- include('Navegation.ejs'); %> 
+
+  <div class="container align-self-center align-items-center">
+    <div class="row">
+      <div class="col-md-7">
+        <h1 data-animate="ts-fadeInUp">
+          Haz crecer tu dinero y genera el 10% de renta fija mensual bajo
+          contrato.
+        </h1>
+        <div data-animate="ts-fadeInUp" data-delay=".1s">
+          <p class="w-75 text-white mb-5">
+            La libertad financiera esta solamente a un click de distancia
+          </p>
+          <!-- <p class="w-75 text-white mb-5 ts-opacity__50">
+            La libertad financiera esta solamente a un click de distancia
+          </p> -->
+        </div>
+        <a
+          href="#how-it-works"
+          class="btn btn-primary btn-lg ts-scroll mr-4"
+          data-animate="ts-fadeInUp"
+          data-delay=".2s"
+        >
+          Registrate
+          <i class="fa fa-arrow-right small ml-3 ts-opacity__50"></i>
+        </a>
+        <a
+          href="#form-contact"
+          class="btn-link text-white d-inline-block"
+          data-animate="ts-fadeInUp"
+          data-delay=".3s"
+        >
+          <strong>Inicia Sesion ahora!</strong>
+        </a>
+      </div>
+      <div class="col-sm-5 offset-lg-1 col-md-4">
+        <form class="desktop ts-form p-4 ts-border-radius__md text-white ts-fadeInUp animated" data-bg-color="rgba(255,255,255,.2)" data-animate="ts-fadeInUp" data-delay=".2s" novalidate="novalidate" style="background-color: rgba(255, 255, 255, 0.2); animation-delay: 0.2s; visibility: visible;">
+            <h3>Invierte con nosotros</h3>
+            <p class="text-white d-none d-lg-block">Si quieres mas informacion contactanos </p>
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="hero-name" name="name" placeholder="Nombre completo" required="">
+            </div>
+            <!--end form-group -->
+            <div class="form-group">
+                <input type="email" class="form-control" id="hero-email" name="email" placeholder="Correo electronico" required="">
+            </div>
+            <!--end form-group -->
+            <div class="form-group">
+                <div class="select-wrapper"><select class="custom-select form-control" required="">
+                    <option selected disabled>Selecciona lo que desea</option>
+                    <option value="1">Quiero invertir</option>
+                    <option value="2">Hablar con un agente</option>
+                    <!-- <option value="3"></option> -->
+                </select></div>
+            </div>
+            <!--end form-group -->
+            <button type="submit" class="btn btn-primary w-100">Contactar</button>
+        </form>
+        <!--end ts-form-->
+    </div>
+    </div>
+  </div>
+  
+  <div
+    class="ts-background"
+    data-bg-color="#141a3a"
+    data-bg-parallax="scroll"
+    data-bg-parallax-speed="3"
+  >
+    <div
+      class="ts-background-image ts-svg ts-z-index__1 ts-background-position-center d-none d-md-block"
+      data-bg-image="assets/svg/shape-mask.svg"
+      data-animate="ts-fadeInLeft"
+    ></div>
+    <div
+      class="bg-edit ts-background-image ts-parallax-element"
+      data-bg-image="assets/img/bg-man-sitting.jpg"
+      data-animate="ts-zoomOutIn"
+    ></div>
+  </div>
+</header>

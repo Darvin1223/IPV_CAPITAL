@@ -1,0 +1,32 @@
+nav{
+    .navbar-brand{
+        width: 50%;
+        .logo-header{
+            max-width: 40%;
+        }
+    
+    }
+
+}
+.desktop{
+    display: none;
+}
+
+.bg-edit{
+    background-position: center;
+    background-repeat: no-repeat;
+}
+@media screen and (min-width: 1024px) {
+    nav{
+        .navbar-brand{
+            width: 16%;
+            .logo-header{
+                max-width: 50%;
+            }
+        
+        }
+    }
+    .desktop{
+        display: inherit;
+    }
+}
