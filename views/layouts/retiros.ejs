@@ -1,0 +1,195 @@
+<div class="container-fluid" >
+    <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between">
+              <div class="header-title">
+                <h4 class="card-title">Solicitudes en proceso</h4>
+              </div>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModalDefault"
+              >
+                Solicitar retiro
+              </button>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive mt-4">
+                <table id="basic-table" class="table table-striped mb-0" role="grid">
+                  <thead>
+                    <tr>
+                      <th>Cantidad</th>
+                      <!-- <th>Cantidad</th> -->
+                      <th>Estatus</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>$14000</td>
+                      <td><div class="text-info">Pending</div></td>
+                      
+                    </tr>
+                   
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<!-- Historial -->
+<div class="container-fluid pb-0" >
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between">
+            <div class="header-title">
+              <h4 class="card-title">Historial de retiros</h4>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table
+                
+                class="table table-striped"
+            
+              >
+                <thead>
+                  <tr>
+                    <th>Cantidad</th>
+                    <th>Estatus</th>
+                    <th>Fecha de solicitud</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>$320,800</td>
+                    <td><div class="text-info">Recibido</div></td>
+                    <td>2011/04/25</td>
+                  </tr>  
+                  <tr>
+                    <td>$320,800</td>
+                    <td><div class="text-info">Recibido</div></td>
+                    <td>2011/04/25</td>
+                  </tr>  
+                  <tr>
+                    <td>$320,800</td>
+                    <td><div class="text-info">Recibido</div></td>
+                    <td>2011/04/25</td>
+                  </tr>  
+                  <tr>
+                    <td>$320,800</td>
+                    <td><div class="text-info">Recibido</div></td>
+                    <td>2011/04/25</td>
+                  </tr>  
+                  <tr>
+                    <td>$320,800</td>
+                    <td><div class="text-info">Recibido</div></td>
+                    <td>2011/04/25</td>
+                  </tr>  
+                </tbody>
+                <tfoot>
+                    
+                  <tr>
+                    <th>Cantidad</th>
+                    <th>Estatus</th>
+                    <th>Fecha de solicitud</th>
+                  </tr>
+                </tfoot>
+              </table>
+          <!--     <div class="row align-items-center"><div class="col-md-6"><div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-md-6"><div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="datatable_previous"><a href="#" aria-controls="datatable" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="datatable" data-dt-idx="0" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatable" data-dt-idx="1" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatable" data-dt-idx="2" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatable" data-dt-idx="3" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatable" data-dt-idx="4" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatable" data-dt-idx="5" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="datatable_next"><a href="#" aria-controls="datatable" data-dt-idx="next" tabindex="0" class="page-link">Next</a></li></ul></div></div></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Modals -->
+<div
+  class="modal fade"
+  id="exampleModalDefault"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Solicitar retiro</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          <div class="bm-5">
+            <label for="">Seleccione donde desee que le depositen</label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>
+                Selecciona donde quieres que te depositen
+              </option>
+              <option value="1">Cuenta bancaria</option>
+              <option value="2">Billetera Virtual</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"
+              >Agrega la cantidad</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="exampleInputEmail1"
+              placeholder="$5000 USD"
+            />
+            <div id="emailHelp" class="form-text">
+              Aqui agregas la cantidad que deben agregar.
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Solicitar</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModalDefault1"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

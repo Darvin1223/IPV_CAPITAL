@@ -36,6 +36,7 @@ server.use(HomeRoutes,AdminRoutes);
 
 // Static files
 server.use(express.static(path.join(path.join(__dirname, 'public'))));
+server.use('/static', express.static('public'))
 
 // Listen 
 server.listen(PORT, () =>{

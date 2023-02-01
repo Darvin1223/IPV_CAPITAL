@@ -1,3 +1,12 @@
+.google {
+  position: inherit;
+  z-index: 9999;
+}
+
+.goog-te-banner {
+  position: none;
+}
+
 nav .navbar-brand {
   width: 50%;
 }
