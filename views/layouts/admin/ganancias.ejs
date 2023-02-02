@@ -1,0 +1,152 @@
+<% let date = new Date(); %> 
+<div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <div class="card-body">
+               <div class="d-flex justify-content-between">
+                  <div>
+                     <span><b>Ganancias totales</b></span>
+                     <div class="mt-2">
+                        <h2 class="counter" style="visibility: visible;">$35000</h2>
+                     </div>
+                  </div>
+                  <div>
+                     <span class="badge bg-primary">Total</span>
+                  </div>
+               </div>
+               <div class="d-flex justify-content-between mt-2">
+                  <div>
+                     <span>Ganancia Total</span>
+                  </div>
+                  <!-- <div>
+                     <span>70%</span>
+                  </div> -->
+               </div>
+               <!-- <div class="mt-3">
+                  <div class="progress bg-soft-primary shadow-none w-100" style="height: 6px">
+                     <div class="progress-bar bg-primary" data-toggle="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%; transition: width 2s ease 0s;"></div>
+                  </div>
+               </div> -->
+            </div>
+         </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <div class="card-body">
+               <div class="d-flex justify-content-between">
+                  <div>
+                     <span><b>Ganancias Mensuales</b></span>
+                     <div class="mt-2">
+                        <h2 class="counter" style="visibility: visible;">$35000</h2>
+                     </div>
+                  </div>
+                  <div>
+                     <span class="badge bg-primary">Mensual</span>
+                  </div>
+               </div>
+               <div class="d-flex justify-content-between mt-2">
+                  <div>
+                     <span>Total disponible para pagar este mes</span>
+                  </div>
+                  <div>
+                     <span>70%</span>
+                  </div>
+               </div>
+               <div class="mt-3">
+                  <div class="progress bg-soft-primary shadow-none w-100" style="height: 6px">
+                     <div class="progress-bar bg-primary" data-toggle="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%; transition: width 2s ease 0s;"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <div class="card-body">
+               <div class="d-flex justify-content-between">
+                  <div>
+                     <span><b>Total de bonos por referidos</b></span>
+                     <div class="mt-2">
+                        <h2 class="counter" style="visibility: visible;">$35000</h2>
+                     </div>
+                  </div>
+                  <div>
+                     <span class="badge bg-primary">Mensual</span>
+                  </div>
+               </div>
+               <div class="d-flex justify-content-between mt-2">
+                  <div>
+                     <span>Total disponible para pagar este mes</span>
+                  </div>
+                  <div>
+                     <span>70%</span>
+                  </div>
+               </div>
+               <div class="mt-3">
+                  <div class="progress bg-soft-primary shadow-none w-100" style="height: 6px">
+                     <div class="progress-bar bg-primary" data-toggle="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%; transition: width 2s ease 0s;"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+    </div>
+    
+</div>
+
+<div class="row">
+   <div class="col-sm-12">
+       <div class="card">
+          <div class="card-header d-flex justify-content-between">
+             <div class="header-title">
+                <h4 class="card-title">Historial de retiro de Ganancias</h4>
+             </div>
+          </div>
+          <div class="card-body">
+          
+             <div class="table-responsive">
+                <table  class="table table-striped" >
+                   <thead>
+                      <tr>
+                         <th>Fecha</th>
+                         <th>Plan</th>
+                         <th>Monto</th>
+                         <th>Moneda</th>
+                         <th>Estado</th>
+                         <th>hash/Numero de cuenta</th>
+                         <th>Confirmado por:</th>
+                         
+                      </tr>
+                   </thead>
+                   <tbody>
+                       <% for (let index = 0; index <= 10; index++) { %>
+                           <tr class="text-center">
+                               <td><%= date.getDate()%>/<%= date.getMonth()%>/<%= date.getFullYear() %> </td>
+                               <td>Estandar</td>
+                               <td>$500</td>
+                               <td>USDT,PESOS,USD</td>
+                               <td>Pendiente</td>
+                               <td>9c8245e6e0b74cfccg97e8714u3234228fb4xcd2</td>
+                               <td>Admin1@gmail.com</td>
+                              
+                            </tr>
+                     <%  } %> 
+                    
+                   </tbody>
+                   <tfoot>
+                      <tr>
+                         <th>Fecha</th>
+                         <th>Plan</th>
+                         <th>Monto</th>
+                         <th>Moneda</th>
+                         <th>Estado</th>
+                         <th>hash/Numero de cuenta</th>
+                         <th>Confirmado por:</th>
+                        
+                      </tr>
+                   </tfoot>
+                </table>
+             </div>
+          </div>
+       </div>
+    </div>
+</div>

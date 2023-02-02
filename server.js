@@ -31,6 +31,7 @@ server.set('views', path.join(__dirname, 'views'));
 server.use(expressLayouts);
 server.set('layout', 'layouts/layout');
 
+
 // Using routes
 server.use(HomeRoutes,AdminRoutes);
 

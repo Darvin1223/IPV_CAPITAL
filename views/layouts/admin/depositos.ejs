@@ -1,0 +1,172 @@
+<% let date = new Date(); %> 
+
+<div class="row">
+   <div class="card">
+       <div class="card-header d-flex justify-content-between">
+         <div class="header-title">
+           <h4 class="card-title">Depositos pendientes</h4>
+         </div>
+       </div>
+       <div class="card-body p-0">
+         <div class="table-responsive mt-4">
+           <table id="basic-table" class="table table-striped mb-0" role="grid">
+             <thead>
+               <tr>
+                 <th>Nombre</th>
+                 <th>Email</th>
+                 <th>Cantidad</th>
+                 <th>Tipo de cuenta</th>
+                 <th>Accion</th>
+               </tr>
+             </thead>
+             <tbody>
+               <tr>
+                 <td>
+                   <div class="d-flex align-items-center">
+                     <h6>Darvin Rodriguez</h6>
+                   </div>
+                 </td>
+               
+                 <td>email@email.com</td>
+                 <td><div class="text-success">$500</div></td>
+                 <td class="text-center">
+                     <span class="badge rounded-pill bg-info">Billetera virtual</span>
+                   </td>
+                 <td> <a
+                   href="#"
+                   class="btn btn-primary"
+                   data-bs-toggle="modal"
+                   data-bs-target="#exampleModalDefault"
+                 >
+                  Realizar Pago
+                 </a></td>
+               </tr>
+               <tr>
+                 <td>
+                   <div class="d-flex align-items-center">
+                     <h6>Adriana Alvarez</h6>
+                   </div>
+                 </td>
+                
+                 <td>correo@correo.com</td>
+                 <td><div class="text-success">$500</div></td>
+                 <td class="text-center">
+                     <span class="badge rounded-pill bg-info">Cuenta Bancaria</span>
+                   </td>
+                 <td> <a
+                   href="#"
+                   class="btn btn-primary"
+                   data-bs-toggle="modal"
+                   data-bs-target="#exampleModalDefault"
+                 >
+                  Realizar Pago
+                 </a></td>
+               </tr>
+               <tr>
+                 <td>
+                   <div class="d-flex align-items-center">
+                     <h6>Fix Platform Errors</h6>
+                   </div>
+                 </td>
+                 <td>email@email.com</td>
+                 <td><div class="text-success">$500</div></td>
+                 <td class="text-center">
+                     <span class="badge rounded-pill bg-info">Cuenta Bancario</span>
+                   </td>
+                 <td> <a
+                   href="#"
+                   class="btn btn-primary"
+                   data-bs-toggle="modal"
+                   data-bs-target="#exampleModalDefault"
+                 >
+                  Realizar Pago
+                 </a></td>
+               </tr>
+               <tr>
+                 <td>
+                   <div class="d-flex align-items-center">
+                     <h6>Launch Our Mobile App</h6>
+                   </div>
+                 </td>
+                
+                 <td>admin@email.com</td>
+                 <td><div class="text-success">$500</div></td>
+                 <td class="text-center">
+                     <span class="badge rounded-pill bg-info">Billetera virtual</span>
+                   </td>
+                <td> <a
+                   href="#"
+                   class="btn btn-primary"
+                   data-bs-toggle="modal"
+                   data-bs-target="#exampleModalDefault"
+                 >
+                  Realizar Pago
+                 </a></td>
+               </tr>
+             
+             </tbody>
+           </table>
+         </div>
+       </div>
+     </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+           <div class="card-header d-flex justify-content-between">
+              <div class="header-title">
+                 <h4 class="card-title">Historial de deposito</h4>
+              </div>
+           </div>
+           <div class="card-body">
+           
+              <div class="table-responsive">
+                 <table  class="table table-striped" >
+                    <thead>
+                       <tr>
+                          <th>Fecha</th>
+                          <th>Plan</th>
+                          <th>Monto</th>
+                          <th>Moneda</th>
+                          <th>Estado</th>
+                          <th>hash/Numero de cuenta</th>
+                          <th>Confirmado por:</th>
+                          <th>Ganancias Mensuales</th>
+                          <th>Fecha de expiracion</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                        <% for (let index = 0; index <= 10; index++) { %>
+                            <tr class="text-center">
+                                <td><%= date.getDate()%>/<%= date.getMonth()%>/<%= date.getFullYear() %> </td>
+                                <td>Estandar</td>
+                                <td>$500</td>
+                                <td>USDT,PESOS,USD</td>
+                                <td>Pendiente</td>
+                                <td>9c8245e6e0b74cfccg97e8714u3234228fb4xcd2</td>
+                                <td>Admin1@gmail.com</td>
+                                <td>$200</td>
+                                <td><%= date.getDate()%>/<%= date.getMonth()%>/<%= date.getFullYear() %> </td>
+                             </tr>
+                      <%  } %> 
+                     
+                    </tbody>
+                    <tfoot>
+                       <tr>
+                          <th>Fecha</th>
+                          <th>Plan</th>
+                          <th>Monto</th>
+                          <th>Moneda</th>
+                          <th>Estado</th>
+                          <th>hash/Numero de cuenta</th>
+                          <th>Confirmado por:</th>
+                          <th>Ganancias Mensuales</th>
+                          <th>Fecha de expiracion</th>
+                       </tr>
+                    </tfoot>
+                 </table>
+              </div>
+           </div>
+        </div>
+     </div>
+</div>
