@@ -10,6 +10,7 @@ module.exports = {
     GananciasController: require("./ganancias.controller"),
     PagosController: require("./Pagos.controller"),
     CapitalController: require("./Capital.controller"),
-    DepositosController: require('./Depositos.controller')
+    DepositosController: require('./Depositos.controller'),
+    AuthController: require("./Auth.controller")
 };
 

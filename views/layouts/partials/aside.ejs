@@ -1,4 +1,4 @@
-<% if(rol == "Administrador"){ %> 
+<% if(results[0].rol == "Administrador"){ %> 
   <aside
   class="sidebar sidebar-base"
   id="first-tour"
@@ -289,7 +289,7 @@
   </div>
   <div class="sidebar-footer"></div>
 </aside>
-<% }else{ %>
+<% }else if(results[0].rol == "User" && results[0].estado == "Activo"){ %>
   <aside
     class="sidebar sidebar-base"
     id="first-tour"
