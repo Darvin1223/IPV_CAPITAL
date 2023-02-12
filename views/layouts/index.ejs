@@ -566,7 +566,7 @@
     </div>
   </div>
 </div>
-<% }else{ %>
+<% }else if(results[0].estado == "no activada"){ %>
   <div class="row d-flex justify-content-center">
     <div class="col-sm-12 col-lg-6">
       <div class="card">
@@ -577,7 +577,9 @@
          </div>
          <div class="card-body">
             <p>Para tener acceso debes activar tu cuenta</p>
-            <form>
+            <form action="/verification-account" enctype="multipart/form-data" method="post">
+              <input type="number" hidden name="id" value="<%= results[0].id%>">
+              <input type="number" hidden name="code_id" value="<%= results[0].codigo_id%>">
                <div class="row">
                   <div class="col-md-6 mb-3">
                      <label class="form-label" for="validationDefault01">Nombre</label>
@@ -591,28 +593,66 @@
                      <label for="validationCustomUsername" class="form-label">Email</label>
                      <div class="form-group input-group">
                         <span class="input-group-text" id="basic-addon1">@</span>
-                        <input type="text" class="form-control" value="<%= results[0].email %> " disabled id="validationCustomUsername"  aria-describedby="basic-addon1">
+                        <input type="text" name="email" class="form-control" value="<%= results[0].email %> " disabled >
                      </div>
                   </div>
                   <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label class="form-label" for="validationDefault01">Numero telefonico</label>
+                     <input type="text" class="form-control" id="validationDefault01" value="<%= results[0].telefono %>" disabled>
+                    </div>
+                   </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label class="form-label" for="exampleInputdate">Fecha Nacimiento</label>
+                      <input type="date" name="fecha_nacimiento" max="2005-01-01" class="form-control" id="exampleInputdate">
+                  </div>
+                   </div>
+                  <div class="col-md-6 mb-3">
                      <label class="form-label" for="validationDefault04">Pais</label>
-                     <select class="form-select" id="validationDefault04" required>
+                     <select class="form-select" name="pais" id="validationDefault04" required>
                         <option selected disabled >Selecciona...</option>
                         <% paises.forEach(pais => { %>
                           <option value="<%= pais.id %> "><%= pais.nombre %> </option>
                        <% }); %> 
                      </select>
                   </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label
+                        for="customFile1"
+                        class="form-label custom-file-input"
+                        >Documento de identidad</label
+                      >
+                      <input
+                        class="form-control"
+                        type="file"
+                        id="customFile1"
+                        name="dni"
+                        multiple
+                      />
+                    </div>
+                   </div>
+            
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label class="form-label" for="validationDefault01">Edad</label>
+                     <input type="Number" name="edad" min="18" max="100" class="form-control" id="validationDefault01" placeholder="edad">
+                    </div>
+                   </div>
+               
                   
                </div>
-               <div class="form-group">
+             
+               <!-- <div class="form-group">
                   <div class="form-check">
                      <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required="">
                      <label class="form-check-label" for="invalidCheck2">
-                     Agree to terms and conditions
+                     Esta de acuerdo con nuestros terminos y condiciones
                      </label>
                   </div>
-               </div>
+               </div> -->
+              
                <div class="form-group">
                   <button class="btn btn-primary" type="submit">Activar cuenta</button>
                </div>
@@ -622,4 +662,18 @@
    </div>
   </div>
 
+<%}else if(results[0].estado == "Procesando"){ %>
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="card">
+        <h1 class="title text-center pt-5">Estamos procesando su informacion</h1>
+        <p class="text text-center">Por favor espere a que verifiquemos sus datos</p>
+          <div class="d-flex justify-content-center pb-5">
+            <img src="assets/img/undraw_searching_re_3ra9.svg" alt="Imagen busqueda" class="mw-100 mh-100">
+
+          </div>
+      </div>
+    </div>
+  </div>
+ 
 <%} %> 

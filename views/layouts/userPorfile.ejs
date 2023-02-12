@@ -33,11 +33,11 @@
        
           <div class="user-bio">
             <h6 class="mb-1">Nombre:</h6>
-            <p>Darvin Emil Rodriguez</p>
+            <p><%= results[0].nombre %></p>
           </div>
           <div class="mt-2">
           <h6 class="mb-1">Creado:</h6>
-          <p>Febrero 15, 2021</p>
+          <p><%= results[0].fecha_creacion %></p>
           </div>
           <div class="mt-2">
           <h6 class="mb-1">Pais:</h6>
@@ -49,11 +49,11 @@
           </div> -->
           <div class="mt-2">
           <h6 class="mb-1">Correo Electronico:</h6>
-          <p><a href="#" class="text-body"> austin@gmail.com</a></p>
+          <p><a href="#" class="text-body"><%= results[0].email %></a></p>
           </div>
           <div class="mt-2">
           <h6 class="mb-1">Numero telefonico:</h6>
-          <p><a href="#" class="text-body">(001) 4544 565 456</a></p>
+          <p><a href="#" class="text-body"><%= results[0].telefono %></a></p>
           </div>
           <div class="mt-2 d-flex justify-content-between">
             <div class="mb-2">
@@ -80,13 +80,6 @@
             </div>
             <div class="modal-body text-center">
                 <div class="card mb-3">
-                    <h4 class="title">Cuenta bancaria</h4>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalDefault1">
-                        Agregar Cuenta bancaria
-                    </button>
-                </div>
-                <h1 class="title">o</h1>
-                <div class="card mb-3">
                     <h4 class="title">Monedero</h4>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalDefault2">
                         Agregar monedero
@@ -101,55 +94,7 @@
     </div>
 </div>
 
-<!-- Modal cuenta bancaria -->
- <div class="modal fade" id="exampleModalDefault1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="d-flex flex-column">
-                    <h5 class="modal-title" id="exampleModalLabel">Agrega una cuenta bancaria</h5>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <div class="header-title">
-                            <h4 class="card-title">Basic Form</h4>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <form class="text-center">
-                            <div class="form-group">
-                                <label class="form-label" for="email1101">Agrega la cuenta:</label>
-                                <input type="text" class="form-control" id="email1101">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="email1101">Tipo de cuenta:</label>
-                                <input type="text" class="form-control" id="email1101">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="email1101">banco:</label>
-                                <input type="text" class="form-control" id="email1101">
-                            </div>
-                            <h2 class="title">o</h2>
-                            <div class="form-group">
-                                <label for="customFile1" class="form-label custom-file-input">Elige una imagen</label>
-                                <input class="form-control" type="file" id="customFile1">
-                            </div>
-                            
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-          
-        </div>
-    </div>
-</div>
+
 <!-- Modal Monedero -->
  <div class="modal fade" id="exampleModalDefault2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

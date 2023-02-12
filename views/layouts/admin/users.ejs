@@ -1,4 +1,4 @@
-<% let date = new Date(); %> 
+<% let date = new Date(); %>
 
 <div class="row">
   <div class="card">
@@ -18,70 +18,20 @@
             </tr>
           </thead>
           <tbody>
+            <% Users.forEach(User => { %> <% if(User.estatus_id == 2){ %>
             <tr>
               <td>
                 <div class="d-flex align-items-center">
-                  <h6>Darvin Rodriguez</h6>
+                  <h6><%= User.nombre %> <%= User.apellido %></h6>
                 </div>
               </td>
-            
-              <td>email@email.com</td>
-              <td><div class="text-success">Activo</div></td>
-             
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <h6>Adriana Alvarez</h6>
-                </div>
-              </td>
-             
-              <td>correo@correo.com</td>
-              <td><div class="text-success">Activo</div></td>
-              
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <h6>Fix Platform Errors</h6>
-                </div>
-              </td>
-             
-              <td>Not set</td>
+
+              <td><%= User.email %></td>
               <td><div class="text-success">Activo</div></td>
             </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <h6>Launch Our Mobile App</h6>
-                </div>
-              </td>
-             
-              <td>correo@correo.com</td>
-              <td><div class="text-success">Activo</div></td>
-             
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <h6>Add the New Pricing Page</h6>
-                </div>
-              </td>
-             
-              <td>correo@correo.com</td>
-              <td><div class="text-success">Activo</div></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <h6>Redesign New Online Shop</h6>
-                </div>
-              </td>
-            
-              <td>correo@correo.com</td>
-              <td><div class="text-success">Activo</div></td>
-             
-            </tr>
+            <%}else{ %>
+            <p class="text-center">No hay usuarios activos</p>
+            <%} %> <% }); %>
           </tbody>
         </table>
       </div>
@@ -111,273 +61,245 @@
                   <h6>Darvin Rodriguez</h6>
                 </div>
               </td>
-            
+
               <td>email@email.com</td>
               <td><div class="text-info">Pendiente</div></td>
-              <td> <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModalDefault"
-              >
-                Ver datos
-              </button></td>
-            </tr>
-            <tr>
               <td>
-                <div class="d-flex align-items-center">
-                  <h6>Adriana Alvarez</h6>
-                </div>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModalDefault"
+                >
+                  Ver datos
+                </button>
               </td>
-             
-              <td>correo@correo.com</td>
-              <td><div class="text-info">Pendiente</div></td>
-              <td> <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModalDefault"
-              >
-                Ver datos
-              </button></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <h6>Fix Platform Errors</h6>
-                </div>
-              </td>
-              <td>Not set</td>
-              <td><div class="text-info">Pendiente</div></td>
-              <td> <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModalDefault"
-              >
-                Ver datos
-              </button></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <h6>Launch Our Mobile App</h6>
-                </div>
-              </td>
-             
-              <td>$20500</td>
-              <td><div class="text-info">Pendiente</div></td>
-             <td> <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModalDefault"
-              >
-                Ver datos
-              </button></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <h6>Add the New Pricing Page</h6>
-                </div>
-              </td>
-             
-              <td>$500</td>
-              <td><div class="text-danger">Inactivo</div></td>
-              <td> <button
-                type="button"
-                disabled
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModalDefault"
-              >
-                Ver datos
-              </button></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <h6>Redesign New Online Shop</h6>
-                </div>
-              </td>
-            
-              <td>$2000</td>
-              <td><div class="text-danger">Inactivo</div></td>
-              <td> <button
-                type="button"
-                disabled
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModalDefault"
-              >
-                Ver datos
-              </button></td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
-
 </div>
 
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <div class="header-title">
+          <h4 class="card-title">Usuarios</h4>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Nombre Completo</th>
+                <th>Correo</th>
+                <th>Fecha</th>
+                <th>Referido por:</th>
+                <th>Telefono</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% Users.forEach(User => { %>
+              <tr class="text-center">
+                <td><%= User.nombre %> <%= User.apellido %></td>
+                <td><%= User.email %></td>
+                <td><%= User.telefono %></td>
+              </tr>
 
-<div class="row">
-   <div class="col-sm-12">
-       <div class="card">
-          <div class="card-header d-flex justify-content-between">
-             <div class="header-title">
-                <h4 class="card-title">Usuarios</h4>
-             </div>
-          </div>
-          <div class="card-body">
-          
-             <div class="table-responsive">
-                <table  class="table table-striped" >
-                   <thead>
-                      <tr>
-                         <th>Nombre Completo</th>
-                         <th>Correo</th>
-                         <th>Fecha</th>
-                         <th>Referido por:</th>
-                         <th>Telefono</th>
-                      </tr>
-                   </thead>
-                   <tbody>
-                       <% for (let index = 0; index <= 10; index++) { %>
-                           <tr class="text-center">
-                               <td><%= date.getDate()%>/<%= date.getMonth()%>/<%= date.getFullYear() %> </td>
-                               <td>Estandar</td>
-                               <td>$500</td>
-                               <td>USDT,PESOS,USD</td>
-                               <td>Pendiente</td>
-                               <td>9c8245e6e0b74cfccg97e8714u3234228fb4xcd2</td>
-                               <td>Admin1@gmail.com</td>
-                              
-                            </tr>
-                     <%  } %> 
-                    
-                   </tbody>
-                   <tfoot>
-                      <tr>
-                        <th>Nombre</th>
-                        <th>Correo</th>
-                        <th>Fecha</th>
-                        <th>Referido por:</th>
-                        <th>Telefono</th>
-                      </tr>
-                   </tfoot>
-                </table>
-             </div>
-          </div>
-       </div>
+              <% }); %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Fecha</th>
+                <th>Referido por:</th>
+                <th>Telefono</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <div class="row">
-   <div class="col-sm-12">
-       <div class="card">
-          <div class="card-header d-flex justify-content-between">
-             <div class="header-title">
-                <h4 class="card-title">Usuarios Eliminados</h4>
-             </div>
-          </div>
-          <div class="card-body">
-          
-             <div class="table-responsive">
-                <table  class="table table-striped" >
-                   <thead>
-                      <tr>
-                         <th>Nombre Completo</th>
-                         <th>Razones de su eliminacion</th>
-                         <th>Fecha de eliminacion</th>
-                         <th>Referido por:</th>
-                         <th>Eliminado por:</th>
-                         <th>Telefono</th>
-                         <th>Correo</th>
-                      </tr>
-                   </thead>
-                   <tbody>
-                       <% for (let index = 0; index <= 10; index++) { %>
-                           <tr class="text-center">
-                            <td>Darvin Emil Rodriguez Nuñez</td>
-                            <td> <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#reset-pass">
-                              Ver razones
-                          </button></td>
-                               <td><%= date.getDate()%>/<%= date.getMonth()%>/<%= date.getFullYear() %> </td>
-                               <td>Adriana Alvarez</td>
-                               <td>Admin1@gmail.com</td>
-                                <td>(809) 000-0000</td>
-                               <td>Admin1@gmail.com</td>
-                              
-                            </tr>
-                     <%  } %> 
-                    
-                   </tbody>
-                   <tfoot>
-                      <tr>
-                        <th>Nombre Completo</th>
-                         <th>Razones de su eliminacion</th>
-                         <th>Fecha de eliminacion</th>
-                         <th>Referido por:</th>
-                         <th>Eliminado por:</th>
-                         <th>Correo</th>
-                         <th>Telefono</th>
-                      </tr>
-                   </tfoot>
-                </table>
-             </div>
-          </div>
-       </div>
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <div class="header-title">
+          <h4 class="card-title">Usuarios Eliminados</h4>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Nombre Completo</th>
+                <th>Razones de su eliminacion</th>
+                <th>Fecha de eliminacion</th>
+                <th>Referido por:</th>
+                <th>Eliminado por:</th>
+                <th>Telefono</th>
+                <th>Correo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (let index = 0; index <= 10; index++) { %>
+              <tr class="text-center">
+                <td>Darvin Emil Rodriguez Nuñez</td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#reset-pass"
+                  >
+                    Ver razones
+                  </button>
+                </td>
+                <td>
+                  <%= date.getDate()%>/<%= date.getMonth()%>/<%=
+                  date.getFullYear() %>
+                </td>
+                <td>Adriana Alvarez</td>
+                <td>Admin1@gmail.com</td>
+                <td>(809) 000-0000</td>
+                <td>Admin1@gmail.com</td>
+              </tr>
+              <% } %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Nombre Completo</th>
+                <th>Razones de su eliminacion</th>
+                <th>Fecha de eliminacion</th>
+                <th>Referido por:</th>
+                <th>Eliminado por:</th>
+                <th>Correo</th>
+                <th>Telefono</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <div class="row">
-   <div class="col-sm-12">
-       <div class="card">
-          <div class="card-header d-flex justify-content-between">
-             <div class="header-title">
-                <h4 class="card-title">Usuarios Inactivos</h4>
-             </div>
-          </div>
-          <div class="card-body">
-          
-             <div class="table-responsive">
-                <table  class="table table-striped" >
-                   <thead>
-                      <tr>
-                         <th>Nombre Completo</th>
-                         <th>Fecha de Registro</th>
-                         <th>Referido por:</th>
-                         <th>Telefono</th>
-                         <th>Correo</th>
-                      </tr>
-                   </thead>
-                   <tbody>
-                       <% for (let index = 0; index <= 10; index++) { %>
-                           <tr class="text-center">
-                            <td>Darvin Emil Rodriguez Nuñez</td>
-                            
-                               <td><%= date.getDate()%>/<%= date.getMonth()%>/<%= date.getFullYear() %> </td>
-                               <td>Adriana Alvarez</td>
-                                <td>(809) 000-0000</td>
-                               <td>Admin1@gmail.com</td>
-                              
-                            </tr>
-                     <%  } %> 
-                    
-                   </tbody>
-                   <tfoot>
-                      <tr>
-                        <th>Nombre Completo</th>
-                        <th>Fecha de Registro</th>
-                        <th>Referido por:</th>
-                        <th>Telefono</th>
-                        <th>Correo</th>
-                      </tr>
-                   </tfoot>
-                </table>
-             </div>
-          </div>
-       </div>
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <div class="header-title">
+          <h4 class="card-title">Usuarios Inactivos</h4>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Nombre Completo</th>
+                <th>Fecha de Registro</th>
+                <th>Referido por:</th>
+                <th>Telefono</th>
+                <th>Correo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if(UsersInactivos){ %>
+                <% UsersInactivos.forEach(UserInactivo => { %>
+                  <tr class="text-center">
+                    <td><%=UserInactivo.nombre%> <%=UserInactivo.apellido%></td>
+                   
+                    <td>
+                      <%=UserInactivo.fecha_creacion%>
+                    </td>
+                    <td><%=UserInactivo.telefono%></td>
+                    <td><%=UserInactivo.email%></td>
+                 
+                  </tr>
+                  
+                  <% }) %>
+              <% }else{ %>
+                <p class="text-center">No hay usuarios inactivos</p>
+              <% } %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Nombre Completo</th>
+                <th>Fecha de Registro</th>
+                <th>Referido por:</th>
+                <th>Telefono</th>
+                <th>Correo</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModalDefault"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Informacion del usuario
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          <div class="bm-5">
+            <label for="">Seleccione donde desee que le depositen</label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>
+                Selecciona donde quieres que te depositen
+              </option>
+              <option value="1">Cuenta bancaria</option>
+              <option value="2">Billetera Virtual</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"
+              >Agrega la cantidad</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="exampleInputEmail1"
+              placeholder="$5000 USD"
+            />
+            <div id="emailHelp" class="form-text">
+              Aqui agregas la cantidad que deben agregar.
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Solicitar</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

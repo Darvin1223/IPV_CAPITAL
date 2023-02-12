@@ -30,7 +30,11 @@
                 View
               </a> -->
               </div>
-              <h2 class="counter">4</h2>
+              <%if(PlanesActivos.lenght != 0){ %>
+                <h2 class="counter"><%= PlanesActivos.length %></h2>
+              <%}else { %>
+                <h2 class="counter">0</h2>
+              <%} %>
               <small>Planes activos con nosotros.</small>
             </div>
           </div>
@@ -298,32 +302,23 @@
                     </tr>
                  </thead>
                  <tbody>
-                    <tr>
+                  <% Users.forEach(User => { %>
+                      <tr>
                        <td>
                           <div class="d-flex align-items-center">
-                             
-                             <h6>Darvin Rodriguez</h6>
+                             <h6><%= User.nombre %></h6>
                           </div>
                        </td>
-                      
-                       <td>email@rmail.com</td>
-                       <td><div class="text-info">Pending</div></td>
-                       
+                       <td><%= User.email %></td>
+                       <% if(User.estatus_id == 0){ %>
+                       <td><div class="text-info">Pendiente</div></td>
+                       <% }else if(User.estatus_id == 2){ %>
+                           <td><div class="text-success">Activo</div></td>
+                       <% }else if(User.estatus_id == 5){ %>
+                        <td><div class="text-danger">Inactivo</div></td>
+                        <% } %>
                     </tr>
-                 
-                    <tr>
-                       <td>
-                          <div class="d-flex align-items-center">
-                          
-                             <h6>Adriana Alvarez</h6>
-                          </div>
-                       </td>
-                  
-                       <td>email@email.com</td>
-                       <td><div class="text-success">Activo</div></td>
-                       
-                    </tr>
-                   
+                  <%}); %>
                  </tbody>
               </table>
            </div>
