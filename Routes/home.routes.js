@@ -6,7 +6,7 @@ const {HomeController,AuthController} =  require("./../Controllers");
 Route.get('/', HomeController.index);
 Route.get('/login', HomeController.log_in);
 Route.get('/sign-up', HomeController.log_up);
-Route.get('logout', AuthController.logout);
+Route.get('/logout', AuthController.logout);
 
 
 // Post

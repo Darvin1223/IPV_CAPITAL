@@ -30,11 +30,11 @@
                 View
               </a> -->
               </div>
-              <%if(PlanesActivos.lenght != 0){ %>
-                <h2 class="counter"><%= PlanesActivos.length %></h2>
-              <%}else { %>
+             
+                <h2 class="counter"></h2>
+           
                 <h2 class="counter">0</h2>
-              <%} %>
+         
               <small>Planes activos con nosotros.</small>
             </div>
           </div>
@@ -315,8 +315,10 @@
                        <% }else if(User.estatus_id == 2){ %>
                            <td><div class="text-success">Activo</div></td>
                        <% }else if(User.estatus_id == 5){ %>
-                        <td><div class="text-danger">Inactivo</div></td>
-                        <% } %>
+                        <td><div class="text-danger">No activado</div></td>
+                        <% }else if(User.estatus_id == 6){%>
+                          <td><div class="text-warning">Inactivo</div></td>
+                        <%} %>
                     </tr>
                   <%}); %>
                  </tbody>

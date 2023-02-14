@@ -1,5 +1,5 @@
 const conexion = require("./../Database/database"),
-  bcryptjs = require("bcryptjs");
+  bcryptjs = require("bcryptjs"),otpGenerator = require("otp-generator");
 
 class Auth {
   async login(req, res) {
@@ -14,6 +14,7 @@ class Auth {
         if(result.length == 0 || verifyPassword === false){
             return res.status(404).redirect("/login", {
                 alert: "Contraseña incorrecta",
+                
               });
         }else{
             req.session.loggedin = true;
@@ -38,7 +39,9 @@ class Auth {
     const rol = 2,
       estatus = 5;
     email.toLowerCase();
-    console.log(Name,lastName,email,telefono,password,ConfirmPAssword)
+    const codigoReferido = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
+    let date = new Date();
+    const date_creation = `${date.getDate}/${date.getMonth}/${date.getFullYear}`;
     if (password != ConfirmPAssword) {
       return res.redirect("/sign-up");
     } else {
@@ -51,6 +54,8 @@ class Auth {
           nombre: Name,
           apellido: lastName,
           telefono: telefono,
+          fecha_creacion:date_creation,
+          codigo_referido:codigoReferido,
           rol_id: rol,
           estatus_id: estatus
         },
