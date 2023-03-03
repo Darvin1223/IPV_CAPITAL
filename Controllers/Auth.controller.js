@@ -12,10 +12,7 @@ class Auth {
         const verifyPassword = await bcryptjs.compare( password, result[0].password);
         // console.log(verifyPassword)
         if(result.length == 0 || verifyPassword === false){
-            return res.status(404).redirect("/login", {
-                alert: "Contraseña incorrecta",
-                
-              });
+            return res.status(404).redirect("/login");
         }else{
             req.session.loggedin = true;
             req.session.cookie.expires = new Date() + time;
@@ -41,7 +38,7 @@ class Auth {
     email.toLowerCase();
     const codigoReferido = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
     let date = new Date();
-    const date_creation = `${date.getDate}/${date.getMonth}/${date.getFullYear}`;
+    const date_creation = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
     if (password != ConfirmPAssword) {
       return res.redirect("/sign-up");
     } else {

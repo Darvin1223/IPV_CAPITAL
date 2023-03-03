@@ -18,7 +18,8 @@
             </tr>
           </thead>
           <tbody>
-            <% Users.forEach(User => { %> <% if(User.estatus_id == 2){ %>
+            <% Users.forEach(User =>{ %>
+              <% if(User.estatus_id == 2){ %>
             <tr>
               <td>
                 <div class="d-flex align-items-center">
@@ -31,7 +32,8 @@
             </tr>
             <%}else{ %>
             <p class="text-center">No hay usuarios activos</p>
-            <%} %> <% }); %>
+            <%} %>
+             <% }); %>
           </tbody>
         </table>
       </div>
@@ -55,14 +57,17 @@
             </tr>
           </thead>
           <tbody>
+            <% usersProcesando.forEach(UserProcesando =>{%>
             <tr>
               <td>
                 <div class="d-flex align-items-center">
-                  <h6>Darvin Rodriguez</h6>
+                  <h6>
+                    <%=UserProcesando.nombre%> <%=UserProcesando.apellido%>
+                  </h6>
                 </div>
               </td>
 
-              <td>email@email.com</td>
+              <td><%=UserProcesando.email%></td>
               <td><div class="text-info">Pendiente</div></td>
               <td>
                 <button
@@ -70,11 +75,14 @@
                   class="btn btn-primary"
                   data-bs-toggle="modal"
                   data-bs-target="#exampleModalDefault"
+                  id="<%=UserProcesando.id%>"
+                  onclick="getData(`<%=UserProcesando.id%>`)"
                 >
                   Ver datos
                 </button>
               </td>
             </tr>
+            <% }) %>
           </tbody>
         </table>
       </div>
@@ -100,6 +108,8 @@
                 <th>Fecha</th>
                 <th>Referido por:</th>
                 <th>Telefono</th>
+                <th>Ver datos</th>
+                <th>Eliminar</th>
               </tr>
             </thead>
             <tbody>
@@ -107,18 +117,35 @@
               <tr class="text-center">
                 <td><%= User.nombre %> <%= User.apellido %></td>
                 <td><%= User.email %></td>
+                <td><%= User.fecha_creacion %></td>
+                <td>aaac.2702@gmail.com</td>
                 <td><%= User.telefono %></td>
+                <td> <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModalDefault"
+                  id="<%=User.id%>"
+                  onclick="getData(`<%=User.id%>`)"
+                >
+                  Ver datos
+                </button></td>
+                <td><button class="btn btn-danger" data-bs-toggle="modal"
+                  data-bs-target="#eliminar" id="<%=User.id%>"
+                  onclick="deleteUser(`<%=User.id%>`)">Eliminar</button></td>
               </tr>
 
               <% }); %>
             </tbody>
             <tfoot>
               <tr>
-                <th>Nombre</th>
+                <th>Nombre Completo</th>
                 <th>Correo</th>
                 <th>Fecha</th>
                 <th>Referido por:</th>
                 <th>Telefono</th>
+                <th>Ver datos</th>
+                <th>Eliminar</th>
               </tr>
             </tfoot>
           </table>
@@ -127,6 +154,7 @@
     </div>
   </div>
 </div>
+<!-- Usuarios eliminados -->
 <div class="row">
   <div class="col-sm-12">
     <div class="card">
@@ -150,29 +178,31 @@
               </tr>
             </thead>
             <tbody>
-              <% for (let index = 0; index <= 10; index++) { %>
-              <tr class="text-center">
-                <td>Darvin Emil Rodriguez Nuñez</td>
-                <td>
-                  <button
+              <% UserEliminados.forEach(User => { %>
+                <tr class="text-center">
+                  <td><%= User.nombre_eliminado %> <%= User.apellido_eliminado %></td>
+                  <td> <button
                     type="button"
                     class="btn btn-primary"
                     data-bs-toggle="modal"
-                    data-bs-target="#reset-pass"
+                    data-bs-target="#exampleModalDefault"
+                    id="<%%>"
+                    onclick="getData(`<%%>`)"
                   >
-                    Ver razones
-                  </button>
-                </td>
-                <td>
-                  <%= date.getDate()%>/<%= date.getMonth()%>/<%=
-                  date.getFullYear() %>
-                </td>
-                <td>Adriana Alvarez</td>
-                <td>Admin1@gmail.com</td>
-                <td>(809) 000-0000</td>
-                <td>Admin1@gmail.com</td>
-              </tr>
-              <% } %>
+                    Ver datos
+                  </button></td>
+                  <td><%= User.fecha_eliminacion %></td>
+                  <% if(User.referido_por === "NULL"){ %>
+                    <td>No fue referido por nadie</td>
+                  <% }else{ %>
+                    <td><%= User.referido_por %></td>
+                  <% }%>
+                  
+                  <td><%= User.Eliminado_Por %></td>
+                  <td><%= User.Telefono %></td>
+                  <td><%= User.Correo %></td>
+                </tr>
+                <% }); %>             
             </tbody>
             <tfoot>
               <tr>
@@ -191,6 +221,7 @@
     </div>
   </div>
 </div>
+<!-- Inactivos -->
 <div class="row">
   <div class="col-sm-12">
     <div class="card">
@@ -213,21 +244,18 @@
             </thead>
             <tbody>
               <% if(UsersInactivos){ %>
-                <% UsersInactivos.forEach(UserInactivo => { %>
-                  <tr class="text-center">
-                    <td><%=UserInactivo.nombre%> <%=UserInactivo.apellido%></td>
-                   
-                    <td>
-                      <%=UserInactivo.fecha_creacion%>
-                    </td>
-                    <td><%=UserInactivo.telefono%></td>
-                    <td><%=UserInactivo.email%></td>
-                 
-                  </tr>
-                  
-                  <% }) %>
+                 <% UsersInactivos.forEach(UserInactivo => { %>
+              <tr class="text-center">
+                <td><%=UserInactivo.nombre%> <%=UserInactivo.apellido%></td>
+
+                <td><%=UserInactivo.fecha_creacion%></td>
+                <td><%=UserInactivo.telefono%></td>
+                <td><%=UserInactivo.email%></td>
+              </tr>
+
+              <% }) %> 
               <% }else{ %>
-                <p class="text-center">No hay usuarios inactivos</p>
+              <p class="text-center">No hay usuarios inactivos</p>
               <% } %>
             </tbody>
             <tfoot>
@@ -245,6 +273,38 @@
     </div>
   </div>
 </div>
+
+<div
+  class="modal fade"
+  id="eliminar"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Informacion del usuario
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body" id="deleteForm"> 
+        <form action="" method="POST"></form>
+      </div>
+      <div class="modal-footer">
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <div
   class="modal fade"
@@ -267,33 +327,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form action="">
-          <div class="bm-5">
-            <label for="">Seleccione donde desee que le depositen</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>
-                Selecciona donde quieres que te depositen
-              </option>
-              <option value="1">Cuenta bancaria</option>
-              <option value="2">Billetera Virtual</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label"
-              >Agrega la cantidad</label
-            >
-            <input
-              type="number"
-              class="form-control"
-              id="exampleInputEmail1"
-              placeholder="$5000 USD"
-            />
-            <div id="emailHelp" class="form-text">
-              Aqui agregas la cantidad que deben agregar.
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary">Solicitar</button>
-        </form>
+        <form action="" method="PUT" id="userInformation"></form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -303,3 +337,90 @@
     </div>
   </div>
 </div>
+
+<script>
+
+  // Get data
+  function getData(id) {
+    const userInformation = document.getElementById("userInformation");
+    let elementsModal;
+    const API = `/admin/userData?id=${id}`;
+    const getUser = async (API_URL) => {
+      try{
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        // console.log(data)
+        elementsModal = `
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Nombre Completo:</label>
+            <input type="text" disabled value="${data[0].nombre} ${data[0].apellido}" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Numero telefonico:</label>
+            <input type="text" disabled value="${data[0].telefono}" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Edad:</label>
+            <input type="text" disabled value="${data[0].edad}" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Fecha de nacimiento:</label>
+            <input type="text" disabled value="${data[0].fecha_nacimiento}" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Fecha de creacion:</label>
+            <input type="text" disabled value="${data[0].fecha_creacion}" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Fecha de creacion:</label>
+            <input type="text" disabled value="${data[0].nombre_pais}" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Documentos de identidad:</label>
+            ${JSON.parse(data[0].url_documento).forEach(img => {
+              "<img src=`${}` style='width:100%'>"     
+            })}
+          </div>
+        `;
+        // console.log(data[0].url_documento)
+        /* ${JSON.parse(data[0].url_documento).forEach(image => {
+              `<img src=${} style="width:100%">`
+            })} */
+            
+        userInformation.innerHTML = elementsModal;
+      } catch (error) {
+    console.error(error);
+  }
+
+    };
+
+    getUser(API);
+  }
+
+// Eliminar user
+const deleteUser = (id)=>{
+  const container = document.getElementById("deleteForm");
+  let element;
+
+  const deleteOneUser = (id) =>{
+    element = `<form action="/eliminar-user?id=${id}" method="POST">
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Escribe las razones</label>
+              <textarea name="razones" placeholder="Razones de eliminacion" class="form-control" cols="30" rows="10"></textarea>
+          </div>
+          <div class="mb-3">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+            <input type="submit" class="btn btn-danger" value="Eliminar">
+          </div>
+      </form>`;
+
+    container.innerHTML = element;
+  }
+
+  deleteOneUser(id);
+
+} 
+
+</script>

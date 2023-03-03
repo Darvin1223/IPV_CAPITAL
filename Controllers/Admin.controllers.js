@@ -66,10 +66,12 @@ class Admin {
   }
 
   verific_acount_page(req, res) {
-    const { fecha_nacimiento, pais, edad, id,code_id} = req.body;
+    const { fecha_nacimiento, pais, edad, id,code_id,email} = req.body;
     const imagenes = [];
     const elements = req.files;
-    
+    const queryDocument = "INSERT INTO documentos SET ?";
+    const tipoDocumento = 1;
+    let urls_imagenes = [];
     const code = otpGenerator.generate(4, {
         lowerCaseAlphabets: false,
         upperCaseAlphabets: false,
@@ -99,11 +101,14 @@ class Admin {
             
           let url_documento_dni, nombre_documento;
           elements.forEach((img) => {
-            imagenes.push(img);
             url_documento_dni = `/dni/${img.filename}`;
             nombre_documento = img.filename;
+            urls_imagenes.push(url_documento_dni);
+            imagenes.push(nombre_documento);
           });
 
+          urls_imagenes = JSON.stringify(urls_imagenes)
+          imagenes = JSON.stringify(imagenes)
         const  datos = {
             fecha_nacimiento:fecha_nacimiento,
             pais:pais,
@@ -112,19 +117,26 @@ class Admin {
             email:email,
             code:code,
             imagenes:imagenes,
-            url_documento_dni:url_documento_dni,
+            url_documento_dni:urls_imagenes,
             nombre_documento:nombre_documento
           };
-
-          conexion.query("UPDATE `usuario` SET ? WHERE id = ?",[{edad:edad,fecha_nacimiento:fecha_nacimiento,pais_id:pais}, id],err =>{
-            
+         
+          conexion.query(queryDocument,{nombre_documento:imagenes,url_documento:urls_imagenes,tipo_id:tipoDocumento,usuario_id:id}, err =>{
             if(err){
-              console.log(`Hubo un erro ${err}`)
+              console.log(err)
             }else{
-               res.redirect(`/opt-validacion?id=${id}`);
-              return datos; 
+              conexion.query("UPDATE `usuario` SET ? WHERE id = ?",[{edad:edad,fecha_nacimiento:fecha_nacimiento,pais_id:pais}, id],err =>{
+            
+                if(err){
+                  console.log(`Hubo un erro ${err}`)
+                }else{
+                   res.redirect(`/opt-validacion?id=${id}`);
+                  return {msg:"Datos fue agregados",datos:datos}; 
+                }
+              })
             }
           })
+        
     
      
         };
@@ -148,7 +160,7 @@ class Admin {
               try {
                 let mail = transporter.sendMail({
                     from: `IPV_CAPITAL 👻 pruebas@necodt.com`, // sender address
-                    to: `darvin.rod10@gmail.com`, // list of receivers
+                    to: `${email}`, // list of receivers
                     // to: `${datos.email}`, // list of receivers
                     subject: "Codigo de verificacion ✔", // Subject line
                     text: `Este es tu codigo de vereificacion: ${code}`, 

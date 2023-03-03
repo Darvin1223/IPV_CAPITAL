@@ -43,24 +43,25 @@
           <h6 class="mb-1">Pais:</h6>
           <p>United States of America</p>
           </div>
-          <!-- <div class="mt-2">
-          <h6 class="mb-1">Telefono:</h6>
-          <p>809 000-0000</p>
-          </div> -->
+          
           <div class="mt-2">
           <h6 class="mb-1">Correo Electronico:</h6>
-          <p><a href="#" class="text-body"><%= results[0].email %></a></p>
+          <p class="text-body"><%= results[0].email %></p>
           </div>
           <div class="mt-2">
           <h6 class="mb-1">Numero telefonico:</h6>
-          <p><a href="#" class="text-body"><%= results[0].telefono %></a></p>
+          <p class="text-body"><%= results[0].telefono %></p>
           </div>
           <div class="mt-2 d-flex justify-content-between">
             <div class="mb-2">
                 <h6 class="mb-1">Cuenta bancaria o monedero:</h6>
-                <p><a href="#" class="text-body">sde23242424</a></p>
+                <% if(results[0].monedero === "NULL"){ %>
+                    <p >No tiene monedero</p>
+                <% }else{ %>
+                <p ><%= results[0].monedero %></p>
+                <% } %>
             </div>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalDefault">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalDefault" onclick="addMonedero(`<%= results[0].id%>`)">
                 Agregar monedero
             </button>
           </div>
@@ -114,18 +115,12 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form class="text-center">
+                        <form class="text-center" id="form_monedero">
                            
                             <div class="form-group">
                                 <label class="form-label" for="email1101">Hash de monedero:</label>
                                 <input type="text" class="form-control" id="email1101">
                             </div>
-                            <h2 class="title">o</h2>
-                            <div class="form-group">
-                                <label for="customFile1" class="form-label custom-file-input">Elige una imagen</label>
-                                <input class="form-control" type="file" id="customFile1">
-                            </div>
-                            
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                 <button type="button" class="btn btn-primary">Save changes</button>
@@ -177,3 +172,13 @@
         </div>
     </div>
 </div>
+
+<script>
+
+const form_monedero = document.getElementById("form_monedero");
+let element;
+const addMonedero = (id) =>{
+
+}
+
+</script>
