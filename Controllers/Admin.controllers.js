@@ -1,6 +1,7 @@
 const conexion = require("./../Database/database");
 const otpGenerator = require("otp-generator");
 const nodemailer = require("nodemailer");
+const mysql2 = require('../Database/mysql2');
 
 class Admin {
   index(req, res) {
@@ -226,6 +227,21 @@ class Admin {
       }
     })
   }
+
+
+  //Areas No Definidas (Por ahora)
+
+  async CalcularInteres(req,res){
+
+
+
+
+
+
+
+  }
+
+
 }
 
 module.exports = new Admin();
