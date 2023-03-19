@@ -1156,7 +1156,7 @@
         ></circle>
       </svg>
     </a>
-    <div class="btn-download">
+  <!--   <div class="btn-download">
       <a
         class="btn btn-success py-2 px-3 d-flex gap-2"
         href="https://iqonic.design/item/hope-ui-pro/item-checkout/?coupon_code=DROPBY20"
@@ -1185,7 +1185,7 @@
         </svg>
         Buy Now
       </a>
-    </div>
+    </div> -->
     <!-- Live Customizer end -->
 
     <!-- Library Bundle Script -->
@@ -1220,5 +1220,17 @@
     <script src="/static/admin/js/hope-ui.js?v=2.2.0" defer=""></script>
     <script src="/static/admin/js/hope-uipro.js?v=2.2.0" defer=""></script>
     <script src="/static/admin/js/sidebar.js?v=2.2.0" defer=""></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if(typeof alert != "undefined"){ %>
+        <script>
+           Swal.fire({
+            icon: '<%= alertIcon %>',
+            title: '<%= alertTitle %>',
+            text: '<%= alertMessage %>'
+            }).then(function() {
+          window.location = "<%= ruta %>";
+        });
+        </script>
+    <%} %>
   </body>
 </html>

@@ -13,6 +13,7 @@ dotenv.config({
     path:`${__dirname}/env/${process.env.NODE_ENV}.env`
 })
 
+console.log(process.en);
 // Calling routes.
 const {HomeRoutes,AdminRoutes} = require('./Routes/index');
 

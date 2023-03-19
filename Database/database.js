@@ -8,12 +8,12 @@ const conexion = mysql2.createPool({
     database: process.env.DATABASE
 });
 
-try{
-    conexion.getConnection(connection =>{
-        console.log(`Conexion a la base de datos exitosamente!`)
-    })
-}catch(e){
-    console.log(`Hubo un error al tratar de conectar la base de datos: ${e}`)
-}
 
+conexion.getConnection(err =>{
+    if(err){
+        console.error(err)
+    }else{
+        console.log(`Conexion a la base de datos exitosamente!`)
+    }
+});
 module.exports = conexion;
