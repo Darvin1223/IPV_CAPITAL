@@ -7,6 +7,9 @@ class Admin {
  async index(req, res) {
     const id = req.session.id_user;
    
+
+    //Codigo Richar
+
    //Ganancias Totales
   let ganancias_totales = await mysql2.ejecutar_query_con_array(`SELECT capital + SUM(capital * tasa_interes/100 * CONVERT(TIMESTAMPDIFF(MONTH, fecha_inicio, NOW()),int)) as ganancia FROM planes_activos INNER JOIN plan_inversion ON plan_inversion.plan_id = planes_activos.plan_id WHERE user_id = ?`,[id]);
   ganancias_totales = ganancias_totales[0]['ganancia'] != null ? ganancias_totales[0]['ganancia'] : 0;
