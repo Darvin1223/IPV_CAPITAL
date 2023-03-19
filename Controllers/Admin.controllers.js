@@ -4,9 +4,20 @@ const nodemailer = require("nodemailer");
 const mysql2 = require('../Database/mysql2');
 
 class Admin {
-  index(req, res) {
+ async index(req, res) {
     const id = req.session.id_user;
    
+   //Ganancias Totales
+  let ganancias_totales = await mysql2.ejecutar_query_con_array(`SELECT capital + SUM(capital * tasa_interes/100 * CONVERT(TIMESTAMPDIFF(MONTH, fecha_inicio, NOW()),int)) as ganancia FROM planes_activos INNER JOIN plan_inversion ON plan_inversion.plan_id = planes_activos.plan_id WHERE user_id = ?`,[id]);
+  ganancias_totales = ganancias_totales[0]['ganancia'] != null ? ganancias_totales[0]['ganancia'] : 0;
+  //Planes Activos
+  let planes_activos = await mysql2.ejecutar_query_con_array(`SELECT COUNT(*) as planes_activos FROM planes_activos WHERE user_id = ?`,[id])
+  planes_activos = planes_activos[0]['planes_activos'];
+  //Inversion Total
+  let inversion_total = await mysql2.ejecutar_query_con_array(`SELECT SUM(capital) as inversion_total FROM planes_activos WHERE user_id = ?`,[id])
+  inversion_total = inversion_total[0]['inversion_total'] != null ? inversion_total[0]['inversion_total'] : 0;
+
+
     conexion.query(
       "SELECT * FROM `usuario` INNER JOIN rol ON usuario.rol_id = rol.id_rol INNER JOIN estatus ON usuario.estatus_id = estatus.id_status WHERE usuario.id = ?",
       [id],
@@ -17,13 +28,18 @@ class Admin {
             console.log(err);
           } else {
             res.render("layouts/index", {
-              title: "Dashboard | IPV CAPITAL - Admin Panel",
+              title: "Dashboard | IPV CAPITAL -- Admin Panel",
               results: results,
               paises: paises,
-              
+              ganancias_totales,
+              planes_activos,
+              inversion_total,
             });
           }
         });
+
+
+
       }
     );
   }
@@ -237,8 +253,7 @@ class Admin {
 
 
 
-
-
+    res.send(200);
   }
 
 
