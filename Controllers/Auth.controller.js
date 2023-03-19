@@ -7,12 +7,23 @@ class Auth {
     const time = 3600000;
     email.toLowerCase();
     if (email && password) {
-      conexion.query("SELECT * FROM usuario WHERE email = ?", [email], async (err, result) => {         
+      conexion.query("SELECT * FROM usuario WHERE email = ?", [email], async (err, result) => {   
+     if(result == []){
+      
+     }
         //verificando password
         const verifyPassword = await bcryptjs.compare( password, result[0].password);
         // console.log(verifyPassword)
         if(result.length == 0 || verifyPassword === false){
-            return res.status(404).redirect("/login");
+            return res.status(404).render("login",{
+              alert: true,
+              alertIcon: 'error',
+              alertTitle:'La contraseña no ee correcta',
+              alertMessage: "Ingrese la contraseña correcta",
+              ruta: '/login',
+              title: "Titulo",
+              layout:false
+            });
         }else{
             req.session.loggedin = true;
             req.session.cookie.expires = new Date() + time;
@@ -27,7 +38,15 @@ class Auth {
 
       });
     } else {
-      return res.redirect("/login");
+      return res.render("login",{
+        alert: true,
+        alertIcon: 'error',
+        alertTitle:'Debe agregar un email y contraseña',
+        alertMessage: "Por favor llene los campos",
+        ruta: '/login',
+        title: "Titulo",
+        layout:false
+      });
     }
   }
   async sign_up(req, res) {

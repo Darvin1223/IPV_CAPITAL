@@ -349,7 +349,7 @@
       try{
         const response = await fetch(API_URL);
         const data = await response.json();
-        // console.log(data)
+        console.log(data[0])
         elementsModal = `
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Nombre Completo:</label>
@@ -373,12 +373,13 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Fecha de creacion:</label>
-            <input type="text" disabled value="${data[0].nombre_pais}" class="form-control" id="exampleInputPassword1">
+            <input type="text" disabled value="${data[0].fecha_nacimiento}" class="form-control" id="exampleInputPassword1">
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Documentos de identidad:</label>
-            ${JSON.parse(data[0].url_documento).forEach(img => {
-              "<img src=`${}` style='width:100%'>"     
+            ${JSON.parse(data[0].url).forEach(img => {
+              console.log(img)
+              "<img src=`${img}` style='width:100%'>"     
             })}
           </div>
         `;
