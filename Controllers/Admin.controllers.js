@@ -19,6 +19,9 @@ class Admin {
   //Inversion Total
   let inversion_total = await mysql2.ejecutar_query_con_array(`SELECT SUM(capital) as inversion_total FROM planes_activos WHERE user_id = ?`,[id])
   inversion_total = inversion_total[0]['inversion_total'] != null ? inversion_total[0]['inversion_total'] : 0;
+  //Tiempo para la siguiente inversion
+  let tiempo_restante = await mysql2.ejecutar_query_con_array(`SELECT TIMESTAMPDIFF(MINUTE, fecha_expiracion, NOW()) as minutos, TIMESTAMPDIFF(HOUR, fecha_expiracion, NOW()) as horas, TIMESTAMPDIFF(DAY, fecha_expiracion, NOW()) as dias FROM planes_activos WHERE user_id = ? ORDER BY planesActivos_id DESC LIMIT 1`,[id])
+  console.log(tiempo_restante);
 
 
     conexion.query(
