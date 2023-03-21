@@ -21,8 +21,8 @@ class Admin {
   inversion_total = inversion_total[0]['inversion_total'] != null ? inversion_total[0]['inversion_total'] : 0;
   //Tiempo para la siguiente inversion
   let tiempo_restante = await mysql2.ejecutar_query_con_array(`SELECT TIMESTAMPDIFF(MINUTE, fecha_expiracion, NOW()) as minutos, TIMESTAMPDIFF(HOUR, fecha_expiracion, NOW()) as horas, TIMESTAMPDIFF(DAY, fecha_expiracion, NOW()) as dias FROM planes_activos WHERE user_id = ? ORDER BY planesActivos_id DESC LIMIT 1`,[id])
-  console.log(tiempo_restante);
-
+  tiempo_restante = tiempo_restante.length > 0 ? tiempo_restante[0] : { minutos: "nulo", horas: "nulo", dias: "nulo" }
+  
 
     conexion.query(
       "SELECT * FROM `usuario` INNER JOIN rol ON usuario.rol_id = rol.id_rol INNER JOIN estatus ON usuario.estatus_id = estatus.id_status WHERE usuario.id = ?",
@@ -39,6 +39,7 @@ class Admin {
               ganancias_totales,
               planes_activos,
               inversion_total,
+              tiempo_restante,
             });
           }
         });
