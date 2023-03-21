@@ -20,9 +20,16 @@ class Admin {
   let inversion_total = await mysql2.ejecutar_query_con_array(`SELECT SUM(capital) as inversion_total FROM planes_activos WHERE user_id = ?`,[id])
   inversion_total = inversion_total[0]['inversion_total'] != null ? inversion_total[0]['inversion_total'] : 0;
   //Tiempo para la siguiente inversion
-  let tiempo_restante = await mysql2.ejecutar_query_con_array(`SELECT TIMESTAMPDIFF(MINUTE, fecha_expiracion, NOW()) as minutos, TIMESTAMPDIFF(HOUR, fecha_expiracion, NOW()) as horas, TIMESTAMPDIFF(DAY, fecha_expiracion, NOW()) as dias FROM planes_activos WHERE user_id = ? ORDER BY planesActivos_id DESC LIMIT 1`,[id])
+  let tiempo_restante = await mysql2.ejecutar_query_con_array(`SELECT TIMESTAMPDIFF(MINUTE, NOW(), fecha_expiracion) as minutos, TIMESTAMPDIFF(HOUR,  NOW(),fecha_expiracion) as horas, TIMESTAMPDIFF(DAY,  NOW(),fecha_expiracion) as dias FROM planes_activos WHERE user_id = ? ORDER BY fecha_inicio asc LIMIT 1`,[id])
   tiempo_restante = tiempo_restante.length > 0 ? tiempo_restante[0] : { minutos: "nulo", horas: "nulo", dias: "nulo" }
-  
+  //Ultima Transacciones
+  let ultima_transacciones = await mysql2.ejecutar_query_con_array(`SELECT SUM(capital) as suma FROM planes_activos WHERE month(fecha_inicio ) = month(now()) and year(fecha_inicio) = year(now()) and user_id = ?`,[id]);
+  ultima_transacciones = ultima_transacciones[0]['suma'] != null || 0 ? ultima_transacciones[0]['suma'] : 0;
+  //Balance para retiro
+  let balance_para_retiro = await mysql2.ejecutar_query_con_array(`SELECT capital + SUM(capital * tasa_interes/100 * CONVERT(TIMESTAMPDIFF(MONTH, fecha_inicio, NOW()),int)) as ganancia FROM planes_activos INNER JOIN plan_inversion ON plan_inversion.plan_id = planes_activos.plan_id WHERE NOW() > fecha_expiracion AND user_id = ?`,[id]);
+  balance_para_retiro = balance_para_retiro[0]['ganancia'] != null ? balance_para_retiro[0]['ganancia'] : 0;
+
+
 
     conexion.query(
       "SELECT * FROM `usuario` INNER JOIN rol ON usuario.rol_id = rol.id_rol INNER JOIN estatus ON usuario.estatus_id = estatus.id_status WHERE usuario.id = ?",
@@ -40,6 +47,8 @@ class Admin {
               planes_activos,
               inversion_total,
               tiempo_restante,
+              ultima_transacciones,
+              balance_para_retiro
             });
           }
         });
