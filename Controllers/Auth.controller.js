@@ -18,7 +18,7 @@ class Auth {
             return res.status(404).render("login",{
               alert: true,
               alertIcon: 'error',
-              alertTitle:'La contraseña no ee correcta',
+              alertTitle:'La contraseña no es correcta',
               alertMessage: "Ingrese la contraseña correcta",
               ruta: '/login',
               title: "Titulo",

@@ -19,7 +19,7 @@ const updateDocuments = multer({
     storage: storageDocuments,
     dest: 'public/admin/dni'
 })
-const {AdminController, TransacionesController,PlanesAdminController, RetirosAdminController, ReferidosAdminController, UserProfileController, UsersController, GananciasController, PagosController,CapitalController,DepositosController} =  require("./../Controllers");
+const {AdminController, TransacionesController,PlanesAdminController, RetirosAdminController, ReferidosAdminController, UserProfileController, UsersController, GananciasController, PagosController,CapitalController,DepositosController,WalletController} =  require("./../Controllers");
 
 Route.get('/admin', verifyLoggedIn, AdminController.index);
 Route.get('/admin/dashboard', verifyLoggedIn, AdminController.indexAdmin);
@@ -45,6 +45,11 @@ Route.get('/opt-validacion', verifyLoggedIn, AdminController.opt_account_page);
 Route.post('/eliminar-user', verifyLoggedIn,UsersController.eliminarUser);
 Route.post('/verification-account', updateDocuments.array('dni', 2), (req,res,next)=>{AdminController.verific_acount_page(req,res,next)});
 Route.post("/opt-code", AdminController.opt_verification);
-
-
+Route.post("/profile/updatePassword", verifyLoggedIn, UserProfileController.resetPasswordAdmin);
+Route.post("/profile/updatePasswordUser", verifyLoggedIn, UserProfileController.resetPassword);
+Route.post('/profile/addWallet',verifyLoggedIn,WalletController.registerWallet);
+Route.post("/profile/reqUpdateWallet", verifyLoggedIn,WalletController.reqUpdateeWallet);
+Route.post("/profile/updateWallet", verifyLoggedIn, WalletController.updateWallet);
+Route.post("/profile/updateWalletAdmin", verifyLoggedIn,WalletController.updateWalletAdmin);
+Route.post("/admin/users/delete-user", verifyLoggedIn, UsersController.eliminarUser);
 module.exports = Route;

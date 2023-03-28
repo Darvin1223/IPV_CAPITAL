@@ -89,6 +89,109 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between">
+      <div class="header-title">
+        <h4 class="card-title">Solicitudes</h4>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive mt-4">
+        <table id="basic-table" class="table table-striped mb-0" role="grid">
+          <thead>
+            <tr>
+              <th>Nombre Completo</th>
+              <th>Email</th>
+              <th>Tipo Solicitud</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% solicitudes.forEach(Solicitud =>{ %>
+              
+            <tr>
+              <td>
+                <div class="d-flex align-items-center">
+                  <h6><%= Solicitud.fullName_solicitud %></h6>
+                </div>
+              </td>
+
+              <td><%= Solicitud.email_solicitud %></td>
+              <% if(Solicitud.tipo_solicitud == 0){%>
+                <!-- <td><div class="text-success">Activo</div></td> -->
+                <td>Canbio de contraseña</td>
+              <%}else if(Solicitud.tipo_solicitud == 1){ %>
+              <td>Canbio de billetera</td>
+              <% } %>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModalDefault"
+                  id="<%=Solicitud.id%>"
+                  onclick="getData(`<%=Solicitud.id%>`)"
+                >
+                  Ver datos
+                </button>
+              </td>
+            </tr>
+             <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header d-flex justify-content-between">
+      <div class="header-title">
+        <h4 class="card-title">Registrados</h4>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive mt-4">
+        <table id="basic-table" class="table table-striped mb-0" role="grid">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Estado</th>
+              <th>Accion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% usersProcesando.forEach(UserProcesando =>{%>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center">
+                  <h6>
+                    <%=UserProcesando.nombre%> <%=UserProcesando.apellido%>
+                  </h6>
+                </div>
+              </td>
+
+              <td><%=UserProcesando.email%></td>
+              <td><div class="text-info">Pendiente</div></td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModalDefault"
+                  id="<%=UserProcesando.id%>"
+                  onclick="getData(`<%=UserProcesando.id%>`)"
+                >
+                  Ver datos
+                </button>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-sm-12">
@@ -114,6 +217,7 @@
             </thead>
             <tbody>
               <% Users.forEach(User => { %>
+                <% if(User.estatus_id != 7){ %>
               <tr class="text-center">
                 <td><%= User.nombre %> <%= User.apellido %></td>
                 <td><%= User.email %></td>
@@ -134,7 +238,7 @@
                   data-bs-target="#eliminar" id="<%=User.id%>"
                   onclick="deleteUser(`<%=User.id%>`)">Eliminar</button></td>
               </tr>
-
+              <%}  %>
               <% }); %>
             </tbody>
             <tfoot>
@@ -180,7 +284,7 @@
             <tbody>
               <% UserEliminados.forEach(User => { %>
                 <tr class="text-center">
-                  <td><%= User.nombre_eliminado %> <%= User.apellido_eliminado %></td>
+                  <td><%= User.nombre %> <%= User.apellido %></td>
                   <td> <button
                     type="button"
                     class="btn btn-primary"
@@ -192,15 +296,11 @@
                     Ver datos
                   </button></td>
                   <td><%= User.fecha_eliminacion %></td>
-                  <% if(User.referido_por === "NULL"){ %>
-                    <td>No fue referido por nadie</td>
-                  <% }else{ %>
-                    <td><%= User.referido_por %></td>
-                  <% }%>
+                  <td>No fue referido por nadie</td>
                   
-                  <td><%= User.Eliminado_Por %></td>
-                  <td><%= User.Telefono %></td>
-                  <td><%= User.Correo %></td>
+                  <td>darvin.rod10@gmail.com</td>
+                  <td><%= User.telefono %></td>
+                  <td><%= User.email %></td>
                 </tr>
                 <% }); %>             
             </tbody>
@@ -285,7 +385,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
-          Informacion del usuario
+          Eliminar Usuario
         </h5>
         <button
           type="button"
@@ -404,7 +504,7 @@ const deleteUser = (id)=>{
   let element;
 
   const deleteOneUser = (id) =>{
-    element = `<form action="/eliminar-user?id=${id}" method="POST">
+    element = `<form action="/admin/users/delete-user?id=${id}" method="POST">
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Escribe las razones</label>
               <textarea name="razones" placeholder="Razones de eliminacion" class="form-control" cols="30" rows="10"></textarea>

@@ -4,7 +4,7 @@
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                <div class="d-flex flex-wrap align-items-center">
                   <div class="d-flex flex-wrap align-items-center mb-3 mb-sm-0">
-                     <h4 class="me-2 h4">Darvin Rodriguez</h4>
+                     <h4 class="me-2 h4"><%= results[0].nombre %> <%= results[0].apellido %></h4>
                   </div>
                </div>
                <ul class="d-flex nav nav-pills mb-0 text-center profile-tab" data-toggle="slider-tab" id="profile-pills-tab" role="tablist">
@@ -15,6 +15,7 @@
                   <button type="button" class="nav-link " data-bs-toggle="modal" data-bs-target="#reset-pass">
                     Actualizar Contraseña
                 </button>
+               
                </ul>
                
             </div>
@@ -33,7 +34,7 @@
        
           <div class="user-bio">
             <h6 class="mb-1">Nombre:</h6>
-            <p><%= results[0].nombre %></p>
+            <p><%= results[0].nombre %> <%= results[0].apellido %></p>
           </div>
           <div class="mt-2">
           <h6 class="mb-1">Creado:</h6>
@@ -41,7 +42,7 @@
           </div>
           <div class="mt-2">
           <h6 class="mb-1">Pais:</h6>
-          <p>United States of America</p>
+          <p><%= results[0].nombre_pais %></p>
           </div>
           
           <div class="mt-2">
@@ -54,21 +55,28 @@
           </div>
           <div class="mt-2 d-flex justify-content-between">
             <div class="mb-2">
-                <h6 class="mb-1">Cuenta bancaria o monedero:</h6>
-                <% if(results[0].monedero === "NULL"){ %>
-                    <p >No tiene monedero</p>
+                <h6 class="mb-1">Monedero:</h6>
+                <% if(results[0].haash_wallet === "NULL"){ %>
+                    <p >No tiene Billetera</p>
                 <% }else{ %>
-                <p ><%= results[0].monedero %></p>
+                <p ><%= results[0].haash_wallet %></p>
                 <% } %>
             </div>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalDefault" onclick="addMonedero(`<%= results[0].id%>`)">
-                Agregar monedero
-            </button>
+            <% if(results[0].haash_wallet === "NULL"){ %>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMonedero" onclick="addMonedero(`<%= results[0].id%>`)">
+                    Agregar monedero
+                </button>
+            <% }else{ %>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateMonedero" onclick="addMonedero(`<%= results[0].id%>`)">
+                    Actualizar monedero
+                </button>
+            <% } %>
+           
           </div>
        </div>
     </div>
  </div>
-
+<!-- 
  <div class="modal fade" id="exampleModalDefault" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -82,7 +90,7 @@
             <div class="modal-body text-center">
                 <div class="card mb-3">
                     <h4 class="title">Monedero</h4>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalDefault2">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMonedero">
                         Agregar monedero
                     </button>
                 </div>
@@ -93,11 +101,10 @@
             </div>
         </div>
     </div>
-</div>
-
+</div> -->
 
 <!-- Modal Monedero -->
- <div class="modal fade" id="exampleModalDefault2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="addMonedero" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -109,23 +116,63 @@
             </div>
             <div class="modal-body">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <div class="header-title">
-                            <h4 class="card-title">Agrega el hash de tu monedero</h4>
-                        </div>
-                    </div>
                     <div class="card-body">
-                        <form class="text-center" id="form_monedero">
-                           
+                        <form class="text-center" action="/profile/addWallet" method="post">
+                            <input type="hidden" name="id" value="<%= results[0].id %>">
                             <div class="form-group">
                                 <label class="form-label" for="email1101">Hash de monedero:</label>
-                                <input type="text" class="form-control" id="email1101">
+                                <input type="text" class="form-control" name="wallet">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="submit" class="btn btn-primary">Agregar monedero</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+ <div class="modal fade" id="updateMonedero" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="d-flex flex-column">
+                    <h5 class="modal-title" id="exampleModalLabel">Agrega un monedero</h5>
+                <!-- <p></p> -->
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <% if(results[0].rol == "Administrador"){ %> 
+                        <form class="text-center" action="/profile/updateWalletAdmin" method="post">
+                            <input type="hidden" name="id" value="<%= results[0].id %>">
+                            <div class="form-group">
+                                <label class="form-label" for="email1101">Hash de monedero:</label>
+                                <input type="text" class="form-control" name="wallet">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Agregar monedero</button>
+                            </div>
+                        </form>
+                        <% }else if(results[0].rol == "User"){ %>
+                        <form class="text-center" action="/profile/reqUpdateWallet" method="post">
+                            <input type="hidden" name="id" value="<%= results[0].id %>">
+                            <div class="form-group">
+                                <label class="form-label" for="email1101">Hash de monedero:</label>
+                                <input type="text" class="form-control" name="wallet">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Agregar monedero</button>
+                            </div>
+                        </form>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -146,39 +193,70 @@
                 <div class="card">
                    
                     <div class="card-body">
-                        <form class="text-center">
-                           
+                        <% if(results[0].rol == "Administrador"){ %> 
+                        <form class="text-center" action="/profile/updatePassword" method="post">
+                           <input type="hidden" name="id" value="<%= results[0].id %>">
                             <div class="form-group">
                                 <label class="form-label" for="exampleInputPassword3">Contraseña actual</label>
-                                <input type="password" class="form-control" id="exampleInputPassword3" required  placeholder="Enter Password">
+                                <input type="password" class="form-control" id="exampleInputPassword3" required name="old_password" placeholder="Enter Password">
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="exampleInputPassword3">Contraseña nueva</label>
-                                <input type="password" class="form-control" id="exampleInputPassword3" required  placeholder="Enter Password">
+                                <input type="password" class="form-control" id="exampleInputPassword3" required name="password"  placeholder="Enter Password">
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="exampleInputPassword3">Repetir contraseña</label>
-                                <input type="password" class="form-control" id="exampleInputPassword3" required  placeholder="Enter Password">
+                                <input type="password" class="form-control" id="exampleInputPassword3" required name="repeatPassword" placeholder="Enter Password">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                 <button type="submit" class="btn btn-primary">Actualizar</button>
                             </div>
                         </form>
+                        <% }else if(results[0].rol == "User"){ %>
+                        <form class="text-center" action="/profile/updatePasswordUser" method="post">
+                           <input type="hidden" name="id" value="<%= results[0].id %>">
+                            <div class="form-group">
+                                <label class="form-label" for="exampleInputPassword3">Contraseña actual</label>
+                                <input type="password" class="form-control" id="exampleInputPassword3" required name="old_password" placeholder="Enter Password">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="exampleInputPassword3">Contraseña nueva</label>
+                                <input type="password" class="form-control" id="exampleInputPassword3" required name="password"  placeholder="Enter Password">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="exampleInputPassword3">Repetir contraseña</label>
+                                <input type="password" class="form-control" id="exampleInputPassword3" required name="repeatPassword" placeholder="Enter Password">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                            </div>
+                        </form>
+                        <% } %>
                     </div>
                 </div>
             </div>
-           
         </div>
     </div>
 </div>
-
+<% if(typeof alert != "undefined"){ %>
+    <script>
+       Swal.fire({
+        icon: '<%= alertIcon %>',
+        title: '<%= alertTitle %>',
+        text: '<%= alertMessage %>'
+        }).then(function() {
+      window.location = "<%= ruta %>";
+    });
+    </script>
+<%} %>
 <script>
 
-const form_monedero = document.getElementById("form_monedero");
-let element;
-const addMonedero = (id) =>{
+// const form_monedero = document.getElementById("form_monedero");
+// let element;
+// const addMonedero = (id) =>{
 
-}
+// }
 
 </script>
