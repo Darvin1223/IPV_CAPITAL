@@ -291,7 +291,7 @@
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModalDefault"
                     id="<%%>"
-                    onclick="getData(`<%%>`)"
+                    
                   >
                     Ver datos
                   </button></td>
@@ -442,6 +442,9 @@
 
   // Get data
   function getData(id) {
+
+    console.log("Esta entrandoa la funcion")
+
     const userInformation = document.getElementById("userInformation");
     let elementsModal;
     const API = `/admin/userData?id=${id}`;
@@ -449,7 +452,7 @@
       try{
         const response = await fetch(API_URL);
         const data = await response.json();
-        console.log(data[0])
+        console.log(data)
         elementsModal = `
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Nombre Completo:</label>
