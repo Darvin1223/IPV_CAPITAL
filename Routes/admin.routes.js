@@ -28,7 +28,7 @@ Route.get('/admin/users', verifyLoggedIn, UsersController.showUsersAdmin);
 Route.get('/admin/ganancias', verifyLoggedIn, GananciasController.showGananciasAdmin);
 Route.get('/admin/retiros', verifyLoggedIn, RetirosAdminController.showRetirosAdmin);
 Route.get('/admin/pagos', verifyLoggedIn, PagosController.showPaysAdmin);
-Route.get("/admin/userData", UsersController.getUserData);
+Route.get("/admin/userData/:id", UsersController.getUserData);
 Route.get('/admin/capital-admin', verifyLoggedIn, CapitalController.showCapitalesAdmin);
 Route.get('/admin/depositos-admin', verifyLoggedIn, DepositosController.showDepositosAdmin)
 Route.get('/trasaciones', verifyLoggedIn, TransacionesController.showTransacionesUser);

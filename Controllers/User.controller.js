@@ -76,20 +76,25 @@ class User {
 
 
 
-    const id = req.query.id;
+    const id = req.params.id;
+
+
     const query = "SELECT * FROM usuario WHERE id = ?";
     // const queryPais = "SELECT * FROM `usuario`  WHERE usuario.id = ?";
     const queryUser =
-      "SELECT * FROM `usuario` INNER JOIN `documentos` ON documentos.usuario_id = usuario.id INNER JOIN pais ON usuario.pais_id = pais.id_pais INNER JOIN tipo_documento ON documentos.tipo_id = tipo_documento.id WHERE usuario.id = ?";
-    conexion.query(query, [id], (err, result) => {
+      "SELECT * FROM usuario INNER JOIN documentos ON documentos.usuario_id = usuario.id INNER JOIN pais ON usuario.pais_id = pais.id_pais INNER JOIN tipo_documento ON documentos.tipo_id = tipo_documento.id WHERE usuario.id = ?";
+
+    conexion.query(queryUser, [id], (err, result) => {
       if (err) {
         console.log(err);
       } else {
         console.log(result)
-        res.status(200).json(result);
-      }
+        res.send(result);
+    }
     });
-  }
+
+
+}
   eliminarUser(req, res) {
     const id = req.query.id;
     const id_admin = req.session.id_user;

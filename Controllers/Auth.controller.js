@@ -50,7 +50,11 @@ class Auth {
     }
   }
   async sign_up(req, res) {
-    const { Name, lastName, email, telefono, password, ConfirmPAssword } =
+
+    console.log(req.body)
+
+
+     const { Name, lastName, email, telefono, password, ConfirmPAssword } =
       req.body;
     const rol = 2,
       estatus = 5;
@@ -84,7 +88,7 @@ class Auth {
           }
         }
       );
-    }
+    } 
   }
   logout(req, res) {
     req.session.destroy();
