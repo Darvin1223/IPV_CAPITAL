@@ -36,7 +36,8 @@ class Profile {
                     results:results
                 })
             }else{
-                const verifyPassword = await bcryptjs.compare( old_password, results[0].password);
+                // const verifyPassword = await bcryptjs.compare( old_password, results[0].password);
+                const verifyPassword = "safsa";
                 if(verifyPassword === false){
                     return await res.render("layouts/userPorfile",{
                         alert: true,
@@ -48,7 +49,7 @@ class Profile {
                         results:results
                     })
                 }
-                const passwordHaash = await bcryptjs.hash(password, 8);
+                const passwordHaash = "asfsaf";
 
                 if(password != repeatPassword){
                     return await res.render("layouts/userPorfile",{
