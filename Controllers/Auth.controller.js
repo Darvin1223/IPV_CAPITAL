@@ -30,6 +30,9 @@ class Auth {
             req.session.cookie.maxAge = time;
             req.session.rol = result[0].rol_id;
             req.session.id_user = result[0].id;
+
+            conexion.query(`UPDATE usuario SET ? WHERE id = ?`, [{estatus_id:1,ultimo_login: new Date()},result[0].id], (error,sql) =>{})
+
             if(result[0].rol_id == 1){
               return res.status(200).redirect("/admin/dashboard");
             }else if(result[0].rol_id == 2)
@@ -51,9 +54,6 @@ class Auth {
   }
   async sign_up(req, res) {
 
-    console.log(req.body)
-
-
      const { Name, lastName, email, telefono, password, ConfirmPAssword } =
       req.body;
     const rol = 2,
@@ -66,6 +66,8 @@ class Auth {
       return res.redirect("/sign-up");
     } else {
       const passwordHaash = await bcryptjs.hash(password, 8);
+
+
       conexion.query(
         "INSERT INTO usuario SET ?",
         {
@@ -79,15 +81,27 @@ class Auth {
           rol_id: rol,
           estatus_id: estatus
         },
-        async (err) => {
+        async (err,sql) => {
           if (err) {
             console.log(err);
             return res.redirect("/sign-up");
           } else {
+
+            let {insertId} = sql;
+
+            if(req.session.referido != undefined){
+              conexion.query(`INSERT INTO codigo_referido SET ?`,{user_id: insertId, codigo_referido:req.session.referido }, (error, insert) =>{console.log(error)})
+            }
+
+
+
             return res.redirect("/login");
           }
         }
       );
+
+
+
     } 
   }
   logout(req, res) {

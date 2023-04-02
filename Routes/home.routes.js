@@ -1,7 +1,7 @@
 const Route = require("express").Router();
 
 
-const {HomeController,AuthController} =  require("./../Controllers");
+const {HomeController,AuthController, UsersController} =  require("./../Controllers");
 
 Route.get('/', HomeController.index);
 Route.get('/login', HomeController.log_in);
@@ -14,7 +14,8 @@ Route.post('/register', AuthController.sign_up);
 Route.post('/sign-in', AuthController.login);
 
 
-
+//Referidos
+Route.get('/register/:codigo', UsersController.SaveReferido)
 
 
 

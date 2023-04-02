@@ -186,6 +186,20 @@ class User {
     setInterval(isInactive, 1000);
     inactivosUsers();
   }
+
+  async SaveReferido(req,res){
+
+    let codigo_referido = req.params.codigo;
+
+    req.session.referido = codigo_referido;
+    req.session.save()
+
+    return res.redirect('/sign-up');
+
+  }
+
+
+
 }
 
 module.exports = new User();

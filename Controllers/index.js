@@ -1,3 +1,10 @@
+///No sabia donde ponerlo xd (Funciones de tiempo)
+let TimeController = require('./Time.controllers');
+
+
+
+
+
 module.exports = {
     HomeController: require('./Homecontroller'),
     AdminController: require("./Admin.controllers"),
@@ -12,6 +19,7 @@ module.exports = {
     CapitalController: require("./Capital.controller"),
     DepositosController: require('./Depositos.controller'),
     AuthController: require("./Auth.controller"),
-    WalletController: require("./wallet.controller")
+    WalletController: require("./wallet.controller"),
+    TimeController: require('./Time.controllers')
 };
 
