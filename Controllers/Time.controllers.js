@@ -3,6 +3,11 @@ const otpGenerator = require("otp-generator");
 const nodemailer = require("nodemailer");
 const mysql2 = require('../Database/mysql2');
 
+//Minutos A Milisegundos
+async function obtener_tiempo(minutos){
+        return minutos * 60000;
+}
+
 class TimeController{
 
     async UsuariosInactivos(){
@@ -22,13 +27,9 @@ class TimeController{
 }
 
 let main = new TimeController()
+setInterval(main.UsuariosInactivos,obtener_tiempo(5));
 
-//Tiempo
-let cinco_minutos = 300000;
-let pruebas_rapidas = 1000;
-
-setInterval(main.UsuariosInactivos,cinco_minutos);
-
+console.log(obtener_tiempo(5))
 
 module.exports = new TimeController()
 
