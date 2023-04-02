@@ -78,7 +78,7 @@ class User {
     // const queryPais = "SELECT * FROM `usuario`  WHERE usuario.id = ?";
     const queryUser =
       "SELECT * FROM `usuario` INNER JOIN `documentos` ON documentos.usuario_id = usuario.id INNER JOIN pais ON usuario.pais_id = id_pais INNER JOIN tipo_documento ON documentos.tipo_id = tipo_documento.id WHERE usuario.id = ?";
-    conexion.query(queryUser, [id], (err, result) => {
+    conexion.query(query, [id], (err, result) => {
       if (err) {
         console.log(err);
       } else {

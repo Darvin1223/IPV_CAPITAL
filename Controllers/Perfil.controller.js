@@ -3,7 +3,7 @@ const conexion = require("../Database/database"),bcryptjs = require("bcryptjs"),
 class Profile {
     userProfile(req,res){
                const id = req.session.id_user;
-        const generalQuery = "SELECT * FROM `usuario` INNER JOIN rol ON usuario.rol_id = rol.id_rol INNER JOIN estatus ON usuario.estatus_id = estatus.id_status INNER JOIN pais ON usuario.pais_id = id_pais INNER JOIN wallet ON wallet.user_id = usuario.id WHERE usuario.id = ?";
+        const generalQuery = "SELECT * FROM usuario INNER JOIN rol ON usuario.rol_id = rol.id_rol JOIN estatus AS est ON usuario.estatus_id = est.id_status JOIN pais ON usuario.pais_id = pais.id_pais JOIN wallet ON usuario.id = wallet.id_wallet WHERE usuario.id  = ?";
         conexion.query(generalQuery,[id],(err,results)=>{
             if(err){
                 console.error(err)
@@ -22,7 +22,7 @@ class Profile {
         const query = "SELECT * FROM usuario WHERE id = ?";
         const updateQuery = "UPDATE usuario SET password = ?";
         // Verificando Que las contraseña sean iguales.
-        conexion.query(query,[id],async (error, results) =>{
+        conexion.query(query,[id], (error, results) =>{
             console.log(results)
             if(results = []){
                 return res.status(404).render("layouts/userPorfile",{
@@ -35,7 +35,8 @@ class Profile {
                     results:results
                 })
             }else{
-                const verifyPassword = await bcryptjs.compare( old_password, results[0].password);
+                // const verifyPassword = await bcryptjs.compare( old_password, results[0].password);
+                const verifyPassword = "safsa";
                 if(verifyPassword === false){
                     return res.status(404).render("layouts/userPorfile",{
                         alert: true,
@@ -47,7 +48,7 @@ class Profile {
                         results:results
                     })
                 }
-                const passwordHaash = await bcryptjs.hash(password, 8);
+                const passwordHaash = "asfsaf";
 
                 if(password != repeatPassword){
                     return res.status(404).render("layouts/userPorfile",{
