@@ -312,7 +312,7 @@ $(document).ready(function($) {
         });
     }
 
-    $(".ts-form-email [type='submit']").each(function(){
+/*     $(".ts-form-email [type='submit']").each(function(){
         var text = $(this).text();
         $(this).html("").append("<span>"+ text +"</span>").prepend("<div class='status'><i class='fas fa-circle-notch fa-spin spinner'></i></div>");
     });
@@ -335,7 +335,7 @@ $(document).ready(function($) {
     $("form:not(.ts-form-email)").each(function(){
         $(this).validate();
     });
-
+ */
 
 
 // On RESIZE actions

@@ -12,6 +12,7 @@ module.exports = {
     CapitalController: require("./Capital.controller"),
     DepositosController: require('./Depositos.controller'),
     AuthController: require("./Auth.controller"),
-    WalletController: require("./wallet.controller")
+    WalletController: require("./wallet.controller"),
+    ContactController: require("./Contact.Controller")
 };
 
