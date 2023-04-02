@@ -26,10 +26,12 @@ class TimeController{
     }
 }
 
+//Controlador
 let main = new TimeController()
+
+//Establecer Tiempo
 setInterval(main.UsuariosInactivos,obtener_tiempo(5));
 
-console.log(obtener_tiempo(5))
 
 module.exports = new TimeController()
 
