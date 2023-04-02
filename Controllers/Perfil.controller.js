@@ -3,7 +3,7 @@ const conexion = require("../Database/database"),bcryptjs = require("bcryptjs"),
 class Profile {
     userProfile(req,res){
                const id = req.session.id_user;
-        const generalQuery = "SELECT * FROM usuario INNER JOIN rol ON usuario.rol_id = rol.id_rol JOIN estatus AS est ON usuario.estatus_id = est.id_status JOIN pais ON usuario.pais_id = pais.id_pais JOIN wallet ON usuario.id = wallet.id_wallet WHERE usuario.id  = ?";
+        const generalQuery = "SELECT * FROM usuario INNER JOIN rol ON usuario.rol_id = rol.id_rol  JOIN estatus ON usuario.estatus_id = estatus.id_status  JOIN pais ON usuario.pais_id = pais.id_pais JOIN wallet ON usuario.id = wallet.id_wallet WHERE usuario.id = ?";
         conexion.query(generalQuery,[id],(err,results)=>{
             if(err){
                 console.error(err)
@@ -16,16 +16,17 @@ class Profile {
         })
       
     }
+
+
     resetPasswordAdmin(req,res){
         const {id,old_password,password,repeatPassword} = req.body;
         console.log(id,old_password,password,repeatPassword);
         const query = "SELECT * FROM usuario WHERE id = ?";
         const updateQuery = "UPDATE usuario SET password = ?";
         // Verificando Que las contraseña sean iguales.
-        conexion.query(query,[id], (error, results) =>{
-            console.log(results)
-            if(results = []){
-                return res.status(404).render("layouts/userPorfile",{
+        conexion.query(query,[id],async (error, results) =>{
+            if(results.length == 0){
+                return await res.render("layouts/userPorfile",{
                     alert: true,
                     alertIcon: 'error',
                     alertTitle: "Datos no encontrados",
@@ -38,7 +39,7 @@ class Profile {
                 // const verifyPassword = await bcryptjs.compare( old_password, results[0].password);
                 const verifyPassword = "safsa";
                 if(verifyPassword === false){
-                    return res.status(404).render("layouts/userPorfile",{
+                    return await res.render("layouts/userPorfile",{
                         alert: true,
                         alertIcon: 'error',
                         alertTitle: "Contraseña actual no conincide",
@@ -51,7 +52,7 @@ class Profile {
                 const passwordHaash = "asfsaf";
 
                 if(password != repeatPassword){
-                    return res.status(404).render("layouts/userPorfile",{
+                    return await res.render("layouts/userPorfile",{
                         alert: true,
                         alertIcon: 'error',
                         alertTitle: "Contraseña Nueva no conincide",
@@ -61,9 +62,9 @@ class Profile {
                         results:results
                     })
                 }
-                conexion.query(updateQuery, [passwordHaash], err =>{
+                conexion.query(updateQuery, [passwordHaash],async err =>{
                     if(err){
-                        return res.status(404).render("layouts/userPorfile",{
+                        return await res.render("layouts/userPorfile",{
                             alert: true,
                             alertIcon: 'error',
                             alertTitle: "Error al actualizar",
@@ -73,7 +74,7 @@ class Profile {
                             results:results
                         })
                     }else{
-                        return res.status(200).render("layouts/userPorfile",{
+                        return await res.render("layouts/userPorfile",{
                             alert: true,
                             alertIcon: 'success',
                             alertTitle: "Contraseña actualizada",
@@ -89,6 +90,11 @@ class Profile {
             }
         });
     }
+
+
+
+
+
     resetPassword(req,res){
         const {id,old_password,password,repeatPassword} = req.body;
         const tipo_solicitud = 0;
