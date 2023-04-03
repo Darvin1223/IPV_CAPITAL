@@ -20,6 +20,7 @@ module.exports = {
     DepositosController: require('./Depositos.controller'),
     AuthController: require("./Auth.controller"),
     WalletController: require("./wallet.controller"),
-    TimeController: require('./Time.controllers')
+    TimeController: require('./Time.controllers'),
+    ContactController: require("./Contact.Controller")
 };
 

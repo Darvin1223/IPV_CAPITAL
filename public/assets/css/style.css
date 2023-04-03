@@ -1390,13 +1390,13 @@ form.ts-labels-inside-input .form-group label.focused,
 
 .ts-inputs__transparent input, .ts-inputs__transparent textarea {
     background-color: transparent;
-    color: #fff;
+    color: #000;
 }
 
 .ts-inputs__transparent input:active, .ts-inputs__transparent input:focus,
 .ts-inputs__transparent textarea:active, .ts-inputs__transparent textarea:focus {
     background-color: transparent;
-    color: #fff;
+    color: #000;
 }
 
 .ts-item {
