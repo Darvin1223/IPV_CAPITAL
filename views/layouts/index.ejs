@@ -477,7 +477,7 @@
     </div>
   </div>
 </div>
-<% }else if(results[0].estado == "no activada"){ %>
+<% }else if(results[0].estado == "pendiente"){ %>
   <div class="row d-flex justify-content-center">
     <div class="col-sm-12 col-lg-6">
       <div class="card">
@@ -524,7 +524,7 @@
                      <select class="form-select" name="pais" id="validationDefault04" required>
                         <option selected disabled >Selecciona...</option>
                         <% paises.forEach(pais => { %>
-                          <option value="<%= id_pais %> "><%= pais.nombre %> </option>
+                          <option value="<%= pais.id_pais %> "><%= pais.nombre_pais %> </option>
                        <% }); %> 
                      </select>
                   </div>

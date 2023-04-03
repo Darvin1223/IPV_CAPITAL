@@ -1,7 +1,7 @@
 const Route = require("express").Router();
 
 
-const {HomeController,AuthController, UsersController} =  require("./../Controllers");
+const {HomeController,AuthController, UsersController,ContactController} =  require("./../Controllers");
 
 Route.get('/', HomeController.index);
 Route.get('/login', HomeController.log_in);
