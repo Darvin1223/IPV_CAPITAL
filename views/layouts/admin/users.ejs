@@ -447,12 +447,21 @@
 
     const userInformation = document.getElementById("userInformation");
     let elementsModal;
-    const API = `/admin/userData?id=${id}`;
+    const API = `/admin/userData/${id}`;
     const getUser = async (API_URL) => {
       try{
         const response = await fetch(API_URL);
         const data = await response.json();
         console.log(data)
+
+        var text_img = "";
+
+         JSON.parse(data[0].url_documento).forEach(img => {
+
+              text_img+=`<img src="${img}" style='width:100%'>"`
+          })
+
+        
         elementsModal = `
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Nombre Completo:</label>
@@ -480,16 +489,17 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Documentos de identidad:</label>
-            ${JSON.parse(data[0].url).forEach(img => {
-              console.log(img)
-              "<img src=`${img}` style='width:100%'>"     
-            })}
+
+            ${text_img}
+
           </div>
         `;
         // console.log(data[0].url_documento)
         /* ${JSON.parse(data[0].url_documento).forEach(image => {
               `<img src=${} style="width:100%">`
             })} */
+
+           
             
         userInformation.innerHTML = elementsModal;
       } catch (error) {

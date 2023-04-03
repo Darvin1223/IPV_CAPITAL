@@ -28,7 +28,7 @@ class Admin {
   //Balance para retiro
   let balance_para_retiro = await mysql2.ejecutar_query_con_array(`SELECT capital + SUM(capital * tasa_interes/100 * CONVERT(TIMESTAMPDIFF(MONTH, fecha_inicio, NOW()),int)) as ganancia FROM planes_activos INNER JOIN plan_inversion ON plan_inversion.plan_id = planes_activos.plan_id WHERE NOW() > fecha_expiracion AND user_id = ?`,[id]);
   balance_para_retiro = balance_para_retiro[0]['ganancia'] != null ? balance_para_retiro[0]['ganancia'] : 0;
-
+  
 
 
     conexion.query(

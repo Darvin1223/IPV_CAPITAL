@@ -25,7 +25,7 @@ const sessionExpress = session({
         //     maxAge: horas
         // },
         secret: secrect,
-        resave: true,
+        resave: false,
         saveUninitialized: true
 });
 
