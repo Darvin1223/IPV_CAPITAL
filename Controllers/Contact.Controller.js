@@ -22,9 +22,25 @@ class Contact {
                 subject: "Deseo comunicame con ustedes 👻",
                 text: `Mi nombre es ${name} este es el mensaje: ${message}`
             });
-            res.json("Enviado")
+            return res.status(200).render('index',{
+                alert: true,
+                alertIcon: 'success',
+                alertTitle:'Mensaje enviado',
+                alertMessage: "Se ha enviado el mensaje",
+                ruta: '/',
+                title: "Titulo",
+                layout:false
+            })
         }catch(e){
-            res.json(e);
+            return res.status(404).render('index',{
+                alert: true,
+                alertIcon: 'error',
+                alertTitle:'Mensaje no enviado',
+                alertMessage: "No se ha podido enviar el mensaje",
+                ruta: '/',
+                title: "Titulo",
+                layout:false
+            })
         }
         
         
@@ -50,9 +66,26 @@ class Contact {
                 subject: "Deseo comunicame con ustedes 👻",
                 text: `Mi nombre es ${name} y quisiera ${options}`
             });
-            res.json("Enviado")
+
+            return res.status(200).render('index',{
+                alert: true,
+                alertIcon: 'success',
+                alertTitle:'Mensaje enviado',
+                alertMessage: "Se ha enviado el mensaje",
+                ruta: '/',
+                title: "Titulo",
+                layout:false
+            })
         }catch(e){
-            res.json(e);
+            return res.status(404).render('index',{
+                alert: true,
+                alertIcon: 'error',
+                alertTitle:'Mensaje no enviado',
+                alertMessage: "No se ha podido enviar el mensaje",
+                ruta: '/',
+                title: "Titulo",
+                layout:false
+            })
         }
         
         
