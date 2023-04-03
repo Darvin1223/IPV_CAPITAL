@@ -31,7 +31,7 @@ class Auth {
             req.session.rol = result[0].rol_id;
             req.session.id_user = result[0].id;
 
-            conexion.query(`UPDATE usuario SET ? WHERE id = ?`, [{estatus_id:1,ultimo_login: new Date()},result[0].id], (error,sql) =>{})
+            conexion.query(`UPDATE usuario SET ? WHERE id = ?`, [{ultimo_login: new Date()},result[0].id], (error,sql) =>{})
 
             if(result[0].rol_id == 1){
               return res.status(200).redirect("/admin/dashboard");
