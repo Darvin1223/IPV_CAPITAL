@@ -48,8 +48,8 @@ let main = new TimeController()
 var cinco_minutos = obtener_tiempo(5);
 
 //Establecer Tiempo
-setInterval(main.UsuariosInactivos,cinco_minutos);
-setInterval(main.Actualizar_Planes_Activos,5*60000);
+//setInterval(main.UsuariosInactivos,cinco_minutos);
+//setInterval(main.Actualizar_Planes_Activos,5*60000);
 
 module.exports = new TimeController()
 

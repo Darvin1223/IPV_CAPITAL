@@ -20,6 +20,7 @@ const updateDocuments = multer({
     dest: 'public/admin/dni'
 })
 const {AdminController, TransacionesController,PlanesAdminController, RetirosAdminController, ReferidosAdminController, UserProfileController, UsersController, GananciasController, PagosController,CapitalController,DepositosController,WalletController} =  require("./../Controllers");
+const PerfilController = require("../Controllers/Perfil.controller.js");
 
 Route.get('/admin', verifyLoggedIn, AdminController.index);
 Route.get('/admin/dashboard', verifyLoggedIn, AdminController.indexAdmin);
@@ -37,6 +38,7 @@ Route.get('/planes-admin', verifyLoggedIn, PlanesAdminController.showPlanesUser)
 Route.get('/retiros-user', verifyLoggedIn, RetirosAdminController.showRetirosUser);
 Route.get('/retiro-capital-user', verifyLoggedIn, RetirosAdminController.showRetiroCapitalUser);
 Route.get('/referidos-user', verifyLoggedIn, ReferidosAdminController.showReferidosUser);
+Route.get('/get_capital_referido/:id', verifyLoggedIn, ReferidosAdminController.MostrarBonoReferido);
 Route.get('/profile', verifyLoggedIn, UserProfileController.userProfile);
 Route.get('/opt-validacion', verifyLoggedIn, AdminController.opt_account_page);
 
@@ -45,6 +47,9 @@ Route.get('/opt-validacion', verifyLoggedIn, AdminController.opt_account_page);
 Route.post('/eliminar-user', verifyLoggedIn,UsersController.eliminarUser);
 Route.post('/verification-account', updateDocuments.array('dni', 2), (req,res,next)=>{AdminController.verific_acount_page(req,res,next)});
 Route.post("/opt-code", AdminController.opt_verification);
+
+Route.post('/update-profile', verifyLoggedIn, PerfilController.EditProfile);
+
 Route.post("/profile/updatePassword", verifyLoggedIn, UserProfileController.resetPasswordAdmin);
 Route.post("/profile/updatePasswordUser", verifyLoggedIn, UserProfileController.resetPassword);
 Route.post('/profile/addWallet',verifyLoggedIn,WalletController.registerWallet);

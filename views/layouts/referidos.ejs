@@ -1,3 +1,6 @@
+
+
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -11,23 +14,31 @@
                              <tr class="bg-white">
                                  <th scope="col">Nombre</th>
                                  <th scope="col">Numero Telefonico</th>
-                                 <th scope="col">Email</th>  
+                                 <th scope="col">Email</th>
+                                 <th scope="col">Bonos</th>
                              </tr>
                          </thead>
                          <tbody>
+
+                            <% usuarios_referidos.forEach(function(referido){ %>
+
                              <tr>
                                  <td>
                                      <div class="d-flex align-items-center">    
                                          <div class="media-support-info">
-                                         <h5 class="iq-sub-label">Elon Musk</h5>               
+                                         <h5 class="iq-sub-label"><%= referido.nombre %></h5>               
                                          </div>
                                      </div>
                                  </td>
-                                 <td class="text-dark">(208) 555-0112</td>
-                                 <td class="text-dark">musk.e@mail.com</td>
+                                 <td class="text-dark"><%= referido.telefono %></td>
+                                 <td class="text-dark"><%= referido.email %></td>
+                                 <td class="text-dark"><button onclick="MostrarCapital('<%= referido.user_id %>')" class="btn btn-primary">Ver Bono</button></td>
+
                                
                              </tr>
-                       
+                    
+                             <% }); %>
+
                          </tbody>
                      </table>
                  </div>
@@ -35,3 +46,32 @@
          </div>
      </div>
  </div>
+
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+ <script>
+
+    function MostrarCapital(id){
+    
+        let query = `/get_capital_referido/${id}`;
+
+        axios.get(query)
+        .then(function (response) {
+            let {ganancia} = response.data;
+            Swal.fire(`$${ganancia}`)
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+
+
+    }
+
+
+
+ </script>

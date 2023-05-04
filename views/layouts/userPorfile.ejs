@@ -57,13 +57,19 @@
           <div class="mt-2 d-flex justify-content-between">
             <div class="mb-2">
                 <h6 class="mb-1">Monedero:</h6>
-                <% if(results[0].haash_wallet === "NULL"){ %>
+                <% if(results[0].haash_wallet === undefined){ %>
                     <p >No tiene Billetera</p>
                 <% }else{ %>
                 <p ><%= results[0].haash_wallet %></p>
                 <% } %>
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar_perfil">
+                    Editar Perfil
+                </button>
+
             </div>
-            <% if(results[0].haash_wallet === "NULL"){ %>
+
+            <% if(results[0].haash_wallet === undefined){ %>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMonedero" onclick="addMonedero(`<%= results[0].id%>`)">
                     Agregar monedero
                 </button>
@@ -104,6 +110,78 @@
     </div>
 </div> -->
 
+<!-- Modal Editar Perfil -->
+<div class="modal fade" id="editar_perfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Editar Perfil</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+            <form action="/update-profile" method="POST">
+
+                 <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" value="<%= results[0].nombre %>" class="form-control" placeholder="Nombre">
+                </div>
+
+                <div class="form-group">
+                    <label>Apellido</label>
+                    <input type="text" name="apellido" value="<%= results[0].apellido %>" class="form-control" placeholder="Apellido">
+                </div>
+
+                 <div class="form-group">
+                    <label>Creado:</label>
+                    <input type="text" class="form-control" value="<%= results[0].fecha_creacion %>" placeholder="Fecha De Registro" disabled>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Correo Electronico</label>
+                    <input type="email" name="email" class="form-control" value="<%= results[0].email %>" placeholder="name@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Pais</label>
+                <select class="form-control" name="pais" id="paises">
+
+                <% paises.forEach(function(pais){ %>
+                    <option value="<%= pais.id_pais %>"><%= pais.nombre_pais %></option>
+                <% }) %>
+
+                </select>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Numero Telefonico</label>
+                    <input type="text" name="telefono" class="form-control" value="<%= results[0].telefono %>" placeholder="Telefono">
+                </div>
+
+            
+
+            
+
+
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 <!-- Modal Monedero -->
  <div class="modal fade" id="addMonedero" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -126,7 +204,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-primary">Agregar monedero</button>
+                                <button type="submit" class="btn btn-primary">Agregar monedero ||</button>
                             </div>
                         </form>
                     </div>
@@ -136,16 +214,19 @@
         </div>
     </div>
 </div>
+
+
  <div class="modal fade" id="updateMonedero" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="d-flex flex-column">
-                    <h5 class="modal-title" id="exampleModalLabel">Agrega un monedero</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Editar un monedero</h5>
                 <!-- <p></p> -->
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <div class="modal-body">
                 <div class="card">
                     <div class="card-body">
@@ -158,7 +239,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-primary">Agregar monedero</button>
+                                <button type="submit" class="btn btn-primary">Editar monedero</button>
                             </div>
                         </form>
                         <% }else if(results[0].rol == "User"){ %>
@@ -170,7 +251,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-primary">Agregar monedero</button>
+                                <button type="submit" class="btn btn-primary">Editar monedero</button>
                             </div>
                         </form>
                         <% } %>
@@ -181,6 +262,9 @@
         </div>
     </div>
 </div>
+
+
+
  <div class="modal fade" id="reset-pass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -259,10 +343,8 @@
 
 <script>
 
-// const form_monedero = document.getElementById("form_monedero");
-// let element;
-// const addMonedero = (id) =>{
-
-// }
+        var paises = document.getElementById("paises");
+        var id_pais = "<%= results[0].pais_id %>";
+        paises.value = id_pais;
 
 </script>
