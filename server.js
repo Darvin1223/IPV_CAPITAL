@@ -53,10 +53,11 @@ server.use(errorServer);
 server.use(express.static(path.join(path.join(__dirname, 'public'))));
 server.use('/static', express.static('public'))
 
+// console.log(process.env);
 // Listen 
 server.listen(PORT, () =>{
     console.log(`This page is runnin on local http://${HOST}:${PORT}`);
-})
+});
 
 /* localIpV4Address().then((ipAddress)=>{
     server.listen(PORT, ()=>{

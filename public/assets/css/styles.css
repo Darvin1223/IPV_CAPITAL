@@ -7,11 +7,33 @@
   position: none;
 }
 
-nav .navbar-brand {
-  width: 50%;
+.consulting h4 {
+  font-size: 20px;
 }
-nav .navbar-brand .logo-header {
+.consulting p {
+  font-size: 16px;
+}
+
+.navbar {
+  padding-bottom: 0.5rem;
+}
+
+.container_logo {
+  text-align: center;
+}
+.container_logo .navbar-brand {
+  width: 100%;
+}
+.container_logo .navbar-brand .logo-header {
   max-width: 40%;
+}
+.container_logo .logo-title {
+  color: #7BB4E3;
+  font-size: 18px;
+}
+
+.nav-items-content a {
+  font-size: 16px;
 }
 
 .desktop {
@@ -23,20 +45,93 @@ nav .navbar-brand .logo-header {
   background-repeat: no-repeat;
 }
 
+.banner-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.banner-content--btns {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.banner-content--btns a {
+  margin-bottom: 18px;
+}
+.banner-content--btns a:nth-child(2) {
+  text-align: center;
+}
+
+.form_header--sub-title {
+  font-size: 18px;
+}
+
 @media screen and (min-width: 1024px) {
-  nav .navbar-brand {
-    width: 16%;
+  .navbar {
+    padding-bottom: 1rem;
   }
-  nav .navbar-brand .logo-header {
-    max-width: 50%;
+  nav .container_logo {
+    width: 24%;
+    position: relative;
+  }
+  nav .container_logo .navbar-brand {
+    width: 100%;
+  }
+  nav .container_logo .navbar-brand .logo-header {
+    max-width: 100%;
+  }
+  nav .container_logo .logo-title {
+    color: #7BB4E3;
+    text-align: right;
+    position: absolute;
+    right: 2%;
+    top: 72%;
+    font-size: 20px;
+    text-transform: uppercase;
   }
   .desktop {
     display: inherit;
+  }
+  .sub_title {
+    font-size: 40px;
+    text-align: center;
+  }
+  .form_header--sub-title {
+    text-align: center;
   }
 }
 .public {
   background-color: #012169;
   color: #fff;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.public .public-content {
+  width: 70%;
+}
+.public .public-content h3 {
+  text-align: center;
+  width: 100%;
+}
+
+.how_it_work--title {
+  font-size: 24px;
+}
+
+.about-us--title {
+  font-size: 24px;
+  text-align: center;
+}
+
+.about-us--texts {
+  font-size: 16px;
+}
+
+.about-us--content {
+  display: flex;
+  flex-direction: column;
 }
 
 /*# sourceMappingURL=styles.css.map */
