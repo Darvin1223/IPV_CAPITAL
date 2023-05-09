@@ -18,10 +18,12 @@ class Wallet {
     }
 
     reqUpdateeWallet(req,res){
+
         const {id,wallet} = req.body;
         const tipo_solicitud = 1;
         const queryReq = "INSERT INTO `solicitud` SET ?";
         const query = "SELECT * FROM usuario WHERE id = ?";
+
         conexion.query(query, [id], (errorUser, result) => {
             if(errorUser){
                 console.log(errorUser);
@@ -32,7 +34,8 @@ class Wallet {
                     fullName_solicitud:fullName,
                     tipo_solicitud:tipo_solicitud,
                     email_solicitud:email,
-                    usuario_id: id
+                    usuario_id: id,
+                    datos_json: JSON.stringify([wallet])
                 }, err =>{
                     if(err){
                         console.log(err);
@@ -42,14 +45,22 @@ class Wallet {
                 })
             }
         })
+
+
+
     }
     updateWallet(req,res){
-        const query = "INSERT INTO `wallet` SET ? WHERE user_id = ?";
+
+        console.log(`Actualizando Billetera`)
+
+
+        const query = "UPDATE wallet SET ? WHERE user_id = ?";
         const {id,wallet} = req.body;
-        conexion.query(query, [{haash_wallet:wallet}, id], error =>{
+        conexion.query(query, [{haash_wallet:wallet}, id], error,sql =>{
             if(error){
                 console.log(error);
             }else{
+                console.log(error)
                 res.redirect("/profile");
             }
         });
