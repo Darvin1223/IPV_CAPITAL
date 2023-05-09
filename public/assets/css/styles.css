@@ -1,3 +1,11 @@
+h1, h2, h3, h4 {
+  font-family: "Bebas Neue", cursive;
+}
+
+p, a {
+  font-family: "Open Sans", sans-serif;
+}
+
 .google {
   position: inherit;
   z-index: 9999;
@@ -15,7 +23,8 @@
 }
 
 .navbar {
-  padding-bottom: 0.5rem;
+  padding-bottom: 0rem;
+  padding-top: 0;
 }
 
 .container_logo {
@@ -66,7 +75,29 @@
   font-size: 18px;
 }
 
+.banner-container-div {
+  margin-top: 30px;
+}
+
+@media screen and (min-width: 754px) {
+  .banner-container-div {
+    margin-top: 50px;
+  }
+  .container_logo .navbar-brand .logo-header {
+    max-width: 20%;
+  }
+  .container_logo .logo-title {
+    margin-bottom: 0;
+  }
+  .banner-content {
+    align-content: center;
+  }
+}
 @media screen and (min-width: 1024px) {
+  .banner-content {
+    display: flex;
+    flex-direction: initial;
+  }
   .navbar {
     padding-bottom: 1rem;
   }
@@ -78,7 +109,7 @@
     width: 100%;
   }
   nav .container_logo .navbar-brand .logo-header {
-    max-width: 100%;
+    max-width: 70%;
   }
   nav .container_logo .logo-title {
     color: #7BB4E3;
@@ -86,7 +117,7 @@
     position: absolute;
     right: 2%;
     top: 72%;
-    font-size: 20px;
+    font-size: 15px;
     text-transform: uppercase;
   }
   .desktop {
@@ -98,6 +129,32 @@
   }
   .form_header--sub-title {
     text-align: center;
+  }
+  a.nav-item.nav-link.ts-scroll {
+    font-size: 14px;
+  }
+  .banner-content--btns {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .container_logo {
+    width: 24%;
+  }
+  .container_logo .navbar-brand {
+    width: 100%;
+  }
+  .container_logo .navbar-brand .logo-header {
+    max-width: 100%;
+  }
+  .container_logo .logo-title {
+    right: 14%;
+    top: 72%;
+    font-size: 20px;
+  }
+  a.nav-item.nav-link.ts-scroll {
+    font-size: initial;
   }
 }
 .public {
@@ -132,6 +189,9 @@
 .about-us--content {
   display: flex;
   flex-direction: column;
+}
+.about-us--content a {
+  font-family: "Bebas Neue", cursive;
 }
 
 /*# sourceMappingURL=styles.css.map */

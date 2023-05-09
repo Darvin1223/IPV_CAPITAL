@@ -4,7 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const expressLayouts = require("express-ejs-layouts");
 const session = require('./middleware/sessiones.middleware');
-// const localIpV4Address = require("local-ipv4-address");
+const localIpV4Address = require("local-ipv4-address");
 const errorServer = require('./middleware/ErrorServer.middleware');
 
 
@@ -55,12 +55,12 @@ server.use('/static', express.static('public'))
 
 // console.log(process.env);
 // Listen 
-server.listen(PORT, () =>{
-    console.log(`This page is runnin on local http://${HOST}:${PORT}`);
-});
+// server.listen(PORT, () =>{
+//     console.log(`This page is runnin on local http://${HOST}:${PORT}`);
+// });
 
-/* localIpV4Address().then((ipAddress)=>{
+ localIpV4Address().then((ipAddress)=>{
     server.listen(PORT, ()=>{
         console.log(`Page service is running on local http://${HOST}:${PORT} || Network http://${ipAddress}:${PORT}`);
     });
-}); */
+}); 
