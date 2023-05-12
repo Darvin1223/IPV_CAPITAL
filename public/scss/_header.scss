@@ -1,3 +1,5 @@
+@import "variables";
+
 // nav{
 //     .navbar-brand{
 //         width: 50%;
@@ -17,12 +19,14 @@
     .navbar-brand{
         width: 100%;
         .logo-header{
-            max-width: 40%;
+            max-width: 60%;
         }
     }
     .logo-title{
         color:#7BB4E3;
-        font-size: 18px;
+        font-size: 12px;
+        text-transform: uppercase;
+        display: none;
     }
 }
 .nav-items-content{
@@ -41,6 +45,7 @@
 .banner-content{
     display: flex;
     flex-direction: column;
+    position: absolute;
 }
 .banner-content--btns{
     display: flex;
@@ -60,6 +65,36 @@
 .banner-container-div{
     margin-top: 30px;
 }
+.banner-content--title{
+    font-size: 40px;
+}
+.ts-fadeInUp .banner-content--sub--title{
+    font-size: 30px;
+    margin-bottom: 30px!important;
+    margin-right: 0px;
+}
+.top-up{
+    top: -10rem;
+}
+.banner-content--btns{
+    align-items: center;
+    margin-top: 20px;
+    .btn.btn-header{
+        // width: 42%;
+        padding: 12px 40px;
+        border-radius: 6%;
+        background-color: #012169;
+        color: #fff;
+        font-size: 16px;
+    }
+}
+.btn--menu {
+    position: absolute;
+    top: 11%;
+}
+// .btn_fixed{
+//     top: 11%;
+// }
 @media screen and (min-width:754px){
     .banner-container-div{
         margin-top: 50px;
@@ -79,9 +114,14 @@
     }
 }
 @media screen and (min-width: 1024px) {
+    .navbar{
+        padding-bottom: 0rem;
+        padding-top: 0;
+    }
     .banner-content{
         display: flex;
         flex-direction: initial;
+       
     }
     .navbar{
         padding-bottom: 1rem;
@@ -105,6 +145,7 @@
                 top: 72%;
                 font-size: 15px;
                 text-transform: uppercase;
+                display: initial;
                 // font-weight: bold;
             }
         }
@@ -120,6 +161,7 @@
     }
     .form_header--sub-title{
         text-align: center;
+        font-size: 20px;
     }
     a.nav-item.nav-link.ts-scroll {
         font-size: 14px;

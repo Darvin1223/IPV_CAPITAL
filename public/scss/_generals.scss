@@ -1,6 +1,10 @@
-h1,h2,h3,h4{
+h1,h2,h3,h4,small{
     font-family: 'Bebas Neue', cursive;
 }
+h1, h2, h3, h4{
+    font-size: 24px;
+}
+
 p,a{
     font-family: 'Open Sans', sans-serif;
 }
@@ -23,3 +27,18 @@ p,a{
         font-size: 16px;
     }
 }
+@media screen and (min-width: 1024px) {
+    h1{
+        font-size: 3.125rem;
+    }
+    
+    .consulting{
+        h4{
+            font-size: initial;
+        }
+        p{
+            font-size: initial;
+        }
+    }
+}
+

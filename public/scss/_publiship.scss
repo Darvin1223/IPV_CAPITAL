@@ -20,3 +20,31 @@
     
 
 
+.reti{
+    background-color: #fff;
+    color: $black-blue;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .public-content{
+        width: 70%;
+        h3{
+            text-align: center;
+            width: 100%;
+        }
+    }
+   
+}
+
+@media screen and (min-width: 1024px){
+    .public,.reti{
+        .public-content{
+            h5{
+                text-align: center;
+            }
+        }
+        
+       
+    }
+}

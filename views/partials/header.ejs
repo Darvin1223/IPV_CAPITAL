@@ -1,32 +1,32 @@
-<header id="ts-hero" class="ts-full-screen ts-separate-bg-element">
+<header id="ts-hero" class="ts-full-screen ts-separate-bg-element" style="height: 900px;">
   
   <%- include('Navegation.ejs'); %> 
 
   <div class="container align-self-center align-items-center banner-container-div">
     <div class="row banner-content">
-      <div class="col-md-7">
-        <h1 data-animate="ts-fadeInUp">
-          Haz crecer tus activos y genera el <span class="font-weight-bold ">10%</span> mensual bajo contrato.
+      <div class="col-md-7 top-up">
+        <h1 data-animate="ts-fadeInUp" class="banner-content--title">
+          Haz crecer tus activos y genera el <span class="font-weight-bold ">10%</span> mensual bajo contrato
         </h1>
         <div class="d-flex" data-animate="ts-fadeInUp" data-delay=".1s">
-          <p class="w-75 pr-4 text-white mb-5">
+          <!-- <p class="w-75 pr-4 text-white mb-5 banner-content--sub--title">
             La libertad financiera está solamente a un click de distancia
-          </p>
+          </p> -->
           <!-- <p class="w-75 sub_title text-white mb-5 ">
             Haz crecer tus acivos y genera el <span class="font-weight-bold ">10%</span> mensual bajo contrato.
           </p> -->
         </div>
         <div class="banner-content--btns">
-          <a
-          href="#how-it-works"
-          class="btn btn-primary btn-lg ts-scroll mr-4"
+          <button
+          data-toggle="modal" data-target="#modalheader"
+          class="btn btn-header"
           data-animate="ts-fadeInUp"
           data-delay=".2s"
         >
-        Regístrate
+        Quiero invertir
           <i class="fa fa-arrow-right small ml-3 ts-opacity__50"></i>
-        </a>
-        <a
+        </button>
+        <!-- <a
           href="#form-contact"
           class="btn-link text-white d-inline-block"
           data-animate="ts-fadeInUp"
@@ -34,7 +34,7 @@
         >
         
         <strong>Inicia Sesión ahora!</strong>
-      </a>
+      </a> -->
         </div>
        
       </div>
@@ -63,7 +63,7 @@
             <button type="submit" class="btn btn-primary w-100">Contactar</button>
         </form>
         <!--end ts-form-->
-        <p class="text-white form_header--sub-title">Contáctenos hoy mismo y descubra cómo podemos ayudarlo a lograr sus metas financieras".</p>
+        <!-- <p class="text-white form_header--sub-title">Contáctenos hoy mismo y descubra cómo podemos ayudarlo a lograr sus metas financieras".</p> -->
     </div>
     </div>
   </div>
@@ -86,3 +86,24 @@
     ></div>
   </div>
 </header>
+
+
+<div class="modal fade" id="modalheader" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
