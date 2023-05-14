@@ -3,7 +3,7 @@ const mysql2 = require("mysql2");
 const conexion = mysql2.createPool({
     connectionLimit: 4,
     host: process.env.HOST,
-    user: process.env.USER,
+    user: "root",
     password:process.env.PASSWORD,
     database: process.env.DATABASE
 });
@@ -11,7 +11,7 @@ const conexion = mysql2.createPool({
 
 conexion.getConnection(err =>{
     if(err){
-        console.error(err)
+        console.log(`Hubo un error en la debe ${err.message}`)
     }else{
         console.log(`Conexion a la base de datos exitosamente!`)
     }
