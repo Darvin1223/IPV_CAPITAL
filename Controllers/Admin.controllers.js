@@ -21,7 +21,7 @@ class Admin {
 
 
    //Ganancias Totales
-  let ganancias_totales = await mysql2.ejecutar_query_con_array(`SELECT SUM(capital + capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(MONTH, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(MONTH, fecha_inicio, now()))) AS ganancias FROM planes_activos INNER JOIN plan_inversion ON plan_inversion.plan_id = planes_activos.plan_id where user_id = ?`,[id]);
+  let ganancias_totales = await mysql2.ejecutar_query_con_array(`SELECT SUM(capital + capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, now()))) AS ganancias FROM planes_activos INNER JOIN plan_inversion ON plan_inversion.plan_id = planes_activos.plan_id where user_id = ?`,[id]);
   ganancias_totales = ganancias_totales[0]['ganancia'] != null ? ganancias_totales[0]['ganancia'] : 0;
   //Planes Activos
   let planes_activos = await mysql2.ejecutar_query_con_array(`SELECT COUNT(*) as planes_activos FROM planes_activos WHERE user_id = ?`,[id])
@@ -36,14 +36,14 @@ class Admin {
   let ultima_transacciones = await mysql2.ejecutar_query_con_array(`SELECT SUM(capital) as suma FROM planes_activos WHERE month(fecha_inicio ) = month(now()) and year(fecha_inicio) = year(now()) and user_id = ?`,[id]);
   ultima_transacciones = ultima_transacciones[0]['suma'] != null || 0 ? ultima_transacciones[0]['suma'] : 0;
   //Balance para retiro
-  let balance_para_retiro = await mysql2.ejecutar_query_con_array(`SELECT ROUND(SUM(capital + capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(MONTH, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(MONTH, fecha_inicio, now())) / 12),2) as ganancia FROM planes_activos INNER JOIN plan_inversion ON plan_inversion.plan_id = planes_activos.plan_id WHERE NOW() > fecha_expiracion AND user_id = ?`,[id]);
+  let balance_para_retiro = await mysql2.ejecutar_query_con_array(`SELECT ROUND(SUM(capital + capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, now())) / 365),2) as ganancia FROM planes_activos INNER JOIN plan_inversion ON plan_inversion.plan_id = planes_activos.plan_id WHERE NOW() > fecha_expiracion AND user_id = ?`,[id]);
   balance_para_retiro = balance_para_retiro[0]['ganancia'] != null ? balance_para_retiro[0]['ganancia'] : 0;
   
   //Referencias por bonos
   let data_user = await mysql2.ejecutar_query_con_array(`SELECT * FROM usuario WHERE id = ?`,[id]);
   data_user = data_user[0];
   let codigo_referido = data_user['codigo_referido'];
-  let ganancias_referencias = await mysql2.ejecutar_query_con_array(`SELECT IFNULL( ROUND(SUM(capital + capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(MONTH, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(MONTH, fecha_inicio, now())) / 12 * 10 / 100),2),0) as ganancia FROM codigo_referido INNER JOIN usuario ON codigo_referido.user_id = usuario.id JOIN planes_activos ON planes_activos.user_id = codigo_referido.user_id JOIN plan_inversion ON planes_activos.plan_id = plan_inversion.plan_id WHERE codigo_referido.codigo_referido = ? AND disponibilidad = 1`,[codigo_referido]);
+  let ganancias_referencias = await mysql2.ejecutar_query_con_array(`SELECT IFNULL( ROUND(SUM(capital + capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, now())) / 365 * 10 / 100),2),0) as ganancia FROM codigo_referido INNER JOIN usuario ON codigo_referido.user_id = usuario.id JOIN planes_activos ON planes_activos.user_id = codigo_referido.user_id JOIN plan_inversion ON planes_activos.plan_id = plan_inversion.plan_id WHERE codigo_referido.codigo_referido = ? AND disponibilidad = 1`,[codigo_referido]);
   ganancias_referencias = ganancias_referencias[0]['ganancia']
   //Actualizando Balance de retiro
   balance_para_retiro =  balance_para_retiro + ganancias_referencias
