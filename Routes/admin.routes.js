@@ -14,11 +14,23 @@ const storageDocuments = multer.diskStorage({
     }
 });
 
+// Configuration of folders and destinations.
+const storageComprobante = multer.diskStorage({
+    destination: './public/comprobante',
+    filename: (req,file,cb) => {
+        cb(null, uuidv4() + path.extname(file.originalname).toLowerCase());
+    }
+});
+
 // Update file.
 const updateDocuments = multer({
     storage: storageDocuments,
     dest: 'public/admin/dni'
 })
+
+var upload_comprobante = multer({ storage: storageComprobante });
+
+
 const {AdminController, TransacionesController,PlanesAdminController, RetirosAdminController, ReferidosAdminController, UserProfileController, UsersController, GananciasController, PagosController,CapitalController,DepositosController,WalletController} =  require("./../Controllers");
 const PerfilController = require("../Controllers/Perfil.controller.js");
 
@@ -57,4 +69,10 @@ Route.post("/profile/reqUpdateWallet", verifyLoggedIn,WalletController.reqUpdate
 Route.post("/profile/updateWallet", verifyLoggedIn, WalletController.updateWallet);
 Route.post("/profile/updateWalletAdmin", verifyLoggedIn,WalletController.updateWalletAdmin);
 Route.post("/admin/users/delete-user", verifyLoggedIn, UsersController.eliminarUser);
+
+//
+Route.post('/planes-admin/add', verifyLoggedIn, upload_comprobante.single('file_upload'), function (req, res, next) {
+    res.send(200);
+})
+
 module.exports = Route;

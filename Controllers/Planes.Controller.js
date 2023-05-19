@@ -57,6 +57,14 @@ class Planes {
         
     }
 
+    async AddPlan(req,res){
+
+        res.send(req.body);
+
+    }
+
+
+
 }
 
 module.exports = new Planes();

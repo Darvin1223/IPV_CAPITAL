@@ -12,18 +12,29 @@
              <p>$79.9 billed monthly</p> -->
              <ul class="list-unstyled my-3 p-0">
 
-                <li><p>500 - 1000 USD.</p></li>
+
+               <% var temp_data = JSON.parse(plan.informacion) %>
+
+                <li><p> <%= temp_data[0] %> <%= temp_data[1] %>.</p></li>
 
 
-
+                <!-- <li><p>500 - 1000 USD.</p></li> -->
                 <li><p>Retiros Mensuales.</p></li>
-                <li><p>Devolucion del Capital.</p></li>
-                <li><p>Contrato a 12 meses.</p></li>
+                <!-- li><p>Devolucion del Capital.</p></li>
+               -->
+                <li><p>Contrato a <%= temp_data[3] %> meses.</p></li>
+
+
                 <li><p>Acuerdo de Garantia.</p></li>
-                <li><p>5 Planes maximos.</p></li>
+                <li><p> <%= plan.maximo_plan_activo %> Planes maximos.</p></li>
                 <li><p>Depositos y retiros en USDT.</p></li>
+
+
              </ul>
-             <button type="button" class="btn btn-primary rounded-pill w-100">Elegir plan</button>
+             <button type="button" onclick="getnumber('<%= plan.plan_id %>','<%= plan.min_monto %>','<%= plan.max_monto %>')" class="btn btn-primary rounded-pill w-100" data-toggle="modal" data-target="#plan_add">Elegir plan</button>
+
+
+
           </div>
        </div>
     </div>
@@ -82,22 +93,61 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="plan_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
      <div class="modal-content">
        <div class="modal-header">
          <h5 class="modal-title" id="exampleModalLabel">Comprar Plan</h5>
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
          </button>
        </div>
        <div class="modal-body">
-         ...
+         
+         <form action="/planes-admin/add" method="post">
+
+         <div class="form-group">
+            <label for="inversion_text">Inversion</label>
+            <input type="number" class="form-control" id="inversion_text" name="inver_text"  placeholder="Ingresa la cantidad a invertir">
+            <small id="" class="form-text text-muted">Mentir puede provocar una sancion inmediata (debes elegir el rango de precios correcto) </small>
+          </div>
+
+
+          <div class="custom-file">
+            <p>Comprobante:</p>
+            <input type="file" class="custom-file-input" name="file_upload" id="customFileLang" lang="es">
+            <label class="custom-file-label" for="customFileLang"></label>
+          </div>
+
+
+
+         <input type="number" name="name_plan_input" id="id_plan_input">
+
        </div>
+
        <div class="modal-footer">
-         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-         <button type="button" class="btn btn-primary">Save changes</button>
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+         <button type="submit" class="btn btn-primary">Realizar peticion</button>
+      </form>
        </div>
+
+
      </div>
    </div>
  </div>
+
+
+ <script>
+
+   function getnumber(numero,minimo,maximo){
+      document.getElementById('id_plan_input').value = numero;
+      document.getElementById('inversion_text').min = minimo;
+      document.getElementById('inversion_text').max = maximo;
+      document.getElementById('inversion_text').value = minimo;
+   }
+
+
+ </script>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
