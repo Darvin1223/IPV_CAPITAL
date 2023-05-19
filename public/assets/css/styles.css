@@ -10,6 +10,14 @@ p, a {
   font-family: "Open Sans", sans-serif;
 }
 
+.mobile {
+  display: initial;
+}
+
+.desktop {
+  display: none;
+}
+
 .google {
   position: inherit;
   z-index: 9999;
@@ -29,6 +37,12 @@ p, a {
 @media screen and (min-width: 1024px) {
   h1 {
     font-size: 3.125rem;
+  }
+  .mobile {
+    display: none;
+  }
+  .desktop {
+    display: initial;
   }
   .consulting h4 {
     font-size: initial;
@@ -145,11 +159,15 @@ p, a {
 @media screen and (min-width: 1024px) {
   .navbar {
     padding-bottom: 0rem;
-    padding-top: 0;
+    padding-top: 3%;
+  }
+  .banner-container-div {
+    margin-top: 0;
   }
   .banner-content {
     display: flex;
     flex-direction: initial;
+    top: 46%;
   }
   .navbar {
     padding-bottom: 1rem;
@@ -248,6 +266,7 @@ p, a {
 }
 .reti .public-content h5 {
   text-align: justify;
+  font-weight: 400;
 }
 
 @media screen and (min-width: 375px) {
@@ -257,7 +276,11 @@ p, a {
   }
 }
 @media screen and (min-width: 1024px) {
+  .public .public-content h3, .reti .public-content h3 {
+    font-size: 26px;
+  }
   .public .public-content h5, .reti .public-content h5 {
+    font-size: 20px;
     text-align: center;
   }
 }
@@ -289,6 +312,15 @@ p, a {
   font-family: "Bebas Neue", cursive;
 }
 
+.list-group-flush .list-group-item {
+  color: #000;
+}
+
+@media screen and (min-width: 1024px) {
+  a.list-group-item.list-group-item-action.pl-0.font-weight-bold.bg-transparent.about-us--title {
+    font-size: 26px;
+  }
+}
 .content-plains--sub-tittle {
   font-size: 24px !important;
   margin-bottom: 12px !important;
@@ -313,6 +345,16 @@ p, a {
   font-size: 20px;
 }
 
+@media screen and (min-width: 1024px) {
+  .planes .planes_container--title {
+    font-size: 26px;
+  }
+  .row.no-gutters.ts-cards-same-height {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
 .public .stepts {
   width: 77%;
 }
@@ -363,6 +405,9 @@ p, a {
 @media screen and (min-width: 1024px) {
   .nosotros_footer {
     padding-bottom: initial;
+  }
+  .contact-form-desktop {
+    display: block;
   }
 }
 .ts-block {

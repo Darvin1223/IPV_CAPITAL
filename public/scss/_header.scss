@@ -116,12 +116,16 @@
 @media screen and (min-width: 1024px) {
     .navbar{
         padding-bottom: 0rem;
-        padding-top: 0;
+        padding-top: 3%;
+    }
+    .banner-container-div{
+        margin-top: 0;
     }
     .banner-content{
         display: flex;
         flex-direction: initial;
-       
+    //    position: unset;
+    top: 46%;
     }
     .navbar{
         padding-bottom: 1rem;
@@ -171,6 +175,7 @@
         flex-direction: row;
         align-items: center;
     }
+  
    
 }
 @media screen and (min-width: 1440px){

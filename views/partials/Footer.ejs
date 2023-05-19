@@ -2,13 +2,64 @@
 
     <!-- <div class="map ts-height__400px" id="map"></div> -->
 
-    <section id="contact" class="ts-separate-bg-element" data-bg-image="assets/img/bg-hand-mobile.jpg" data-bg-image-opacity=".1" data-bg-color="#12264f">
+    <section id="form-contact" class="ts-separate-bg-element" data-bg-image="assets/img/bg-hand-mobile.jpg" data-bg-image-opacity=".1" data-bg-color="#12264f">
         <div class="container">
             <div class="ts-box mb-0 p-5 ts-mt__n-10" data-animate="ts-fadeInUp">
                 <div class="row">
                     
                     <!--end col-md-4-->
-                    <div class="col-md-8">
+                    <div class="col-md-8 mobile">
+                        <h3>Formulario de contacto</h3>
+                        <form action="/contat-us" method="post" class="clearfix ts-form ts-form-email ts-inputs__transparent" >
+                            <div class="row">
+                                
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="form-contact-name">Nombre completo *</label>
+                                        <input type="text" class="form-control" id="form-contact-name" name="name" placeholder="Nombre completo" required="">
+                                    </div>
+                                    <!--end form-group -->
+                                </div>
+                                <!--end col-md-6 col-sm-6 -->
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="form-contact-email">Número telefónico *</label>
+                                        <input type="text" class="form-control" id="form-contact-email" name="phoneNumber" placeholder="Número telefónico" required="">
+                                    </div>
+                                    <!--end form-group -->
+                                </div>
+                                <!--end col-md-6 col-sm-6 -->
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="form-contact-email">Correo electrónico *</label>
+                                        <input type="email" class="form-control" id="form-contact-email" name="email" placeholder="Correo electrónico" required="">
+                                    </div>
+                                    <!--end form-group -->
+                                </div>
+                                <!--end col-md-6 col-sm-6 -->
+                            </div>
+                            <!--end row -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="form-contact-message">Mensaje *</label>
+                                        <textarea class="form-control" id="form-contact-message" rows="5" name="message" placeholder="Escriba un mensaje " required=""></textarea>
+                                    </div>
+                                    <!--end form-group -->
+                                </div>
+                                <!--end col-md-12 -->
+                            </div>
+                            <!--end row -->
+                            <div class="form-group clearfix">
+                                <button type="submit" class="btn btn-primary float-right" >Enviar</button>
+                            </div>
+                            <!--end form-group -->
+                            <div class="form-contact-status"></div>
+                        </form>
+                        <!--end form-contact -->
+                    </div>
+                     <!--end col-md-4-->
+                     <div class="col-md-12 desktop contact-form-desktop">
                         <h3>Formulario de contacto</h3>
                         <form action="/contat-us" method="post" class="clearfix ts-form ts-form-email ts-inputs__transparent" >
                             <div class="row">
