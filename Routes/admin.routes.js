@@ -71,7 +71,9 @@ Route.post("/profile/updateWalletAdmin", verifyLoggedIn,WalletController.updateW
 Route.post("/admin/users/delete-user", verifyLoggedIn, UsersController.eliminarUser);
 
 //
-Route.post('/planes-admin/add', verifyLoggedIn, upload_comprobante.single('file_upload'), function (req, res, next) {
+Route.post('/planes-admin/add', verifyLoggedIn, upload_comprobante.single('file_upload'), function (req, res) {
+    //;
+    console.log(req.file)
     res.send(200);
 })
 
