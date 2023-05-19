@@ -72,9 +72,7 @@ Route.post("/admin/users/delete-user", verifyLoggedIn, UsersController.eliminarU
 
 //
 Route.post('/planes-admin/add', verifyLoggedIn, upload_comprobante.single('file_upload'), function (req, res) {
-    //;
-    console.log(req.file)
-    res.send(200);
+    PlanesAdminController.AddPlan(req,res)
 })
 
 module.exports = Route;
