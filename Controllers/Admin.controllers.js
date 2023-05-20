@@ -78,9 +78,17 @@ class Admin {
   }
 
 
-  indexAdmin(req, res) {
+  async indexAdmin(req, res) {
     const id = req.session.id_user;
     const queryUsers = "SELECT * FROM `usuario`";
+
+     //Balance para retiro
+  let balance_para_retiro = await mysql2.ejecutar_query_con_array(`SELECT ROUND(SUM(capital + capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, now())) / 365),2) as ganancia FROM planes_activos INNER JOIN plan_inversion ON plan_inversion.plan_id = planes_activos.plan_id WHERE NOW() > fecha_expiracion`,[id]);
+  balance_para_retiro = balance_para_retiro[0]['ganancia'] != null ? balance_para_retiro[0]['ganancia'] : 0;
+    //Planes activos
+  let planes_totales = await mysql2.ejecutar_query(`SELECT COUNT(*) as total FROM planes_activos WHERE disponible = 1`);
+  planes_totales = planes_totales[0]['total'];
+
     // const planesActivos = "SELECT * FROM `plan_inversion` INNER JOIN estatus On plan_inversion.estado_id = estatus.id_status;";
     conexion.query(
       "SELECT * FROM `usuario` INNER JOIN rol ON usuario.rol_id = rol.id_rol INNER JOIN estatus ON usuario.estatus_id = estatus.id_status WHERE usuario.id = ?",
@@ -103,6 +111,8 @@ class Admin {
                 title: "Dashboard | IPV CAPITAL - Admin Panel",
                 results: results,
                 Users: resultsUsers,
+                balance_para_retiro,
+                planes_totales
                 // PlanesActivos:resultsPlanesActivos
               });
               // }
