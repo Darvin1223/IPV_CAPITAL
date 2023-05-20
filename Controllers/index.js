@@ -1,7 +1,7 @@
 ///No sabia donde ponerlo xd (Funciones de tiempo)
 let TimeController = require('./Time.controllers');
 
-
+let UsuarioGenerador = require('./Procedural');
 
 
 
