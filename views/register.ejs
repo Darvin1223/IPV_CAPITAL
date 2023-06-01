@@ -39,6 +39,8 @@
         prefix
       }}info&quot;:&quot;#08B1BA&quot;},&quot;value&quot;:&quot;theme-color-default&quot;},&quot;theme_transition&quot;:{&quot;value&quot;:&quot;theme-with-animation&quot;},&quot;theme_font_size&quot;:{&quot;value&quot;:&quot;theme-fs-md&quot;},&quot;page_layout&quot;:{&quot;value&quot;:&quot;container-fluid&quot;},&quot;header_navbar&quot;:{&quot;value&quot;:&quot;default&quot;},&quot;header_banner&quot;:{&quot;value&quot;:&quot;default&quot;},&quot;sidebar_color&quot;:{&quot;value&quot;:&quot;sidebar-white&quot;},&quot;card_color&quot;:{&quot;value&quot;:&quot;card-default&quot;},&quot;sidebar_type&quot;:{&quot;value&quot;:[]},&quot;sidebar_menu_style&quot;:{&quot;value&quot;:&quot;left-bordered&quot;},&quot;footer&quot;:{&quot;value&quot;:&quot;default&quot;},&quot;body_font_family&quot;:{&quot;value&quot;:null},&quot;heading_font_family&quot;:{&quot;value&quot;:null}}}"
     />
+
+    
     <!-- Favicon -->
     <link rel="shortcut icon" href="/static/admin/images/favicon.ico" />
 
@@ -206,6 +208,18 @@
                       >Estoy de acuerdo con los terminos y condiciones</label
                     > -->
                   </div>
+                  <div class="d-flex justify-content-center">
+                    <div class="text-center pb-3">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" >
+                        <label class="form-check-label" for="disabledFieldsetCheck">
+                          <a href="#" id="termsLink">Términos y Condiciones</a>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                 
                   <div class="text-center pb-3">
                     <button type="submit" class="btn btn-primary">Registrarse</button>
                   </div>
@@ -224,7 +238,29 @@
       </div>
     </div>
   
-
+    <div class="modal" id="terminos_Condiciones" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Título del Modal</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="modal-body-scrollable">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id congue felis. Suspendisse ultrices tortor sed sapien vestibulum, in sollicitudin quam venenatis. Donec sit amet nisi nibh. Aliquam erat volutpat. In mattis luctus purus, in varius erat malesuada non. Fusce tempor diam nec augue gravida, vitae malesuada ex vestibulum.</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id congue felis. Suspendisse ultrices tortor sed sapien vestibulum, in sollicitudin quam venenatis. Donec sit amet nisi nibh. Aliquam erat volutpat. In mattis luctus purus, in varius erat malesuada non. Fusce tempor diam nec augue gravida, vitae malesuada ex vestibulum.</p>
+              <!-- Añade más contenido si es necesario -->
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Library Bundle Script -->
     <script src="/static/admin/js/core/libs.min.js"></script>
     <!-- Plugin Scripts -->
