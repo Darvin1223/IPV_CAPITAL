@@ -426,4 +426,9 @@ p, a {
   margin-bottom: 0 !important;
 }
 
+.new_size_title {
+  font-size: 30px !important;
+  font-weight: bold !important;
+}
+
 /*# sourceMappingURL=styles.css.map */
