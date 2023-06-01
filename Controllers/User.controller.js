@@ -1,13 +1,17 @@
 const conexion = require("../Database/database");
+const mysql2 = require('../Database/mysql2');
+const moment = require('moment');
 
 class User {
   showUsersAdmin(req, res) {
-    const id = req.session.id_user;
-    const queryUsers = "SELECT * FROM `usuario`";
-    const queryUsersEliminados =
-      "SELECT * FROM `user_eliminados` INNER JOIN usuario ON user_eliminados.user_id = usuario.id";
+    moment.locale('es-do');
 
-    const queryUserInactivos = "SELECT * FROM `usuario` WHERE estatus_id = 6";
+    const id = req.session.id_user;
+    const queryUsers = "select * from usuario inner join estatus on estatus.id_status = estatus_id order by ultimo_login desc LIMIT 10";
+    const queryUsersEliminados =
+      "SELECT user_eliminados.nombre, user_eliminados.apellido,user_eliminados.fecha_eliminacion, user_eliminados.razones, user_eliminados.telefono, user_eliminados.email, usuario.nombre as nombre_eliminado, usuario.apellido as apellido_eliminado FROM user_eliminados INNER JOIN usuario ON user_eliminados.admin_id = usuario.id";
+
+    const queryUserInactivos = 'SELECT * FROM `usuario` INNER JOIN estatus ON usuario.estatus_id = estatus.id_status WHERE estado = "Inactivos"';
     const queryUserProcesando = "SELECT * From usuario WHERE estatus_id = 3";
     const generalQuery =
       "SELECT * FROM `usuario` INNER JOIN rol ON usuario.rol_id = rol.id_rol INNER JOIN estatus ON usuario.estatus_id = estatus.id_status WHERE usuario.id = ?";
@@ -54,6 +58,7 @@ class User {
                                       usersProcesando: usersProcesando,
                                       UserEliminados: resultsEliminados,
                                       solicitudes: resultsSolocitudes,
+                                      moment
                                     });
                                   }
                                 }
@@ -95,7 +100,7 @@ class User {
 
 
 }
-  eliminarUser(req, res) {
+  async eliminarUser(req, res) {
     const id = req.query.id;
     const id_admin = req.session.id_user;
     const date = new Date();
@@ -106,47 +111,29 @@ class User {
     // const queryUpdateStatus = "UPDATE `usuario` SET estatus_id = ? WHERE id  = ?";
     const queryUpdateStatus = "UPDATE usuario SET estatus_id = ? WHERE id = ?";
     const queryInsert = "INSERT INTO user_eliminados SET ?";
-    conexion.query(query, id_admin, (errorResultAdmin, resultAdmin) => {
-      if (errorResultAdmin) {
-        console.log(errorResultAdmin);
-      } else {
-        console.log(resultAdmin[0]);
-        conexion.query(query, id, (errorResultUser, resultUser) => {
-          if (errorResultUser) {
-            console.log(errorResultUser);
-          } else {
-            console.log(resultUser[0]);
-            conexion.query(
-              queryUpdateStatus,
-              [{ estatus_id: id_status }, id],
-              (errorChangeOfStatus) => {
-                if (errorChangeOfStatus) {
-                  console.error(errorChangeOfStatus);
-                } else {
-                  console.log(resultUser[0].estatus_id);
-                  conexion.query(
-                    queryInsert,
-                    {
-                      razones: razones,
-                      fecha_eliminacion: fecha_eliminacion,
-                      user_id: id,
-                      admin_id: id_admin,
-                    },
-                    (errorInsertDelete) => {
-                      if (errorInsertDelete) {
-                        console.log(errorInsertDelete);
-                      } else {
-                        res.redirect("/admin/users");
-                      }
-                    }
-                  );
-                }
-              }
-            );
-          }
-        });
-      }
-    });
+
+
+    let permisos_usuarios = await mysql2.ejecutar_query_con_array(`SELECT * FROM usuario INNER JOIN rol ON usuario.rol_id = id_rol WHERE id = ?`,[id_admin]);
+    permisos_usuarios = permisos_usuarios[0];
+
+    if(id_admin == null || id_admin == undefined) return res.redirect('/admin');
+    if(permisos_usuarios['rol'] != "Administrador") return res.redirect('/admin');
+
+
+    let Informacion_usuario_a_eliminar = await mysql2.ejecutar_query_con_array(query,[id]);
+    Informacion_usuario_a_eliminar = Informacion_usuario_a_eliminar[0];
+
+    let fecha_actual = new Date();
+
+    let {email, password, nombre, apellido, telefono, edad, fecha_nacimiento, fecha_creacion, ultimo_login, codigo_referido, pais_id, rol_id, estatus_id, wallet_id, id_pais, update_profile_date} = Informacion_usuario_a_eliminar;
+
+    let editar_estado_usuario = await mysql2.ejecutar_query_con_array(`UPDATE usuario SET estatus_id = ? WHERE id = ?`,[0,id]);
+
+    let insertar_usuario_eliminados = await mysql2.ejecutar_query_con_array(`INSERT INTO user_eliminados (fecha_eliminacion, razones, user_id, admin_id, email, password, nombre, apellido, telefono, edad, fecha_nacimiento, fecha_creacion, ultimo_login, codigo_referido, pais_id, rol_id, estatus_id, wallet_id, id_pais, update_profile_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) `,[fecha_actual,razones,id,id_admin,email, password, nombre, apellido, telefono, edad, fecha_nacimiento, fecha_creacion, ultimo_login, codigo_referido, pais_id,rol_id, estatus_id, wallet_id, id_pais, update_profile_date])
+
+
+    res.redirect('/admin/users');
+
   }
 
   inactivosUsers(req, res) {

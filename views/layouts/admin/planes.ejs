@@ -1,3 +1,9 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json" charset="utf-8"></script>
+
+
 <div class="row">
 
   <% planes_usadas.forEach(function(plan){ %>
@@ -22,160 +28,129 @@
     </div>
 
   <% }); %>
-  
+
 </div>
-<div class="row">
-   <div class="col-lg-6 col-md-12">
-      <div class="card card-block card-stretch card-height">
-        <nav class="tab-bottom-bordered">
-          <div
-            class="mb-0 nav nav-tabs justify-content-around"
-            id="nav-tab1"
-            role="tablist"
-          >
-            <button
-              class="nav-link py-3 active"
-              id="nav-home-11-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#nav-home-11"
-              type="button"
-              role="tab"
-              aria-controls="nav-home-11"
-              aria-selected="true"
-            >
-              Basico
-            </button>
-            <button
-              class="nav-link py-3"
-              id="nav-profile-11-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#nav-profile-11"
-              type="button"
-              role="tab"
-              aria-controls="nav-profile-11"
-              aria-selected="false"
-            >
-              Estandar
-            </button>
-            <button
-              class="nav-link py-3"
-              id="nav-contact-11-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#nav-contact-11"
-              type="button"
-              role="tab"
-              aria-controls="nav-contact-11"
-              aria-selected="false"
-            >
-              Avanzado
-            </button>
-          </div>
-        </nav>
-        <div class="tab-content iq-tab-fade-up" id="nav-tabContent">
-          <div
-            class="tab-pane fade show active"
-            id="nav-home-11"
-            role="tabpanel"
-            aria-labelledby="nav-home-11-tab"
-          >
-            <div class="table-responsive">
-              <table
-                id="transaction-table"
-                class="table mb-0 table-striped"
-                role="grid"
-              >
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <h6 class="mb-0">Darvin Rodriguez</h6>
-                      </div>
-                    </td>
-                    <td class="text-primary">Email@email.com</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <h6 class="mb-0">Adriana Alvarez</h6>
-                      </div>
-                    </td>
-                    <td class="text-primary">Email@email.com</td>
-                
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div
-            class="tab-pane fade"
-            id="nav-profile-11"
-            role="tabpanel"
-            aria-labelledby="nav-profile-11-tab"
-          >
-            <div class="table-responsive">
-              <table
-                id="transaction-table-1"
-                class="table mb-0 table-striped"
-                role="grid"
-              >
-                <tbody>
-                  <tr>
-                     <td>
-                       <div class="d-flex align-items-center">
-                         <h6 class="mb-0">Darvin Rodriguez</h6>
-                       </div>
-                     </td>
-                     <td class="text-primary">Email@email.com</td>
-                   </tr>
-                   <tr>
-                     <td>
-                       <div class="d-flex align-items-center">
-                         <h6 class="mb-0">Adriana Alvarez</h6>
-                       </div>
-                     </td>
-                     <td class="text-primary">Email@email.com</td>
-                 
-                   </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div
-            class="tab-pane fade"
-            id="nav-contact-11"
-            role="tabpanel"
-            aria-labelledby="nav-contact-11-tab"
-          >
-            <div class="table-responsive">
-              <table
-                id="transaction-table-2"
-                class="table mb-0 table-striped"
-                role="grid"
-              >
-                <tbody>
-                  <tr>
-                     <td>
-                       <div class="d-flex align-items-center">
-                         <h6 class="mb-0">Darvin Rodriguez</h6>
-                       </div>
-                     </td>
-                     <td class="text-primary">Email@email.com</td>
-                   </tr>
-                   <tr>
-                     <td>
-                       <div class="d-flex align-items-center">
-                         <h6 class="mb-0">Adriana Alvarez</h6>
-                       </div>
-                     </td>
-                     <td class="text-primary">Email@email.com</td>
-                 
-                   </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-       
-      </div>
-    </div>
-</div>
+
+  <div class="row">
+      <h1>Lista de planes Activos</h1>
+      <hr>
+      <table id="mytable" class="table table-dark">
+        <thead>
+          <tr>
+            <th>planesActivos_id</th>
+            <th>nombre</th>
+            <th>capital</th>
+            <th>tasa_interes</th>
+            <th>min_monto</th>
+            <th>max_monto</th>
+            <th>capital_cobrada</th>
+            <th>email</th>
+            <th>telefono</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% data_planes.forEach(function(item) { %>
+            <tr>
+              <td><%= item.planesActivos_id %></td>
+              <td><%= item.nombre %></td>
+              <td><%= item.capital %></td>
+              <td><%= item.tasa_interes %></td>
+              <td><%= item.min_monto %></td>
+              <td><%= item.max_monto %></td>
+              <td><%= item.capital_cobrada %></td>
+              <td><%= item.email %></td>
+              <td><%= item.telefono %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+  </div>
+
+
+  <div class="row">
+
+    <h1>Solicitudes Planes</h1>
+
+    <table class="table">
+      <thead>
+
+      <tr>
+           <th>#</th>
+           <th>email</th>
+           <th>telefono</th>
+           <th>codigo_referido</th>
+           <th>ultimo_login</th>
+           <th>rol</th>
+           <th>Planes</th>
+           <th>Monto</th>
+           <th>ID transaccion</th>
+           <th>Acciones</th>
+       </tr>
+
+      </thead>
+      <tbody>
+
+        <% solicitudes_planes.forEach(function(item) { %>
+
+          <% var temp_var = JSON.parse(item.json_solicitud_planes) %>
+
+
+
+
+        <tr>
+          <th scope="row"><%= item.id_solicitud_planes %></th>
+          <td><%= item.email %></td>
+          <td><%= item.telefono %></td>
+          <td><%= item.codigo_referido %></td>
+          <td><%= moment(item.ultimo_login).startOf('day').fromNow() %>  </td>
+          <td><%= item.rol %></td>
+
+          <td><%= item.nombre_plan %></td>
+          <td><%= temp_var.capital %></td>
+          <td><%= temp_var.id_transaccion %></td>
+
+
+
+
+          <td>
+
+            <a href="/admin/planes/aceptar/<%= item.id_solicitud_planes %>" class="btn btn-success">Aceptar</a>
+            <a href="/admin/planes/rechazar/<%= item.id_solicitud_planes %>" class="btn btn-danger">Rechazar</a>
+
+
+          </td>
+        </tr>
+
+        <% }) %>
+
+
+      </tbody>
+  </table>
+
+
+
+
+
+
+
+  </div>
+
+
+
+
+  <script>
+
+
+    $(document).ready(function() {
+      $('#mytable').DataTable({
+        language: {
+          url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
+        }
+      });
+    });
+
+
+
+
+
+  </script>

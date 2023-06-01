@@ -4,7 +4,7 @@
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <div class="header-title">
-        <h4 class="card-title">Activos</h4>
+        <h4 class="card-title">Los 10 Ultimos Inicios De Session Mas Recientes</h4>
       </div>
     </div>
     <div class="card-body p-0">
@@ -18,76 +18,50 @@
             </tr>
           </thead>
           <tbody>
-            <% Users.forEach(User =>{ %>
-              <% if(User.estatus_id == 2){ %>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <h6><%= User.nombre %> <%= User.apellido %></h6>
-                </div>
-              </td>
 
-              <td><%= User.email %></td>
-              <td><div class="text-success">Activo</div></td>
-            </tr>
-            <%}else{ %>
-            <p class="text-center">No hay usuarios activos</p>
-            <%} %>
-             <% }); %>
+            <% if(Users.length > 0){ %>
+
+              <% Users.forEach(User =>{ %>
+
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <h6><%= User.nombre %> <%= User.apellido %></h6>
+                  </div>
+                </td>
+
+                <td><%= User.email %></td>
+
+                <% if(User.estado == 'Inactivos'){ %>
+                  <td><div class="text-warning"><%= User.estado %></div></td>
+                <% } %>
+
+                <% if(User.estado == 'no activada'){ %>
+                  <td><div class="text-warning"><%= User.estado %></div></td>
+                <% } %>
+
+                <% if(User.estado == 'Activo'){ %>
+                  <td><div class="text-success"><%= User.estado %></div></td>
+                <% } %>
+
+              </tr>
+
+               <% }); %>
+
+            <% } %>
+
+            <% if(Users.length == 0){ %>
+              <p class="text-center">No hay usuarios activos</p>
+            <% } %>
+
           </tbody>
         </table>
       </div>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-header d-flex justify-content-between">
-      <div class="header-title">
-        <h4 class="card-title">Registrados</h4>
-      </div>
-    </div>
-    <div class="card-body p-0">
-      <div class="table-responsive mt-4">
-        <table id="basic-table" class="table table-striped mb-0" role="grid">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Estado</th>
-              <th>Accion</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% usersProcesando.forEach(UserProcesando =>{%>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <h6>
-                    <%=UserProcesando.nombre%> <%=UserProcesando.apellido%>
-                  </h6>
-                </div>
-              </td>
+  </div
 
-              <td><%=UserProcesando.email%></td>
-              <td><div class="text-info">Pendiente</div></td>
-              <td>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModalDefault"
-                  id="<%=UserProcesando.id%>"
-                  onclick="getData(`<%=UserProcesando.id%>`)"
-                >
-                  Ver datos
-                </button>
-              </td>
-            </tr>
-            <% }) %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+
+
 </div>
 <div class="row">
   <div class="card">
@@ -108,7 +82,7 @@
           </thead>
           <tbody>
             <% solicitudes.forEach(Solicitud =>{ %>
-              
+
             <tr>
               <td>
                 <div class="d-flex align-items-center">
@@ -142,55 +116,7 @@
       </div>
     </div>
   </div>
-  <div class="card">
-    <div class="card-header d-flex justify-content-between">
-      <div class="header-title">
-        <h4 class="card-title">Registrados</h4>
-      </div>
-    </div>
-    <div class="card-body p-0">
-      <div class="table-responsive mt-4">
-        <table id="basic-table" class="table table-striped mb-0" role="grid">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Estado</th>
-              <th>Accion</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% usersProcesando.forEach(UserProcesando =>{%>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <h6>
-                    <%=UserProcesando.nombre%> <%=UserProcesando.apellido%>
-                  </h6>
-                </div>
-              </td>
 
-              <td><%=UserProcesando.email%></td>
-              <td><div class="text-info">Pendiente</div></td>
-              <td>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModalDefault"
-                  id="<%=UserProcesando.id%>"
-                  onclick="getData(`<%=UserProcesando.id%>`)"
-                >
-                  Ver datos
-                </button>
-              </td>
-            </tr>
-            <% }) %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
 </div>
 
 <div class="row">
@@ -209,7 +135,6 @@
                 <th>Nombre Completo</th>
                 <th>Correo</th>
                 <th>Fecha</th>
-                <th>Referido por:</th>
                 <th>Telefono</th>
                 <th>Ver datos</th>
                 <th>Eliminar</th>
@@ -222,7 +147,6 @@
                 <td><%= User.nombre %> <%= User.apellido %></td>
                 <td><%= User.email %></td>
                 <td><%= User.fecha_creacion %></td>
-                <td>aaac.2702@gmail.com</td>
                 <td><%= User.telefono %></td>
                 <td> <button
                   type="button"
@@ -285,24 +209,14 @@
               <% UserEliminados.forEach(User => { %>
                 <tr class="text-center">
                   <td><%= User.nombre %> <%= User.apellido %></td>
-                  <td> <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModalDefault"
-                    id="<%%>"
-                    
-                  >
-                    Ver datos
-                  </button></td>
-                  <td><%= User.fecha_eliminacion %></td>
+                  <td> <%= User.razones %> </td>
+                  <td><%= moment(User.fecha_eliminacion).format('LLL')  %></td>
                   <td>No fue referido por nadie</td>
-                  
-                  <td>darvin.rod10@gmail.com</td>
+                  <td> <%= User.correo_eliminado %> </td>
                   <td><%= User.telefono %></td>
                   <td><%= User.email %></td>
                 </tr>
-                <% }); %>             
+                <% }); %>
             </tbody>
             <tfoot>
               <tr>
@@ -353,7 +267,7 @@
                 <td><%=UserInactivo.email%></td>
               </tr>
 
-              <% }) %> 
+              <% }) %>
               <% }else{ %>
               <p class="text-center">No hay usuarios inactivos</p>
               <% } %>
@@ -394,11 +308,11 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body" id="deleteForm"> 
+      <div class="modal-body" id="deleteForm">
         <form action="" method="POST"></form>
       </div>
       <div class="modal-footer">
-      
+
       </div>
     </div>
   </div>
@@ -461,7 +375,7 @@
               text_img+=`<img src="${img}" style='width:100%'>"`
           })
 
-        
+
         elementsModal = `
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Nombre Completo:</label>
@@ -499,8 +413,8 @@
               `<img src=${} style="width:100%">`
             })} */
 
-           
-            
+
+
         userInformation.innerHTML = elementsModal;
       } catch (error) {
     console.error(error);
@@ -535,6 +449,6 @@ const deleteUser = (id)=>{
 
   deleteOneUser(id);
 
-} 
+}
 
 </script>

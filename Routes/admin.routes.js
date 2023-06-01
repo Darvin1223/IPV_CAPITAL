@@ -40,6 +40,16 @@ Route.get('/admin/planes', verifyLoggedIn, PlanesAdminController.showPlanesAdmin
 Route.get('/admin/users', verifyLoggedIn, UsersController.showUsersAdmin);
 Route.get('/admin/ganancias', verifyLoggedIn, GananciasController.showGananciasAdmin);
 Route.get('/admin/retiros', verifyLoggedIn, RetirosAdminController.showRetirosAdmin);
+
+//Solicitar Retiros
+Route.post('/admin/solicitar-retiro',verifyLoggedIn, RetirosAdminController.Comprobar_Tipo_Retiros);
+Route.get('/admin/retiros/aceptar/:id', verifyLoggedIn, RetirosAdminController.Aceptar_Retiro);
+Route.get('/admin/retiros/rechazar/:id', verifyLoggedIn, RetirosAdminController.RechazarRetiro);
+
+//Planes
+Route.get('/admin/planes/aceptar/:id', verifyLoggedIn, PlanesAdminController.AceptarPlanes);
+Route.get('/admin/planes/rechazar/:id', verifyLoggedIn, PlanesAdminController.RechazarPlanes);
+
 Route.get('/admin/pagos', verifyLoggedIn, PagosController.showPaysAdmin);
 Route.get("/admin/userData/:id", UsersController.getUserData);
 Route.get('/admin/capital-admin', verifyLoggedIn, CapitalController.showCapitalesAdmin);

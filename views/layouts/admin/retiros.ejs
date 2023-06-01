@@ -6,7 +6,7 @@
                   <div>
                      <span><b>Total disponible para retiro</b></span>
                      <div class="mt-2">
-                        <h2 class="counter" style="visibility: visible;">$35000</h2>
+                        <h2 class="counter" style="visibility: visible;">$<%= retiros_totales['total_retiros'] %></h2>
                      </div>
                   </div>
                   <div>
@@ -17,13 +17,13 @@
                   <div>
                      <span>Dinero total para retiro</span>
                   </div>
-                
+
                </div>
-              
+
             </div>
          </div>
     </div>
-    
+
 </div>
 <div class="row">
     <div class="card">
@@ -41,94 +41,39 @@
                   <th>Email</th>
                   <th>Cantidad</th>
                   <th>Tipo de cuenta</th>
-                  <th>Accion</th>
+                  <th>Billetera</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
+
               <tbody>
+
+              <% data_retiros_pendientes.forEach(function(item) { %>
+
                 <tr>
                   <td>
                     <div class="d-flex align-items-center">
-                      <h6>Darvin Rodriguez</h6>
+                      <h6><%= item.nombre %> <%= item.apellido %></h6>
                     </div>
                   </td>
-                
-                  <td>email@email.com</td>
-                  <td><div class="text-success">$500</div></td>
+
+                  <td><%= item.email %></td>
+                  <td><div class="text-success">$<%= item.monto %></div></td>
                   <td class="text-center">
                       <span class="badge rounded-pill bg-info">Billetera virtual</span>
                     </td>
-                  <td> <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModalDefault"
-                  >
-                    Ver Cantidad
-                  </button></td>
+                 <td>
+                   <%= item.haash_wallet %>
+                 </td>
+                 <td>
+                   <a class="btn btn-primary" href="/admin/retiros/aceptar/<%= item.id_solicitud_retiro %>" name="button">Aceptar Retiro</a>
+                   <a class="btn btn-danger" href="/admin/retiros/rechazar/<%= item.id_solicitud_retiro %>" name="button">Rechazar Retiro</a>
+                 </td>
+
                 </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <h6>Adriana Alvarez</h6>
-                    </div>
-                  </td>
-                 
-                  <td>correo@correo.com</td>
-                  <td><div class="text-success">$500</div></td>
-                  <td class="text-center">
-                      <span class="badge rounded-pill bg-info">Cuenta Bancaria</span>
-                    </td>
-                  <td> <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModalDefault"
-                  >
-                    Ver Cantidad
-                  </button></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <h6>Fix Platform Errors</h6>
-                    </div>
-                  </td>
-                  <td>email@email.com</td>
-                  <td><div class="text-success">$500</div></td>
-                  <td class="text-center">
-                      <span class="badge rounded-pill bg-info">Cuenta Bancario</span>
-                    </td>
-                  <td> <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModalDefault"
-                  >
-                    Ver Cantidad
-                  </button></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <h6>Launch Our Mobile App</h6>
-                    </div>
-                  </td>
-                 
-                  <td>admin@email.com</td>
-                  <td><div class="text-success">$500</div></td>
-                  <td class="text-center">
-                      <span class="badge rounded-pill bg-info">Billetera virtual</span>
-                    </td>
-                 <td> <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModalDefault"
-                  >
-                    Ver Cantidad
-                  </button></td>
-                </tr>
-              
+
+                <% }) %>
+
               </tbody>
             </table>
           </div>

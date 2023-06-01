@@ -26,12 +26,17 @@
                     </tr>
                   </thead>
                   <tbody>
+
+                    <% retiros_pendientes.forEach(function(retiro) { %>
+
                     <tr>
-                      <td>$14000</td>
-                      <td><div class="text-info">Pending</div></td>
-                      
+                      <td>$<%= retiro.monto %></td>
+                      <td><div class="text-info"><%= retiro.estado %></div></td>
                     </tr>
-                   
+
+                    <% }) %>
+
+
                   </tbody>
                 </table>
               </div>
@@ -54,9 +59,9 @@
           <div class="card-body">
             <div class="table-responsive">
               <table
-                
+
                 class="table table-striped"
-            
+
               >
                 <thead>
                   <tr>
@@ -66,34 +71,21 @@
                   </tr>
                 </thead>
                 <tbody>
+
+              <% historial_retiros.forEach(function(item) { %>
+
                   <tr>
-                    <td>$320,800</td>
-                    <td><div class="text-info">Recibido</div></td>
-                    <td>2011/04/25</td>
-                  </tr>  
-                  <tr>
-                    <td>$320,800</td>
-                    <td><div class="text-info">Recibido</div></td>
-                    <td>2011/04/25</td>
-                  </tr>  
-                  <tr>
-                    <td>$320,800</td>
-                    <td><div class="text-info">Recibido</div></td>
-                    <td>2011/04/25</td>
-                  </tr>  
-                  <tr>
-                    <td>$320,800</td>
-                    <td><div class="text-info">Recibido</div></td>
-                    <td>2011/04/25</td>
-                  </tr>  
-                  <tr>
-                    <td>$320,800</td>
-                    <td><div class="text-info">Recibido</div></td>
-                    <td>2011/04/25</td>
-                  </tr>  
+                      <th>$<%= item.monto %></th>
+                      <th><%= item.estado %></th>
+                      <th><%= moment(item.fecha_solicitud ).subtract(10, 'days').calendar(); %></th>
+                  </tr>
+
+              <% }) %>
+
+
                 </tbody>
                 <tfoot>
-                    
+
                   <tr>
                     <th>Cantidad</th>
                     <th>Estatus</th>
@@ -128,17 +120,37 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form action="">
+        <form method="post" action="/admin/solicitar-retiro">
+
           <div class="bm-5">
             <label for="">Seleccione donde desee que le depositen</label>
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select" name="origen" aria-label="Default select example">
               <option selected>
                 Selecciona donde quieres que te depositen
               </option>
-              <option value="1">Cuenta bancaria</option>
-              <option value="2">Billetera Virtual</option>
+              <option value="Cuenta bancaria">Cuenta bancaria</option>
+              <option value="Billetera Virtual">Billetera Virtual</option>
             </select>
           </div>
+
+          <div class="bm-5">
+            <label for="">Origen del monto</label>
+            <select class="form-select" name="producto" aria-label="Default select example">
+
+              <option selected>
+                Selecciona donde quieres que se debite el dinero
+              </option>
+
+              <option value="Planes">Planes</option>
+              <option value="Referidos">Referidos</option>
+
+
+            </select>
+          </div>
+
+
+
+
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label"
               >Agrega la cantidad</label
@@ -146,13 +158,19 @@
             <input
               type="number"
               class="form-control"
+              name="monto"
               id="exampleInputEmail1"
+              max="<%= balance_para_retiro %>"
+              min="1"
+              step="0.01"
               placeholder="$5000 USD"
             />
             <div id="emailHelp" class="form-text">
               Aqui agregas la cantidad que deben agregar.
             </div>
           </div>
+
+
           <button type="submit" class="btn btn-primary">Solicitar</button>
         </form>
       </div>

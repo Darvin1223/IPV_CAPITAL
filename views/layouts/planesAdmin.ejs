@@ -40,8 +40,8 @@
     </div>
 
     <% }); %>
-   
-    
+
+
  </div>
 <div class="row d-flex justify-content-between">
     <div class="card col-7">
@@ -70,13 +70,13 @@
                              <h6><%= plan.nombre_plan %></h6>
                           </div>
                        </td>
-                     
+
                        <td>$<%= plan.monto %></td>
                        <td><div class="badge bg-soft-primary p-2 text-primary">Pending</div></td>
                        <td>
 
-                         
-                         
+
+
                        </td>
                     </tr>
 
@@ -88,7 +88,7 @@
            </div>
         </div>
      </div>
-   
+
 </div>
 
 
@@ -101,8 +101,8 @@
          </button>
        </div>
        <div class="modal-body">
-         
-         <form action="/planes-admin/add" method="post" enctype="multipart/form-data">
+
+         <form action="/planes-admin/add" method="post">
 
          <div class="form-group">
             <label for="inversion_text">Inversion</label>
@@ -112,14 +112,13 @@
 
 
           <div class="custom-file">
-            <p>Comprobante:</p>
-            <input type="file" class="custom-file-input" name="file_upload" id="customFileLang" lang="es">
-            <label class="custom-file-label" for="customFileLang"></label>
+            <p>ID transaccion:</p>
+            <input type="text" class="form-control" name="id_transaccion" id="customFileLang" lang="es">
           </div>
 
 
 
-         <input type="number" name="name_plan_input" id="id_plan_input">
+         <input type="hidden" name="name_plan_input" id="id_plan_input">
 
        </div>
 

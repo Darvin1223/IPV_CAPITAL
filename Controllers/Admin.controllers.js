@@ -9,15 +9,15 @@ function calcularPorcentaje(cantidad, porcentaje) {
 
 class Admin {
 
-  
+
 
  async index(req, res) {
     const id = req.session.id_user;
-   
+
 
     //Codigo Richar
 
-    
+
 
 
    //Ganancias Totales
@@ -36,14 +36,14 @@ class Admin {
   let ultima_transacciones = await mysql2.ejecutar_query_con_array(`SELECT SUM(capital) as suma FROM planes_activos WHERE month(fecha_inicio ) = month(now()) and year(fecha_inicio) = year(now()) and user_id = ?`,[id]);
   ultima_transacciones = ultima_transacciones[0]['suma'] != null || 0 ? ultima_transacciones[0]['suma'] : 0;
   //Balance para retiro
-  let balance_para_retiro = await mysql2.ejecutar_query_con_array(`SELECT ROUND(SUM(capital + capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, now())) / 365),2) as ganancia FROM planes_activos INNER JOIN plan_inversion ON plan_inversion.plan_id = planes_activos.plan_id WHERE NOW() > fecha_expiracion AND user_id = ?`,[id]);
+  let balance_para_retiro = await mysql2.ejecutar_query_con_array(`SELECT ROUND(SUM(capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, now())) / 365 - capital_cobrada),2) as ganancia FROM planes_activos INNER JOIN plan_inversion ON plan_inversion.plan_id = planes_activos.plan_id WHERE user_id = ?`,[id]);
   balance_para_retiro = balance_para_retiro[0]['ganancia'] != null ? balance_para_retiro[0]['ganancia'] : 0;
-  
+
   //Referencias por bonos
   let data_user = await mysql2.ejecutar_query_con_array(`SELECT * FROM usuario WHERE id = ?`,[id]);
   data_user = data_user[0];
   let codigo_referido = data_user['codigo_referido'];
-  let ganancias_referencias = await mysql2.ejecutar_query_con_array(`SELECT IFNULL( ROUND(SUM(capital + capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, now())) / 365 * 10 / 100),2),0) as ganancia FROM codigo_referido INNER JOIN usuario ON codigo_referido.user_id = usuario.id JOIN planes_activos ON planes_activos.user_id = codigo_referido.user_id JOIN plan_inversion ON planes_activos.plan_id = plan_inversion.plan_id WHERE codigo_referido.codigo_referido = ? AND disponibilidad = 1`,[codigo_referido]);
+  let ganancias_referencias = await mysql2.ejecutar_query_con_array(`SELECT IFNULL( ROUND(SUM(capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, now())) / 365 * 10 / 100),2),0) as ganancia FROM codigo_referido INNER JOIN usuario ON codigo_referido.user_id = usuario.id JOIN planes_activos ON planes_activos.user_id = codigo_referido.user_id JOIN plan_inversion ON planes_activos.plan_id = plan_inversion.plan_id WHERE codigo_referido.codigo_referido = ? AND disponibilidad = 1`,[codigo_referido]);
   ganancias_referencias = ganancias_referencias[0]['ganancia']
   //Actualizando Balance de retiro
   balance_para_retiro =  balance_para_retiro + ganancias_referencias
@@ -80,7 +80,7 @@ class Admin {
 
   async indexAdmin(req, res) {
     const id = req.session.id_user;
-    const queryUsers = "SELECT * FROM `usuario`";
+    const queryUsers = "select * from usuario inner join estatus on estatus.id_status = estatus_id order by ultimo_login desc LIMIT 10";
 
      //Balance para retiro
   let balance_para_retiro = await mysql2.ejecutar_query_con_array(`SELECT ROUND(SUM(capital + capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, now())) / 365),2) as ganancia FROM planes_activos INNER JOIN plan_inversion ON plan_inversion.plan_id = planes_activos.plan_id WHERE NOW() > fecha_expiracion`,[id]);
@@ -88,6 +88,19 @@ class Admin {
     //Planes activos
   let planes_totales = await mysql2.ejecutar_query(`SELECT COUNT(*) as total FROM planes_activos WHERE disponible = 1`);
   planes_totales = planes_totales[0]['total'];
+  //Inversion Total
+  let inversion_total = await mysql2.ejecutar_query(`select ifnull((SUM(capital)),0) as inversion_total from planes_activos`);
+  inversion_total = inversion_total[0]['inversion_total'];
+  //Ganancias Totales
+  let ganancias_totales = await mysql2.ejecutar_query(`SELECT ifnull(ROUND(SUM(capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, now())) / 365 - capital_cobrada),2),0) as ganancia FROM planes_activos INNER JOIN plan_inversion ON plan_inversion.plan_id = planes_activos.plan_id`);
+  ganancias_totales = ganancias_totales[0]['ganancia'];
+  //Retiros totales
+  let retiros_totales = await mysql2.ejecutar_query(`select ifnull(sum(monto),0) as total_retiros from solicitud_retiros inner join estatus on solicitud_retiros.estado = id_status join usuario on usuario.id = id_user join wallet on usuario.wallet_id = wallet.id_wallet where estatus.estado = "Pendiente"`);
+  retiros_totales = retiros_totales[0]['total_retiros'];
+  //Pagos totales
+  let pagos_totales = await mysql2.ejecutar_query(`select IFNULL(sum(monto),0) as monto from pagos inner join retiros on pagos.id_retiro = retiros.id_retiros join estatus on pagos.estatus_id = estatus.id_status`);
+  pagos_totales = pagos_totales[0]['monto'];
+
 
     // const planesActivos = "SELECT * FROM `plan_inversion` INNER JOIN estatus On plan_inversion.estado_id = estatus.id_status;";
     conexion.query(
@@ -112,7 +125,11 @@ class Admin {
                 results: results,
                 Users: resultsUsers,
                 balance_para_retiro,
-                planes_totales
+                planes_totales,
+                inversion_total,
+                ganancias_totales,
+                retiros_totales,
+                pagos_totales
                 // PlanesActivos:resultsPlanesActivos
               });
               // }
