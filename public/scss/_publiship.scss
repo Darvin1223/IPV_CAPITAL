@@ -1,7 +1,7 @@
 @import "variables";
 
 .public{
-    background-color: $black-blue;
+    background-color: #3979f9;
     color: #fff;
     width: 100%;
     display: flex;
@@ -25,7 +25,8 @@
 
 .reti{
     background-color: #fff;
-    color: $black-blue;
+    // color: $black-blue;
+    color: #000;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -65,7 +66,7 @@
                 font-size: 26px;
             }
             h5{
-                font-size: 20px;
+                font-size: 30px;
                 text-align: center;
             }
         }

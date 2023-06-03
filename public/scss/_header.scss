@@ -159,7 +159,7 @@
         display: inherit;
     }
     .banner-content--title {
-        font-size: 70px;
+        font-size: 68px;
     }
     .sub_title{
         font-size: 40px;
@@ -181,7 +181,11 @@
     .banner-content--title {
         font-size: 70px;
     }
-  
+    .content_form_header--form{
+        position: relative;
+        top: -30%;
+    }
+   
    
 }
 @media screen and (min-width: 1440px){
@@ -211,6 +215,10 @@
         margin-left: 0;
     }
     .banner-content--title {
-        font-size: 70px;
+        font-size: 90px;
+    }
+    .content_form_header--form{
+        position: relative;
+        top: -30%;
     }
 }
