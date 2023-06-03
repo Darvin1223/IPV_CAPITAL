@@ -1,4 +1,6 @@
 const conexion = require("../Database/database");
+const mysql2 = require('../Database/mysql2');
+
 
 class Capital{
 
@@ -16,8 +18,24 @@ class Capital{
                 })
             }
         })
-       
+
     }
+
+    async solicitar_retiro_capital(req,res){
+
+        let id = req.params.id_plan;
+        let id_user = req.session.id_user;
+
+
+
+
+
+    }
+
+
+
+
+
 }
 
 module.exports = new Capital();
