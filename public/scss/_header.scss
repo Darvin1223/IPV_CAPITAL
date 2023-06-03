@@ -158,6 +158,9 @@
     .desktop{
         display: inherit;
     }
+    .banner-content--title {
+        font-size: 70px;
+    }
     .sub_title{
         font-size: 40px;
         text-align: center;
@@ -174,6 +177,9 @@
     .banner-content--btns{
         flex-direction: row;
         align-items: center;
+    }
+    .banner-content--title {
+        font-size: 70px;
     }
   
    
@@ -201,5 +207,10 @@
         font-size: initial;
     }
     
-    
+    .content_form_header{
+        margin-left: 0;
+    }
+    .banner-content--title {
+        font-size: 70px;
+    }
 }

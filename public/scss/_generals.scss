@@ -1,12 +1,17 @@
 h1,h2,h3,h4,small{
-    font-family: 'Bebas Neue', cursive;
+    // font-family: 'Bebas Neue', cursive;
+    font-family: 'Open Sans', sans-serif;
 }
 h1, h2, h3, h4{
     font-size: 24px;
 }
 
 p,a{
-    font-family: 'Open Sans', sans-serif;
+    // font-family: 'Open Sans', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.a.about-us--title{
+    font-family: 'Source Sans Pro', sans-serif;
 }
 .mobile{
     display: initial;

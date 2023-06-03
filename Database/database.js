@@ -3,9 +3,10 @@ const mysql2 = require("mysql2");
 const conexion = mysql2.createPool({
     connectionLimit: 4,
     host: process.env.HOST,
-    user: "root",
+    user: 'root',
     password:process.env.PASSWORD,
-    database: process.env.DATABASE
+    database: process.env.DATABASE,
+    port: 8081
 });
 
 
