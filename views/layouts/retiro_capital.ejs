@@ -1,3 +1,31 @@
+
+
+<div class="row">
+
+    <% planes.forEach(function(plan){ %>
+      <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><%= plan.nombre %></h5>
+
+            <p class="card-text">
+              La tasa de progreso es de un <%=plan.porcentaje %>% para reclamar tienes que haber retirado todo de los planes y que haya pasado la fecha de expiracion
+            </p>
+
+
+           <% if(plan.se_cobro_todo == "SI" & plan.fecha_pasada == "SI"){ %>
+            <a href="/retirar_capital/<%= plan.planesActivos_id %>" class="btn btn-primary">Reclamar Ganancias</a>
+           <% } %>
+
+
+          </div>
+        </div>
+      </div>
+    <% }); %>
+
+</div>
+
+
 <div class="container-fluid" >
     <div class="row">
         <div class="col-sm-12">
@@ -6,14 +34,7 @@
               <div class="header-title">
                 <h4 class="card-title">Solicitudes en proceso</h4>
               </div>
-              <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModalDefault"
-              >
-                Solicitar Capital
-              </button>
+
             </div>
             <div class="card-body p-0">
               <div class="table-responsive mt-4">
@@ -27,20 +48,16 @@
                     </tr>
                   </thead>
                   <tbody>
+
+                    <% retiros_pendientes.forEach(function(retiros){ %>
                     <tr>
-                      <td>$14000</td>
-                      <td>Estandar</td>
-                      <td><div class="badge bg-soft-primary p-2 text-primary">Pending</div></td>
-                      <!-- <td>
-                        <button
-                      type="button"
-                      class="btn btn-danger"
-                    >
-                      Solicitar Capital
-                    </button>
-                      </td> -->
+
+                        <td>$<%= retiros.capital %></td>
+                        <td><%= retiros.nombre %></td>
+                        <td><div class="badge bg-soft-primary p-2 text-primary"><%= retiros.estado %></div></td>
                     </tr>
-                   
+                    <% }) %>
+
                   </tbody>
                 </table>
               </div>
@@ -63,9 +80,9 @@
           <div class="card-body">
             <div class="table-responsive">
               <table
-                
+
                 class="table table-striped"
-            
+
               >
                 <thead>
                   <tr>
@@ -79,30 +96,30 @@
                     <td>$320,800</td>
                     <td><div class="badge bg-soft-primary p-2 text-primary">Recibido</div></td>
                     <td>2011/04/25</td>
-                  </tr>  
+                  </tr>
                   <tr>
                     <td>$320,800</td>
                     <td><div class="badge bg-soft-primary p-2 text-primary">Recibido</div></td>
                     <td>2011/04/25</td>
-                  </tr>  
+                  </tr>
                   <tr>
                     <td>$320,800</td>
                     <td><div class="badge bg-soft-primary p-2 text-primary">Recibido</div></td>
                     <td>2011/04/25</td>
-                  </tr>  
+                  </tr>
                   <tr>
                     <td>$320,800</td>
                     <td><div class="badge bg-soft-primary p-2 text-primary">Recibido</div></td>
                     <td>2011/04/25</td>
-                  </tr>  
+                  </tr>
                   <tr>
                     <td>$320,800</td>
                     <td><div class="badge bg-soft-primary p-2 text-primary">Recibido</div></td>
                     <td>2011/04/25</td>
-                  </tr>  
+                  </tr>
                 </tbody>
                 <tfoot>
-                    
+
                   <tr>
                     <th>Cantidad</th>
                     <th>Estatus</th>

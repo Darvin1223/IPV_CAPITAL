@@ -296,11 +296,9 @@ async AceptarRetiro(req,res){
         const id = req.session.id_user;
         const generalQuery = "SELECT * FROM `usuario` INNER JOIN rol ON usuario.rol_id = rol.id_rol INNER JOIN estatus ON usuario.estatus_id = estatus.id_status WHERE usuario.id = ?";
 
-        let planes_usuario = await mysql2.ejecutar_query_con_array(`SELECT planes_activos.capital as monto, plan_inversion.nombre as nombre_plan,fecha_inicio,fecha_expiracion FROM planes_activos INNER JOIN usuario ON usuario.id = planes_activos.user_id JOIN plan_inversion ON planes_activos.plan_id = plan_inversion.plan_id WHERE usuario.id = ? AND disponible = 1`,[id]);
-        let planes = await mysql2.ejecutar_query(`SELECT * FROM plan_inversion`);
+        let planes = await mysql2.ejecutar_query_con_array(`SELECT planesActivos_id, plan_inversion.nombre, user_id, capital, capital_cobrada, fecha_inicio, fecha_expiracion, disponible, cobrado, ROUND(capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, now())) / 365 - capital_cobrada,2) as ganancia, IF(ROUND(capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, now())) / 365 - capital_cobrada,2) <= 0,"SI","NO") as se_cobro_todo, IF(unix_timestamp(NOW()) > unix_timestamp(fecha_expiracion),"SI","NO") as fecha_pasada, ROUND((LEAST(TIMESTAMPDIFF(DAY, fecha_inicio, now()), 100) / 100)) * 100 AS porcentaje FROM planes_activos INNER JOIN plan_inversion ON plan_inversion.plan_id = planes_activos.plan_id WHERE user_id = ?`,[id])
 
-        let solicitudes_retiros = await mysql2.ejecutar_query_con_array(`SELECT * FROM solicitud_retiros WHERE id_user = ? AND estado = 0`,[id]);
-        let solicitudes_retiros_cobrados = await mysql2.ejecutar_query_con_array(`SELECT * FROM solicitud_retiros WHERE id_user = ? AND estado = 1`,[id]);
+        let retiros_pendientes = await mysql2.ejecutar_query_con_array(`SELECT plan_inversion.nombre,planes_activos.capital,estado FROM solicitud_retiro_capital INNER JOIN estatus ON estado_id = estatus.id_status JOIN planes_activos ON id_plan = planes_activos.planesActivos_id INNER JOIN plan_inversion ON planes_activos.plan_id = plan_inversion.plan_id WHERE estado = "Pendiente" AND id_user = ?`,[id]);
 
 
         conexion.query(generalQuery,[id],(err,results)=>{
@@ -310,17 +308,40 @@ async AceptarRetiro(req,res){
                 res.render('layouts/retiro_capital',{
                     title: "Retiros de capital | IPV CAPITAL - Admin Panel",
                     results:results,
-                    planes_usuario,
                     planes,
-                    solicitudes_retiros,
-                    solicitudes_retiros_cobrados
+                    retiros_pendientes
                 })
             }
         })
-
-
-
     }
+
+  async RetirarCapital(req,res){
+
+    const id = req.session.id_user;
+    let id_plan = req.params.id;
+
+    let plan = await mysql2.ejecutar_query_con_array(`SELECT planesActivos_id,capital, plan_inversion.nombre, user_id, capital, capital_cobrada, fecha_inicio, fecha_expiracion, disponible, cobrado, ROUND(capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, now())) / 365 - capital_cobrada,2) as ganancia, IF(ROUND(capital * tasa_interes/100 * IF(UNIX_TIMESTAMP(NOW())>UNIX_TIMESTAMP(fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, fecha_expiracion), TIMESTAMPDIFF(DAY, fecha_inicio, now())) / 365 - capital_cobrada,2) <= 0,"SI","NO") as se_cobro_todo, IF(unix_timestamp(NOW()) > unix_timestamp(fecha_expiracion),"SI","NO") as fecha_pasada, ROUND((LEAST(TIMESTAMPDIFF(DAY, fecha_inicio, now()), 100) / 100)) * 100 AS porcentaje FROM planes_activos INNER JOIN plan_inversion ON plan_inversion.plan_id = planes_activos.plan_id WHERE planesActivos_id = ?`,[id_plan])
+    plan = plan[0];
+
+    let {planesActivos_id, capital, nombre, user_id, capital_cobrada, fecha_inicio, fecha_expiracion, disponible, cobrado, ganancia, se_cobro_todo, fecha_pasada, porcentaje} = plan;
+
+    let buscar_si_existe_otro_plan = await mysql2.ejecutar_query_con_array(`SELECT COUNT(*) as cuenta_planes FROM solicitud_retiro_capital WHERE id_plan = ?`,[planesActivos_id]);
+    buscar_si_existe_otro_plan = buscar_si_existe_otro_plan[0];
+
+    if(buscar_si_existe_otro_plan['cuenta_planes'] > 0) return res.redirect('/retiro-capital-user');
+
+    if(se_cobro_todo != "SI" & fecha_pasada != "SI") return res.redirect('/retiro-capital-user');
+
+    //Obtener id del estado
+    let id_estado = await mysql2.ejecutar_query_con_array(`SELECT * FROM estatus WHERE estado = ?`,['Pendiente']);
+    id_estado = id_estado[0]['id_status'];
+
+    let json = {id_user: id, id_plan:planesActivos_id, monto_capital:capital, estado_id:id_estado};
+
+    let insertar_solicitud = await mysql2.InsertarDatos('solicitud_retiro_capital',json);
+
+    res.redirect('/retiro-capital-user');
+  }
 
     /* Admin */
   async  showRetirosAdmin(req,res){

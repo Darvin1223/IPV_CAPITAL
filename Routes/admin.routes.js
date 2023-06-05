@@ -46,6 +46,10 @@ Route.post('/admin/solicitar-retiro',verifyLoggedIn, RetirosAdminController.Comp
 Route.get('/admin/retiros/aceptar/:id', verifyLoggedIn, RetirosAdminController.Aceptar_Retiro);
 Route.get('/admin/retiros/rechazar/:id', verifyLoggedIn, RetirosAdminController.RechazarRetiro);
 
+//Solicitar Retiros CAPITAL
+Route.get('/retirar_capital/:id', verifyLoggedIn, RetirosAdminController.RetirarCapital);
+Route.get('/aceptar-capital/:id', verifyLoggedIn, CapitalController.AceptarRetiroCapital);
+
 //Planes
 Route.get('/admin/planes/aceptar/:id', verifyLoggedIn, PlanesAdminController.AceptarPlanes);
 Route.get('/admin/planes/rechazar/:id', verifyLoggedIn, PlanesAdminController.RechazarPlanes);

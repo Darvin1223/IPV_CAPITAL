@@ -6,7 +6,7 @@ const conexion = mysql2.createPool({
     user: 'root',
     password:process.env.PASSWORD,
     database: process.env.DATABASE,
-    port: 8081
+    port: 3306
 });
 
 

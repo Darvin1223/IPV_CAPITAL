@@ -1,159 +1,5 @@
-<% let date = new Date(); %> 
-<div class="row">
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <div class="card-body">
-               <div class="d-flex justify-content-between">
-                  <div>
-                     <span><b>Total de interes simple</b></span>
-                     <div class="mt-2">
-                        <h2 class="counter" style="visibility: visible;">$35000</h2>
-                     </div>
-                  </div>
-                  <div>
-                     <span class="badge bg-primary">Interes simple</span>
-                  </div>
-               </div>
-               <div class="d-flex justify-content-between mt-2">
-                  <div>
-                     <span>Total de interes simple hasta la fecha</span>
-                  </div>
-                
-               </div>
-              
-            </div>
-         </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <div class="card-body">
-               <div class="d-flex justify-content-between">
-                  <div>
-                     <span><b>Total de interes compuesto</b></span>
-                     <div class="mt-2">
-                        <h2 class="counter" style="visibility: visible;">$35000</h2>
-                     </div>
-                  </div>
-                  <div>
-                     <span class="badge bg-primary">Interes compuesto</span>
-                  </div>
-               </div>
-               <div class="d-flex justify-content-between mt-2">
-                  <div>
-                     <span>Total de interes compuesto hasta la fecha</span>
-                  </div>
-                
-               </div>
-              
-            </div>
-         </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <div class="card-body">
-               <div class="d-flex justify-content-between">
-                  <div>
-                     <span><b>Total de capital </b></span>
-                     <div class="mt-2">
-                        <h2 class="counter" style="visibility: visible;">$35000</h2>
-                     </div>
-                  </div>
-                  <div>
-                     <span class="badge bg-primary">Capital Solicitado</span>
-                  </div>
-               </div>
-               <div class="d-flex justify-content-between mt-2">
-                  <div>
-                     <span>Capital Solicitado después de 6 a 12 meses</span>
-                  </div>
-                
-               </div>
-              
-            </div>
-         </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <div class="card-body">
-               <div class="d-flex justify-content-between">
-                  <div>
-                     <span><b>Total de capital </b></span>
-                     <div class="mt-2">
-                        <h2 class="counter" style="visibility: visible;">$35000</h2>
-                     </div>
-                  </div>
-                  <div>
-                     <span class="badge bg-primary">Capital Devuelto</span>
-                  </div>
-               </div>
-               <div class="d-flex justify-content-between mt-2">
-                  <div>
-                     <span>Total del capital devuelto</span>
-                  </div>
-                
-               </div>
-              
-            </div>
-         </div>
-    </div>
-</div>
-<div class="row">
-   <div class="col-sm-12">
-       <div class="card">
-          <div class="card-header d-flex justify-content-between">
-             <div class="header-title">
-                <h4 class="card-title">Historial de retiro de capital</h4>
-             </div>
-          </div>
-          <div class="card-body">
-          
-             <div class="table-responsive">
-                <table  class="table table-striped" >
-                   <thead>
-                      <tr>
-                         <th>Fecha</th>
-                         <th>Plan</th>
-                         <th>Monto</th>
-                         <th>Moneda</th>
-                         <th>Estado</th>
-                         <th>hash/Numero de cuenta</th>
-                         <th>Confirmado por:</th>
-                         
-                      </tr>
-                   </thead>
-                   <tbody>
-                       <% for (let index = 0; index <= 10; index++) { %>
-                           <tr class="text-center">
-                               <td><%= date.getDate()%>/<%= date.getMonth()%>/<%= date.getFullYear() %> </td>
-                               <td>Estandar</td>
-                               <td>$500</td>
-                               <td>USDT,PESOS,USD</td>
-                               <td>Pendiente</td>
-                               <td>9c8245e6e0b74cfccg97e8714u3234228fb4xcd2</td>
-                               <td>Admin1@gmail.com</td>
-                              
-                            </tr>
-                     <%  } %> 
-                    
-                   </tbody>
-                   <tfoot>
-                      <tr>
-                         <th>Fecha</th>
-                         <th>Plan</th>
-                         <th>Monto</th>
-                         <th>Moneda</th>
-                         <th>Estado</th>
-                         <th>hash/Numero de cuenta</th>
-                         <th>Confirmado por:</th>
-                        
-                      </tr>
-                   </tfoot>
-                </table>
-             </div>
-          </div>
-       </div>
-    </div>
-</div>
+<% let date = new Date(); %>
+
 <div class="row">
    <div class="card">
        <div class="card-header d-flex justify-content-between">
@@ -170,97 +16,104 @@
                  <th>Email</th>
                  <th>Cantidad</th>
                  <th>Tipo de cuenta</th>
-                 <th>Accion</th>
+                 <th>Billetera</th>
+                 <th>Acciones</th>
                </tr>
              </thead>
              <tbody>
+
+               <% pendientes.forEach(function(pendiente){ %>
                <tr>
                  <td>
                    <div class="d-flex align-items-center">
-                     <h6>Darvin Rodriguez</h6>
+                     <h6><%= pendiente.nombre_completo %></h6>
                    </div>
                  </td>
-               
-                 <td>email@email.com</td>
-                 <td><div class="text-success">$500</div></td>
-                 <td class="text-center">
+
+                 <td><%= pendiente.email %></td>
+                 <td><div class="text-success">$<%= pendiente.capital %></div></td>
+
+                 <td>
                      <span class="badge rounded-pill bg-info">Billetera virtual</span>
                    </td>
-                 <td> <button
-                   type="button"
-                   class="btn btn-primary"
-                   data-bs-toggle="modal"
-                   data-bs-target="#exampleModalDefault"
-                 >
-                   Ver Cantidad
-                 </button></td>
-               </tr>
-               <tr>
-                 <td>
-                   <div class="d-flex align-items-center">
-                     <h6>Adriana Alvarez</h6>
-                   </div>
-                 </td>
-                
-                 <td>correo@correo.com</td>
-                 <td><div class="text-success">$500</div></td>
+
+                 <td><%= pendiente.haash_wallet %></td>
+
                  <td class="text-center">
-                     <span class="badge rounded-pill bg-info">Cuenta Bancaria</span>
-                   </td>
-                 <td> <button
-                   type="button"
-                   class="btn btn-primary"
-                   data-bs-toggle="modal"
-                   data-bs-target="#exampleModalDefault"
-                 >
-                   Ver Cantidad
-                 </button></td>
-               </tr>
-               <tr>
-                 <td>
-                   <div class="d-flex align-items-center">
-                     <h6>Fix Platform Errors</h6>
-                   </div>
+
+                   <a class="btn btn-primary" href="/aceptar-capital/<%= pendiente.id_solicitud_retiro_capital %>">Aceptar</a>
+                   <a class="btn btn-danger" href="/rechazar-capital/<%= pendiente.id_solicitud_retiro_capital %>">Rechazar</a>
+
+
                  </td>
-                 <td>email@email.com</td>
-                 <td><div class="text-success">$500</div></td>
-                 <td class="text-center">
-                     <span class="badge rounded-pill bg-info">Cuenta Bancario</span>
-                   </td>
-                 <td> <button
-                   type="button"
-                   class="btn btn-primary"
-                   data-bs-toggle="modal"
-                   data-bs-target="#exampleModalDefault"
-                 >
-                   Ver Cantidad
-                 </button></td>
+
                </tr>
-               <tr>
-                 <td>
-                   <div class="d-flex align-items-center">
-                     <h6>Launch Our Mobile App</h6>
-                   </div>
-                 </td>
-                
-                 <td>admin@email.com</td>
-                 <td><div class="text-success">$500</div></td>
-                 <td class="text-center">
-                     <span class="badge rounded-pill bg-info">Billetera virtual</span>
-                   </td>
-                <td> <button
-                   type="button"
-                   class="btn btn-primary"
-                   data-bs-toggle="modal"
-                   data-bs-target="#exampleModalDefault"
-                 >
-                   Ver Cantidad
-                 </button></td>
-               </tr>
-             
+               <% }); %>
+
+            
+
              </tbody>
            </table>
          </div>
        </div>
      </div>
+</div>
+
+
+<div class="row">
+   <div class="col-sm-12">
+       <div class="card">
+          <div class="card-header d-flex justify-content-between">
+             <div class="header-title">
+                <h4 class="card-title">Historial de retiro de capital</h4>
+             </div>
+          </div>
+          <div class="card-body">
+
+             <div class="table-responsive">
+                <table  class="table table-striped" >
+                   <thead>
+                      <tr>
+                         <th>Fecha</th>
+                         <th>Plan</th>
+                         <th>Monto</th>
+                         <th>Moneda</th>
+                         <th>Estado</th>
+                         <th>hash/Numero de cuenta</th>
+                         <th>Confirmado por:</th>
+
+                      </tr>
+                   </thead>
+                   <tbody>
+                       <% for (let index = 0; index <= 10; index++) { %>
+                           <tr class="text-center">
+                               <td><%= date.getDate()%>/<%= date.getMonth()%>/<%= date.getFullYear() %> </td>
+                               <td>Estandar</td>
+                               <td>$500</td>
+                               <td>USDT,PESOS,USD</td>
+                               <td>Pendiente</td>
+                               <td>9c8245e6e0b74cfccg97e8714u3234228fb4xcd2</td>
+                               <td>Admin1@gmail.com</td>
+
+                            </tr>
+                     <%  } %>
+
+                   </tbody>
+                   <tfoot>
+                      <tr>
+                         <th>Fecha</th>
+                         <th>Plan</th>
+                         <th>Monto</th>
+                         <th>Moneda</th>
+                         <th>Estado</th>
+                         <th>hash/Numero de cuenta</th>
+                         <th>Confirmado por:</th>
+
+                      </tr>
+                   </tfoot>
+                </table>
+             </div>
+          </div>
+       </div>
+    </div>
 </div>
