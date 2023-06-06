@@ -71,7 +71,7 @@ p, a {
   width: 100%;
 }
 .container_logo .navbar-brand .logo-header {
-  max-width: 60%;
+  max-width: 30%;
 }
 .container_logo .logo-title {
   color: #7BB4E3;
@@ -147,7 +147,7 @@ p, a {
 
 .btn--menu {
   position: absolute;
-  top: 11%;
+  top: 28%;
 }
 
 @media screen and (min-width: 754px) {
