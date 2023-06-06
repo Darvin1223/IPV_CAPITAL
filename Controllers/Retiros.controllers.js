@@ -336,7 +336,7 @@ async AceptarRetiro(req,res){
     let id_estado = await mysql2.ejecutar_query_con_array(`SELECT * FROM estatus WHERE estado = ?`,['Pendiente']);
     id_estado = id_estado[0]['id_status'];
 
-    let json = {id_user: id, id_plan:planesActivos_id, monto_capital:capital, estado_id:id_estado};
+    let json = {id_user: id, id_plan:planesActivos_id, monto_capital:capital, estado_id:id_estado,fecha:new Date()};
 
     let insertar_solicitud = await mysql2.InsertarDatos('solicitud_retiro_capital',json);
 
@@ -357,9 +357,10 @@ async AceptarRetiro(req,res){
 
         let data_retiros_pendientes = await mysql2.ejecutar_query(`select * from solicitud_retiros inner join estatus on solicitud_retiros.estado = id_status join usuario on usuario.id = id_user join wallet on usuario.wallet_id = wallet.id_wallet where estatus.estado = "Pendiente"`);
 
-        console.log(retiros_totales)
-        console.log(data_retiros_pendientes);
+        let historial = await mysql2.ejecutar_query_con_array(`select fecha_retiro,monto,estado,haash_wallet,t2.email as confirmado_por from pagos inner join retiros on id_retiro = id_retiros join estatus on estatus.id_status = retiros.estatus_id join usuario on usuario.id = id_user join usuario t2 ON retiros.confirmado_por = t2.id join wallet on wallet.id_wallet = usuario.wallet_id WHERE estado = "Recibido"`)
 
+
+        
 
         conexion.query(generalQuery,[id],(err,results)=>{
             if(err){
@@ -369,7 +370,9 @@ async AceptarRetiro(req,res){
                     title: "Retiros de capital | IPV CAPITAL - Admin Panel",
                     results:results,
                     retiros_totales,
-                    data_retiros_pendientes
+                    data_retiros_pendientes,
+                    historial,
+                    moment
                 })
             }
         })

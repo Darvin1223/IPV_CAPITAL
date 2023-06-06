@@ -31,7 +31,7 @@ const updateDocuments = multer({
 var upload_comprobante = multer({ storage: storageComprobante });
 
 
-const {AdminController, TransacionesController,PlanesAdminController, RetirosAdminController, ReferidosAdminController, UserProfileController, UsersController, GananciasController, PagosController,CapitalController,DepositosController,WalletController} =  require("./../Controllers");
+const {AdminController,ReviewController, TransacionesController,PlanesAdminController, RetirosAdminController, ReferidosAdminController, UserProfileController, UsersController, GananciasController, PagosController,CapitalController,DepositosController,WalletController} =  require("./../Controllers");
 const PerfilController = require("../Controllers/Perfil.controller.js");
 
 Route.get('/admin', verifyLoggedIn, AdminController.index);
@@ -88,5 +88,12 @@ Route.post("/admin/users/delete-user", verifyLoggedIn, UsersController.eliminarU
 Route.post('/planes-admin/add', verifyLoggedIn, upload_comprobante.single('file_upload'), function (req, res) {
     PlanesAdminController.AddPlan(req,res)
 })
+
+//Review Basica
+
+Route.get('/review/admin/:id', verifyLoggedIn, ReviewController.Index);
+
+
+
 
 module.exports = Route;

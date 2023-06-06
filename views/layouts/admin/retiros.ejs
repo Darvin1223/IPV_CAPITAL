@@ -80,3 +80,61 @@
         </div>
       </div>
 </div>
+
+
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+           <div class="card-header d-flex justify-content-between">
+              <div class="header-title">
+                 <h4 class="card-title">Historial de deposito</h4>
+              </div>
+           </div>
+           <div class="card-body">
+
+              <div class="table-responsive">
+                 <table  class="table table-striped" >
+                    <thead>
+                       <tr>
+                          <th>Fecha</th>
+                          <th>Monto</th>
+                          <th>Moneda</th>
+                          <th>Estado</th>
+                          <th>hash/Numero de cuenta</th>
+                          <th>Confirmado por:</th>
+
+                       </tr>
+                    </thead>
+                    <tbody>
+
+                      <% historial.forEach(function(item) { %>
+                        <tr class="text-center">
+                            <td><%= moment(item.fecha_retiro).startOf('day').fromNow() %></td>
+                            <td>$<%= item.monto %></td>
+                            <td>USDT,PESOS,USD</td>
+                            <td><%= item.estado %></td>
+                            <td><%= item.haash_wallet %></td>
+                            <td><%= item.confirmado_por %></td>
+                         </tr>
+                      <% }) %>
+
+
+                    </tbody>
+                    <tfoot>
+                       <tr>
+                         <th>Fecha</th>
+                         <th>Monto</th>
+                         <th>Moneda</th>
+                         <th>Estado</th>
+                         <th>hash/Numero de cuenta</th>
+                         <th>Confirmado por:</th>
+                       </tr>
+                    </tfoot>
+                 </table>
+              </div>
+           </div>
+        </div>
+     </div>
+</div>

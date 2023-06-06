@@ -1,6 +1,6 @@
 const conexion = require("../Database/database");
 const mysql2 = require('../Database/mysql2');
-
+const moment = require('moment');
 
 class Capital{
 
@@ -11,7 +11,10 @@ class Capital{
 
         let pendientes = await mysql2.ejecutar_query_con_array(`SELECT id_solicitud_retiro_capital, CONCAT(usuario.nombre, ' ', apellido) AS nombre_completo, email,capital,haash_wallet FROM solicitud_retiro_capital INNER JOIN estatus ON estado_id = estatus.id_status JOIN planes_activos ON id_plan = planes_activos.planesActivos_id INNER JOIN plan_inversion ON planes_activos.plan_id = plan_inversion.plan_id JOIN usuario ON usuario.id = id_user JOIN wallet ON wallet.id_wallet = wallet_id WHERE estado = "Pendiente"`);
 
+        let historial_retiros = await mysql2.ejecutar_query_con_array(`SELECT id_solicitud_retiro_capital,fecha,plan_inversion.nombre,capital,estatus.estado,haash_wallet FROM solicitud_retiro_capital inner join estatus on id_status = estado_id join planes_antiguos on id_plan = id_plan_activo join plan_inversion on plan_inversion.plan_id = planes_antiguos.plan_id join usuario on solicitud_retiro_capital.id_user = usuario.id join wallet on wallet_id = id_wallet WHERE estado = "Recibido"`);
 
+        moment.locale('es-do');
+        
 
         conexion.query(generalQuery,[id],(err,results)=>{
             if(err){
@@ -20,7 +23,9 @@ class Capital{
                 res.render('layouts/admin/capital',{
                     title: "Retiros de capital | IPV CAPITAL - Admin Panel",
                     results:results,
-                    pendientes
+                    pendientes,
+                    historial_retiros,
+                    moment
                 })
             }
         })

@@ -50,7 +50,7 @@
                </tr>
                <% }); %>
 
-            
+
 
              </tbody>
            </table>
@@ -80,23 +80,26 @@
                          <th>Moneda</th>
                          <th>Estado</th>
                          <th>hash/Numero de cuenta</th>
-                         <th>Confirmado por:</th>
-
                       </tr>
                    </thead>
                    <tbody>
-                       <% for (let index = 0; index <= 10; index++) { %>
-                           <tr class="text-center">
-                               <td><%= date.getDate()%>/<%= date.getMonth()%>/<%= date.getFullYear() %> </td>
-                               <td>Estandar</td>
-                               <td>$500</td>
-                               <td>USDT,PESOS,USD</td>
-                               <td>Pendiente</td>
-                               <td>9c8245e6e0b74cfccg97e8714u3234228fb4xcd2</td>
-                               <td>Admin1@gmail.com</td>
 
-                            </tr>
-                     <%  } %>
+
+                     <% historial_retiros.forEach(function(historial){ %>
+
+                       <tr class="text-center">
+                           <td><%= moment(historial.fecha).add(10, 'days').calendar() %></td>
+                           <td><%= historial.nombre %></td>
+                           <td>$<%= historial.capital %></td>
+                           <td>USDT,PESOS,USD</td>
+                           <td><%= historial.estado %></td>
+                           <td><%= historial.haash_wallet %></td>
+                        </tr>
+
+
+                     <% }); %>
+
+
 
                    </tbody>
                    <tfoot>
@@ -107,7 +110,6 @@
                          <th>Moneda</th>
                          <th>Estado</th>
                          <th>hash/Numero de cuenta</th>
-                         <th>Confirmado por:</th>
 
                       </tr>
                    </tfoot>

@@ -148,7 +148,9 @@
                 <td><%= User.email %></td>
                 <td><%= User.fecha_creacion %></td>
                 <td><%= User.telefono %></td>
-                <td> <button
+
+                <td>
+                <button
                   type="button"
                   class="btn btn-primary"
                   data-bs-toggle="modal"
@@ -157,7 +159,12 @@
                   onclick="getData(`<%=User.id%>`)"
                 >
                   Ver datos
-                </button></td>
+                </button>
+              </td>
+
+                <td><a class="btn btn-info" href="/review/admin/<%= User.id %>">Review</a></td>
+
+
                 <td><button class="btn btn-danger" data-bs-toggle="modal"
                   data-bs-target="#eliminar" id="<%=User.id%>"
                   onclick="deleteUser(`<%=User.id%>`)">Eliminar</button></td>

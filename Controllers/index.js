@@ -21,6 +21,6 @@ module.exports = {
     AuthController: require("./Auth.controller"),
     WalletController: require("./wallet.controller"),
     TimeController: require('./Time.controllers'),
-    ContactController: require("./Contact.Controller")
+    ContactController: require("./Contact.Controller"),
+    ReviewController: require('./Preview.controller.js')
 };
-
