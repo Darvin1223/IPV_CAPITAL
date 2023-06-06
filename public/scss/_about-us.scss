@@ -17,12 +17,21 @@
     font-family: 'Source Sans Pro', sans-serif;
   }
 }
+
 .list-group-flush .list-group-item{
   color: #000;
 }
 
+.list-group-item{
+  border: none!important;
+}
 @media screen and (min-width: 1024px){
+
   a.list-group-item.list-group-item-action.pl-0.font-weight-bold.bg-transparent.about-us--title{
     font-size: 26px;
   }
+  .about-us--texts{
+    font-size: 24px;
+    
+}
 }
