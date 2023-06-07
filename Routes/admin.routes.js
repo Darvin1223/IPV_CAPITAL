@@ -83,6 +83,11 @@ Route.post("/profile/reqUpdateWallet", verifyLoggedIn,WalletController.reqUpdate
 Route.post("/profile/updateWallet", verifyLoggedIn, WalletController.updateWallet);
 Route.post("/profile/updateWalletAdmin", verifyLoggedIn,WalletController.updateWalletAdmin);
 Route.post("/admin/users/delete-user", verifyLoggedIn, UsersController.eliminarUser);
+//Billetera
+Route.get('/admin/billetera/aceptar/:id', verifyLoggedIn, WalletController.AceptarWallet);
+Route.get('/admin/billetera/rechazar/:id', verifyLoggedIn, WalletController.RechazarWallet);
+
+
 
 //
 Route.post('/planes-admin/add', verifyLoggedIn, upload_comprobante.single('file_upload'), function (req, res) {

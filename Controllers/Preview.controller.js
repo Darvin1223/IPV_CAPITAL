@@ -57,6 +57,9 @@ class Preview{
             if (err) {
               console.log(err);
             } else {
+
+              results[0]['rol'] = "Review";
+
               res.render("layouts/index", {
                 title: "Dashboard | IPV CAPITAL -- Admin Panel",
                 results: results,

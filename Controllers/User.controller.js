@@ -3,7 +3,7 @@ const mysql2 = require('../Database/mysql2');
 const moment = require('moment');
 
 class User {
-  showUsersAdmin(req, res) {
+  async showUsersAdmin(req, res) {
     moment.locale('es-do');
 
     const id = req.session.id_user;
@@ -16,6 +16,10 @@ class User {
     const generalQuery =
       "SELECT * FROM `usuario` INNER JOIN rol ON usuario.rol_id = rol.id_rol INNER JOIN estatus ON usuario.estatus_id = estatus.id_status WHERE usuario.id = ?";
     const querySolicitudes = "SELECT * FROM `solicitud`";
+
+    let solicitud_wallet = await mysql2.ejecutar_query_con_array(`select id_cambio_wallet, CONCAT(usuario.nombre, " ", usuario.apellido) as nombre_completo, email,old_wallet,new_wallet from solicitud_wallet inner join usuario on id_user = usuario.id`);
+
+
     conexion.query(generalQuery, [id], (err, results) => {
       if (err) {
         console.error(err);
@@ -58,7 +62,8 @@ class User {
                                       usersProcesando: usersProcesando,
                                       UserEliminados: resultsEliminados,
                                       solicitudes: resultsSolocitudes,
-                                      moment
+                                      moment,
+                                      solicitud_wallet
                                     });
                                   }
                                 }
@@ -87,14 +92,14 @@ class User {
     const query = "SELECT * FROM usuario WHERE id = ?";
     // const queryPais = "SELECT * FROM `usuario`  WHERE usuario.id = ?";
     const queryUser =
-      "SELECT * FROM usuario INNER JOIN documentos ON documentos.usuario_id = usuario.id INNER JOIN pais ON usuario.pais_id = pais.id_pais INNER JOIN tipo_documento ON documentos.tipo_id = tipo_documento.id WHERE usuario.id = ?";
+      "SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.telefono, usuario.edad,usuario.fecha_nacimiento,usuario.fecha_creacion,url_documento FROM usuario INNER JOIN documentos ON documentos.usuario_id = usuario.id INNER JOIN pais ON usuario.pais_id = pais.id_pais INNER JOIN tipo_documento ON documentos.tipo_id = tipo_documento.id WHERE usuario.id = ?";
 
     conexion.query(queryUser, [id], (err, result) => {
       if (err) {
         console.log(err);
       } else {
         console.log(result)
-        res.send(result);
+        res.json(result[0]);
     }
     });
 
